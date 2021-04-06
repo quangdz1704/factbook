@@ -4,6 +4,7 @@ import { AuthActions } from '../redux/actions';
 import { withTranslate } from 'react-redux-multilingual';
 import ForgotPassword from './forgotPassword';
 import { getStorage } from '../../../config';
+import { ErrorLabel } from " ../../../src/common-components"
 import './login.css';
 
 class Login extends Component {
@@ -41,48 +42,101 @@ class Login extends Component {
 
     render() {
         const { auth, translate } = this.props;
+        const { email, password, errorOnName, errorOnPass } = this.state;
 
         return (
-            <div className="dx-login-page">
-                <div className="dx-login-box">
-                    <h1 className="text-center"><b>{translate('form.signin')}</b></h1>
-                    {
-                        auth.error &&
-                        <div className="alert alert-danger alert-dismissible text-left">
-                            <i className="icon fa fa-ban" /> {translate(`auth.${auth.error}`)}
+            <div style={{ backgroundColor: "#F0F2F5" }}>
+                <div className="container" style={{ height: "80vh" }}>
+                    <div className="row">
+                        <div className="col-xs-6" style={{ height: "80vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <div style={{ display: "flex", flexDirection: "column" }}>
+                                <div className="name-app" style={{ color: "#166FE5", fontSize: "60px", fontWeight: "bold" }}>
+                                    factbook
+                                </div>
+                                <div className="sologan" style={{ fontSize: "20px" }}>
+                                    Factbook giúp bạn kết nối và chia sẻ với mọi người trong cuộc sống của bạn.
+                                </div>
+                            </div>
                         </div>
-                    }
-                    <form className="dx-login-form" onSubmit={this.handleSubmit}>
-                        <div className="dx-login-line">
-                            <label>
-                                <i className="glyphicon glyphicon-envelope"></i>
-                                <span className="dx-login-text">{translate('form.email')}</span>
-                            </label>
-                            <input className="dx-login-input" name="email" onChange={this.handleChange} type="email" placeholder={translate('form.email')} required />
+                        <div className="col-xs-6" style={{ height: "80vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <div className="box" style={{ padding: "20px" }}>
+                                {/* Tên công việc */}
+                                <div className={`form-group ${errorOnName === undefined ? "" : "has-error"}`}>
+                                    <label>Email hoặc số điện thoại<span className="text-red">*</span></label>
+                                    <input type="text" className="form-control" placeholder={translate('task.task_management.name')} value={(email)} placeholder={"Email hoặc số điện thoại"} />
+                                    <ErrorLabel
+                                        content={errorOnName}
+                                    />
+                                </div>
+                                <div className={`form-group ${errorOnPass === undefined ? "" : "has-error"}`}>
+                                    <label>Mật khẩu<span className="text-red">*</span></label>
+                                    <input type="text" className="form-control" placeholder={translate('task.task_management.name')} value={(password)} placeholder={"Mật khẩu"} />
+                                    <ErrorLabel
+                                        content={errorOnPass}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <button className={"form-control"} style={{ backgroundColor: "#166FE5", color: "#FFFFFF" }}>Đăng nhập</button>
+                                </div>
+                                <div style={{ textAlign: "center", color: "#166FE5"}}>
+                                    {/* <p style={{ color: "#166FE5" }}> Quên mật khẩu</p> */}
+                                    Quên mật khẩu?
+                                </div>
+
+                                <hr style={{borderBlockColor: "#ccc"}}/>
+
+                                <div className="form-group" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+                                    <button className="btn btn-success">Tạo tài khoản mới</button>
+                                </div>
+
+                            </div>
                         </div>
-                        <div className="dx-login-line">
-                            <label>
-                                <i className="glyphicon glyphicon-lock"></i>
-                                <span className="dx-login-text">{translate('form.password')}</span>
-                            </label>
-                            <input className="dx-login-input" name="password" onChange={this.handleChange} type="password" placeholder={translate('form.password')} required />
-                        </div>
-                        <div className="dx-login-line">
-                            <label>
-                                <i className="glyphicon glyphicon-hdd"></i>
-                                <span className="dx-login-text">{translate('form.portal')}</span>
-                            </label>
-                            <input className="dx-login-input" name="portal" onChange={this.handleChange} type="text" placeholder="Portal" value={this.state.portal} />
-                        </div>
-                        <button type="submit" className="dx-login-submit">
-                            <span className="dx-login-text">
-                                {translate('form.signin')}
-                            </span>
-                        </button>
-                    </form>
-                    <div>
-                        <a data-toggle="modal" href='#modal-reset-password'>{translate('form.forgot_password')}</a><br />
-                        <ForgotPassword />
+                    </div>
+                </div>
+                <div style={{ backgroundColor: "#FFFFFF", minHeight: "20vh" }}>
+                    <div className="container">
+
+                        <p>Tiếng Việt &nbsp;&nbsp; English</p>
+
+                        <hr style={{borderBlockColor: "#ccc"}}/>
+
+                        <span style={{ padding: "7px" }}>Đăng ký</span>
+                        <span style={{ padding: "7px" }}>Đăng nhập</span>
+                        <span style={{ padding: "7px" }}>Messenger</span>
+                        <span style={{ padding: "7px" }}>Facebook Lite</span>
+                        <span style={{ padding: "7px" }}>Watch</span>
+                        <span style={{ padding: "7px" }}>Danh bạ</span>
+                        <span style={{ padding: "7px" }}>Trang</span>
+                        <span style={{ padding: "7px" }}>Hạng mục Trang</span>
+                        <span style={{ padding: "7px" }}>Địa điểm</span>
+                        <span style={{ padding: "7px" }}>Trò chơi</span>
+                        <span style={{ padding: "7px" }}>Vị trí</span>
+                        <span style={{ padding: "7px" }}>Marketplace</span>
+                        <span style={{ padding: "7px" }}>Facebook Pay</span>
+                        <span style={{ padding: "7px" }}>Nhóm</span>
+                        <span style={{ padding: "7px" }}>Việc làm</span>
+                        <span style={{ padding: "7px" }}>Oculus</span>
+                        <span style={{ padding: "7px" }}>Portal</span>
+                        <span style={{ padding: "7px" }}>Instagram</span>
+                        <span style={{ padding: "7px" }}>Địa phương</span>
+                        <span style={{ padding: "7px" }}>Chiến dịch gây quỹ</span>
+                        <span style={{ padding: "7px" }}>Dịch vụ</span>
+                        <span style={{ padding: "7px" }}>Trung tâm thông tin bỏ phiếu</span>
+                        <span style={{ padding: "7px" }}>Giới thiệu</span>
+                        <span style={{ padding: "7px" }}>Tạo quảng cáo</span>
+                        <span style={{ padding: "7px" }}>Tạo Trang</span>
+                        <span style={{ padding: "7px" }}>Nhà phát triển</span>
+                        <span style={{ padding: "7px" }}>Tuyển dụng</span>
+                        <span style={{ padding: "7px" }}>Quyền riêng tư</span>
+                        <span style={{ padding: "7px" }}>Cookie</span>
+                        <span style={{ padding: "7px" }}>Lựa chọn quảng cáo</span>
+                        <span style={{ padding: "7px" }}>Điều khoản</span>
+                        <span style={{ padding: "7px" }}>Trợ giúp</span>
+
+                        <br />
+                        <br />
+
+                        FactBook &#169; 2021
                     </div>
                 </div>
             </div>
