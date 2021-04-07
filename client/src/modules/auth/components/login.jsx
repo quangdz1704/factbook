@@ -6,6 +6,7 @@ import ForgotPassword from './forgotPassword';
 import { getStorage } from '../../../config';
 import { ErrorLabel } from " ../../../src/common-components"
 import './login.css';
+import Register from './register';
 
 class Login extends Component {
 
@@ -40,12 +41,17 @@ class Login extends Component {
         this.props.forgotPassword(emailForgot);
     }
 
+    handleClickRegister = () => {
+        window.$('#register-modal').modal('show');
+    }
+
     render() {
         const { auth, translate } = this.props;
         const { email, password, errorOnName, errorOnPass } = this.state;
 
         return (
             <div style={{ backgroundColor: "#F0F2F5" }}>
+                <Register />
                 <div className="container" style={{ height: "80vh" }}>
                     <div className="row">
                         <div className="col-xs-6" style={{ height: "80vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -78,15 +84,15 @@ class Login extends Component {
                                 <div className="form-group">
                                     <button className={"form-control"} style={{ backgroundColor: "#166FE5", color: "#FFFFFF" }}>Đăng nhập</button>
                                 </div>
-                                <div style={{ textAlign: "center", color: "#166FE5"}}>
+                                <div style={{ textAlign: "center", color: "#166FE5" }}>
                                     {/* <p style={{ color: "#166FE5" }}> Quên mật khẩu</p> */}
                                     Quên mật khẩu?
                                 </div>
 
-                                <hr style={{borderBlockColor: "#ccc"}}/>
+                                <hr style={{ borderBlockColor: "#ccc" }} />
 
-                                <div className="form-group" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                                    <button className="btn btn-success">Tạo tài khoản mới</button>
+                                <div className="form-group" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <button className="btn btn-success" onClick={this.handleClickRegister}>Tạo tài khoản mới</button>
                                 </div>
 
                             </div>
@@ -98,7 +104,7 @@ class Login extends Component {
 
                         <p>Tiếng Việt &nbsp;&nbsp; English</p>
 
-                        <hr style={{borderBlockColor: "#ccc"}}/>
+                        <hr style={{ borderBlockColor: "#ccc" }} />
 
                         <span style={{ padding: "7px" }}>Đăng ký</span>
                         <span style={{ padding: "7px" }}>Đăng nhập</span>
