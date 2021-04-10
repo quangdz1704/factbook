@@ -3,6 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@sweetalert/with-react": "^0.1.1",
+    "browser-image-compression": "^1.0.14",
+    "react-custom-scrollbars": "^4.2.1",
+    "react-firebaseui": "^4.1.0",
+    "react-flip-move": "^3.0.4",
+    "react-player": "^2.7.2",
+    "react-timeago": "^5.2.0",
+    "sweetalert": "^2.1.2",
+    "uuid": "^8.3.2",
+    "web-vitals": "^0.2.4",
     "@fingerprintjs/fingerprintjs": "^3.0.0",
     "@fullcalendar/daygrid": "^5.3.2",
     "@fullcalendar/interaction": "^5.3.1",
@@ -63,8 +76,7 @@
     "socket.io-client": "^2.3.1",
     "sortablejs": "^1.10.2",
     "sweetalert2": "^9.15.2",
-    "use-deep-compare-effect": "^1.6.1",
-    "xlsx": "^0.16.3"
+    "use-deep-compare-effect": "^1.6.1"
   },
   "scripts": {
     "start": "env-cmd react-scripts start",
