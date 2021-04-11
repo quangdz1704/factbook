@@ -1,0 +1,29 @@
+* {
+    background-color: "#fff";
+}
+.wrap-content-bg {
+    background-color: "#fff";
+    height: "40vh"
+}
+
+.img-bg {
+    height: "40vh";
+}
+
+.img-bg img {
+    width: "85vw";
+    height: "40vh";
+}
+
+.tab-option a {
+    font-size: medium;
+    font-weight: bold;
+}
+
+.tab-option a:hover {
+    text-decoration: underline;
+}
+
+.btn-option button {
+    margin: 0 5px 0 5px;
+}
