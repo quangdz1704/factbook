@@ -17,17 +17,21 @@ const Sidebar = () => {
 
   const [open, setOpen] = useState(false);
 
-  const { photoURL, displayName } = useSelector((state) => state.user);
+  // const { photoURL, displayName } = useSelector((state) => state.user);
 
   const toggle = () => {
     setOpen(!open);
   };
 
+  const displayName = "NTQ"
+
   return (
     <Paper elevation={0} className={classes.sidebar}>
       <Scrollbars autoHide autoHideDuration={200}>
         {/* User info */}
-        <InfoBar key={displayName} Source={<Avatar src={photoURL} />} title={displayName} />
+        <InfoBar key={displayName} Source={<Avatar 
+            // src={photoURL} 
+          />} title={displayName} />
         {/* Top item */}
         {topRows.map(({ src, title }, i) => (
           <InfoBar

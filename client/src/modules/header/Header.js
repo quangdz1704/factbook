@@ -14,22 +14,22 @@ import AddIcon from "@material-ui/icons/Add";
 import TelegramIcon from "@material-ui/icons/Telegram";
 import Zoom from "@material-ui/core/Zoom";
 import logo from "../../assets/images/logo.png";
-import { ToggleTheme } from "../../store/actions/util";
-import { auth } from "../../firebase";
+// import { ToggleTheme } from "../store/actions/util";
+// import { auth } from "../../firebase";
 import Style from "./Style";
 
 const Header = () => {
   const classes = Style();
   const dispatch = useDispatch();
   const mode = useSelector((state) => state.util);
-  const { photoURL } = useSelector((state) => state.user);
+  // const { photoURL } = useSelector((state) => state.user);
 
   const changeTheme = () => {
-    dispatch(ToggleTheme());
+    // dispatch(ToggleTheme());
   };
 
   const logout = () => {
-    auth.signOut();
+    // auth.signOut();
   };
 
   return (
@@ -66,11 +66,13 @@ const Header = () => {
               <SupervisedUserCircleOutlined />
             </div>
           </Hidden>
-          <div className={classes.nav__links} onClick={changeTheme}>
+          {/* <div className={classes.nav__links} onClick={changeTheme}>
             {mode ? <Brightness4Icon /> : <BrightnessHighIcon />}
-          </div>
+          </div> */}
           <div className={`${classes.nav__links} ${classes.nav__links__specail}`}>
-            <Avatar src={photoURL} onClick={logout} />
+            <Avatar
+              // src={photoURL} 
+              onClick={logout} />
           </div>
         </Grid>
         {/*----Userinfo and options--------*/}
@@ -83,7 +85,9 @@ const Header = () => {
               title={"logout"}
               arrow
             >
-              <Avatar src={photoURL} onClick={logout} />
+              <Avatar
+                // src={photoURL} 
+                onClick={logout} />
             </Tooltip>
             <Hidden smDown>
               <div className={classes.userinfo__options}>

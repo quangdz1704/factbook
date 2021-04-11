@@ -11,6 +11,7 @@ import { NotFound } from "../modules/not-found/components";
 
 import Login from "../modules/auth/components/login";
 import ResetPassword from "../modules/auth/components/resetPassword";
+import Home from "../modules/home/home";
 
 
 class Routes extends Component {
@@ -39,10 +40,15 @@ class Routes extends Component {
                                 : <AnswerAuthQuestionPage {...props} />
                         }
                     /> */}
+                    <Route 
+                        exact={true}
+                        path={"/"}
+                        component={Home}
+                    />
                     <AuthRoute
                         exact
                         auth={auth}
-                        path="/"
+                        path="/login"
                         component={Login}
                     />
                     <AuthRoute

@@ -8,13 +8,13 @@ import PhotoRoundedIcon from "@material-ui/icons/PhotoRounded";
 import EmojiEmotionsOutlinedIcon from "@material-ui/icons/EmojiEmotionsOutlined";
 import firebase from "firebase";
 import { v4 as uuid } from "uuid";
-import db, { storage } from "../../firebase";
+// import db, { storage } from "../../firebase";
 import Styles from "./Style";
 import swal from "@sweetalert/with-react";
 
 const Form = () => {
   const classes = Styles();
-  const { displayName, photoURL } = useSelector((state) => state.user);
+  // const { displayName, photoURL } = useSelector((state) => state.user);
 
   const [uploadData, setUploadData] = useState({
     description: "",
@@ -28,57 +28,57 @@ const Form = () => {
   const [progress, setProgress] = useState("");
 
   const uploadToFirebaseDB = (fileData) => {
-    // uploading to collection called posts
-    db.collection("posts")
-      .add({
-        profile: photoURL,
-        username: displayName,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        description: uploadData.description,
-        fileType: uploadData.file.type,
-        fileName: uploadData.file.name,
-        fileData: fileData,
-      })
-      .then(() => resetState());
+    // // uploading to collection called posts
+    // db.collection("posts")
+    //   .add({
+    //     profile: photoURL,
+    //     username: displayName,
+    //     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    //     description: uploadData.description,
+    //     fileType: uploadData.file.type,
+    //     fileName: uploadData.file.name,
+    //     fileData: fileData,
+    //   })
+    //   .then(() => resetState());
   };
 
   const handleSubmitButton = (e) => {
     e.preventDefault();
 
-    // verify atleast one of the input fields are not empyt
-    if (uploadData.description || uploadData.file.data) {
-      // if file input is true...upload the file to Fire-Store
-      if (uploadData.file.data) {
-        const id = uuid();
-        const uploadTask = storage.ref(`posts/${id}`).putString(uploadData.file.data, "data_url");
-        uploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            const value = Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-            setProgress(value);
-          },
+    // // verify atleast one of the input fields are not empyt
+    // if (uploadData.description || uploadData.file.data) {
+    //   // if file input is true...upload the file to Fire-Store
+    //   if (uploadData.file.data) {
+    //     const id = uuid();
+    //     const uploadTask = storage.ref(`posts/${id}`).putString(uploadData.file.data, "data_url");
+    //     uploadTask.on(
+    //       "state_changed",
+    //       (snapshot) => {
+    //         const value = Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+    //         setProgress(value);
+    //       },
 
-          (error) => {
-            alert(error);
-          },
+    //       (error) => {
+    //         alert(error);
+    //       },
 
-          () => {
-            storage
-              .ref("posts")
-              .child(id)
-              .getDownloadURL()
-              .then((url) => uploadToFirebaseDB(url));
-          }
-        );
+    //       () => {
+    //         storage
+    //           .ref("posts")
+    //           .child(id)
+    //           .getDownloadURL()
+    //           .then((url) => uploadToFirebaseDB(url));
+    //       }
+    //     );
 
-        // do not go further..
-        return;
-      }
-      // if not file input provided
-      uploadToFirebaseDB(uploadData.file.data);
-    } else {
-      swal("😕 Input field can not be empty");
-    }
+    //     // do not go further..
+    //     return;
+    //   }
+    //   // if not file input provided
+    //   uploadToFirebaseDB(uploadData.file.data);
+    // } else {
+    //   swal("😕 Input field can not be empty");
+    // }
   };
 
   // if file name is too long.. compress it
@@ -186,10 +186,11 @@ const Form = () => {
     setProgress("");
   };
 
+  const displayName = "NTQ"
   return (
     <Paper className={classes.upload}>
       <div className={classes.upload__header}>
-        <Avatar src={photoURL} />
+        <Avatar />
         <form className={classes.header__form} onSubmit={handleSubmitButton}>
           <input
             placeholder={`What's on your mind, ${displayName}?`}

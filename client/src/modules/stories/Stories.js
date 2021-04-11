@@ -8,10 +8,15 @@ const Stories = () => {
 
   const [users, setUsers] = useState([]);
 
-  useEffect(async () => {
+  const useEffectAsync = (effect, inputs) => {
+    useEffect(() => {
+      effect();
+    }, inputs);
+  }
+  useEffectAsync(async () => {
     const response = await axios.get("https://breakingbadapi.com/api/characters?limit=10");
     setUsers(response.data);
-  }, []);
+  }, [])
 
   return (
     <div className={classes.stories}>

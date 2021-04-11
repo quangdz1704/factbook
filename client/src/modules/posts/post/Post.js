@@ -12,8 +12,7 @@ import ReactPlayer from "react-player";
 import ReactTimeago from "react-timeago";
 import Style from "./Style";
 
-const Post = forwardRef(
-  ({ profile, username, timestamp, description, fileType, fileData }, ref) => {
+const Post = forwardRef(({ profile, username, timestamp, description, fileType, fileData }, ref) => {
     const classes = Style();
 
     const [likesCount, setLikesCount] = useState(1);
@@ -44,7 +43,9 @@ const Post = forwardRef(
     return (
       <Paper ref={ref} className={classes.post}>
         <div className={classes.post__header}>
-          <Avatar src={profile} />
+          <Avatar 
+            // src={profile} 
+          />
           <div className={classes.header__info}>
             <h4>{username}</h4>
             <p>
