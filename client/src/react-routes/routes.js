@@ -12,6 +12,7 @@ import { NotFound } from "../modules/not-found/components";
 import Login from "../modules/auth/components/login";
 import ResetPassword from "../modules/auth/components/resetPassword";
 import Home from "../modules/home/home";
+import General from "../modules/profile/component/general";
 
 
 class Routes extends Component {
@@ -40,10 +41,15 @@ class Routes extends Component {
                                 : <AnswerAuthQuestionPage {...props} />
                         }
                     /> */}
-                    <Route 
+                    <Route
                         exact={true}
                         path={"/"}
                         component={Home}
+                    />
+                    <Route
+                        exact={true}
+                        path={"/profile"}
+                        component={General}
                     />
                     <AuthRoute
                         exact
@@ -57,7 +63,7 @@ class Routes extends Component {
                         path="/reset-password"
                         component={ResetPassword}
                     />
-                    
+
                     {/* 
                     <PrivateRoute
                         isLoading={false}
