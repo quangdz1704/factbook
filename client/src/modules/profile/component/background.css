@@ -13,6 +13,14 @@
 .img-bg img {
     width: "85vw";
     height: "40vh";
+    opacity: 0.8;
+    /* transition: width 2s, height 2s; */
+}
+
+.img-bg img:hover {
+    opacity: 1;
+    -ms-transform: scale(1.01,1.01); /* IE 9 */
+    transform: scale(1.01,1.01); /* Standard syntax */
 }
 
 .tab-option a {

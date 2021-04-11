@@ -5,6 +5,7 @@ function Album() {
         <div className="box" style={{ height: "30vw" }}>
             <div className="box-header with-border">
                 <h3 className="box-title">Ảnh</h3>
+                <a className="pull-right" style={{color: "#1877F2", fontSize: "normal", cursor: "pointer"}}>Xem tất cả</a>
             </div>
             <div className="box-body" >
                 <div className="row" style={{ height: "100%" }} >

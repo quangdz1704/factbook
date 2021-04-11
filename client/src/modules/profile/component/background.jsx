@@ -6,7 +6,10 @@ const Background = () => {
         <div className="wrap-content-bg" style={{ backgroundColor: "#FFF", height: "60vh" }}>
             <div className="container">
                 <div className="img-bg" style={{ height: "40vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <img onClick={() => { console.log('background'); }} src="bg.png" alt="background image" style={{ width: "85vw", height: "40vh", borderRadius: "10px", opacity: "0.8" }} />
+                    <img onClick={() => { console.log('background'); }} src="bg.png" alt="background image" 
+                        style={{ width: "85vw", height: "40vh", borderRadius: "10px", 
+                        boxShadow: "0px -60px 100px 50px #888888" }} 
+                    />
                 </div>
                 <div className="img-profile" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <img onClick={() => { console.log('profile-image'); }} src="avt.png" style={{
@@ -33,9 +36,15 @@ const Background = () => {
                             <a className="btn">Xem thêm</a>
                         </div>
                         <div className="btn-option col-md-4" style={{display: "flex", justifyContent: "center"}}>
-                            <button className="btn">Thêm bạn bè</button>
-                            <button className="btn">Nhắn tin</button>
-                            <button className="btn">Gọi điện</button>
+                            <button className="btn">
+                                <i className="fa fa-user-plus"></i> &nbsp;Thêm bạn bè
+                            </button>
+                            <button className="btn">
+                                <i className="fa fa-commenting"></i> &nbsp;Nhắn tin
+                            </button>
+                            <button className="btn">
+                                <i className="fa fa-phone"></i> &nbsp;Gọi điện
+                            </button>
                         </div>
                     </div>
 

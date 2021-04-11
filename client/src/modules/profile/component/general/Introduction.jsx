@@ -2,7 +2,7 @@ import React from 'react'
 
 function Introduction() {
     return (
-        <div className="box">
+        <div className="box" style={{lineHeight: 2.5}}>
             <div className="box-header with-border">
                 <h3 className="box-title">Giới thiệu</h3>
             </div>
