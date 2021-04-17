@@ -101,7 +101,7 @@ class UploadFile extends Component {
     render() {
         const { translate } = this.props;
 
-        const { multiple = false, disabled = false, accept = '', deleteValue = true } = this.props;
+        const { multiple = false, disabled = false, accept = '', deleteValue = true, show = true } = this.props;
 
         const { files } = this.state;
 
@@ -118,7 +118,7 @@ class UploadFile extends Component {
                 {files && files.length ?
                     <div className="list-upload-file-cmc">
                         <ul className="ul-upload-file-cmc">
-                            {files.map((child, index) => {
+                            {show && files.map((child, index) => {
                                 return (
                                     <li key={index}>
                                         <label className="delete-label-upfile-cmc">

@@ -42,26 +42,36 @@ class Routes extends Component {
                                 : <AnswerAuthQuestionPage {...props} />
                         }
                     /> */}
-                    <Route
-                        exact={true}
-                        path={"/"}
-                        component={Profile}
-                    />
-                    <Route
+
+                    {/* <Route
                         exact={true}
                         path={"/profile"}
-                        component={General}
-                    />
-                    {/* <Route 
-                        exact={true}
-                        path={"/"}
-                        component={Home}
+                        component={Profile}
                     /> */}
                     <AuthRoute
                         exact
                         auth={auth}
                         path="/login"
                         component={Login}
+                    />
+                    <PrivateRoute
+                        isLoading={auth.isLoading}
+                        key={"home"}
+                        arrPage={[
+                            { link: "/", name: "home", icon: "fa fa-home" },
+                        ]}
+                        auth={auth}
+                        exact={true}
+                        link={"/"}
+                        path={"/"}
+                        pageName={"home"}
+                        layout={Layout}
+                        component={Home}
+                    />
+                    <PrivateRoute
+                        exact={true}
+                        path={"/profile"}
+                        component={Profile}
                     />
                     <AuthRoute
                         exact

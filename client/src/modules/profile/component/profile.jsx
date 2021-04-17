@@ -1,5 +1,5 @@
 import React from 'react';
-import Form from '../../form/Form';
+import Form from '../../posts/form/Form';
 import Posts from '../../posts/Posts';
 import Background from './background';
 import General from './general';

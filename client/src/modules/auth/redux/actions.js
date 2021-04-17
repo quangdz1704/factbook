@@ -18,30 +18,28 @@ export const AuthActions = {
     downloadFile,
     answerAuthQuestion,
     checkExistsPassword2,
+    register,
 }
 
 function login(user) {
+    console.log('uuuu', user);
     return dispatch => {
         dispatch({ type: AuthConstants.LOGIN_REQUEST });
         AuthService.login(user)
             .then(res => {
-                setStorage('jwt', res.data?.content?.token);
-                setStorage('userId', res.data?.content?.user?._id);
-                setStorage('portal', res.data?.content?.user?.portal);
-                if (res?.data?.content?.user?.company) {
-                    setStorage('companyId', res.data?.content?.user?.company?._id);
-                }
-                if (res.data?.content?.user?.roles?.length > 0)
-                    setStorage('currentRole', res.data?.content?.user?.roles?.[0]?.roleId?._id);
+                console.log("quang", res.data);
+                setStorage('jwt', res.data?.content?.payload?.token);
+                setStorage('userId', res.data?.content?.payload?.id);
+
                 dispatch({
                     type: AuthConstants.LOGIN_SUCCESS,
-                    payload: res.data?.content?.user
+                    payload: res.data?.content?.payload
                 })
-                dispatch({ type: SocketConstants.CONNECT_SOCKET_IO })
+                // dispatch({ type: SocketConstants.CONNECT_SOCKET_IO })
             })
             .catch(err => {
                 dispatch({ type: AuthConstants.LOGIN_FAILE, payload: err?.response?.data?.messages?.[0] });
-                dispatch({ type: SocketConstants.DISCONNECT_SOCKET_IO })
+                // dispatch({ type: SocketConstants.DISCONNECT_SOCKET_IO })
             })
     }
 }
@@ -60,6 +58,23 @@ function logout() {
             })
     }
 }
+function register(data) {
+    console.log('iiiiiiiiiiiiii');
+    return dispatch => {
+        dispatch({ type: AuthConstants.REGISTER_REQUEST });
+        AuthService.register(data)
+            .then(res => {
+                dispatch({
+                    type: AuthConstants.REGISTER_SUCCESS,
+                    payload: res.data.content
+                });
+            })
+            .catch(err => {
+                dispatch({ type: AuthConstants.REGISTER_FAILE });
+            })
+    }
+}
+
 
 function logoutAllAccount() {
     return dispatch => {

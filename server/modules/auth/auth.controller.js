@@ -5,6 +5,7 @@ exports.register = async (req, res) => {
         console.log("show my body ", req.body);
 
         const User = await AuthService.register(req.body);
+        console.log(User);
         if (User.success) {
             res.status(200).json({
                 success: true,
@@ -72,7 +73,7 @@ exports.checkVerifyCode = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const User = await AuthService.login(req.body);
-
+        console.log(User);
         if (User.success) {
             res.status(200).json({
                 success: true,
@@ -148,7 +149,7 @@ exports.changeAvatar = async (req, res) => {
             avatar = path.substr(1, path.length)
         }
         console.log("avta", avatar)
-        const profile = await AuthService.changeAvatar(req.user._id, req.body.described , avatar);
+        const profile = await AuthService.changeAvatar(req.user._id, req.body.described, avatar);
 
         res.status(200).json({
             success: true,

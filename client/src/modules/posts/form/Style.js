@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { darkPrimary, darkSecondary, FacebookBlue, textDark } from "../../assets/Colors";
+import { darkPrimary, darkSecondary, FacebookBlue, textDark } from "../../../assets/Colors";
 
 export default makeStyles((theme) => ({
   upload: {
