@@ -1,12 +1,14 @@
 import React from 'react'
 import Album from './Album'
+import Friend from './Friend'
 import Introduction from './Introduction'
 
 function General() {
     return (
-        <div style={{ width: "25vw" }}>
+        <div>
             <Introduction />
             <Album />
+            <Friend />
         </div>
     )
 }

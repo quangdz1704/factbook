@@ -14,6 +14,7 @@ import ResetPassword from "../modules/auth/components/resetPassword";
 import Home from "../modules/home/home";
 import General from "../modules/profile/component/general";
 import Profile from "../modules/profile/component/profile";
+import Listfriend from "../modules/profile/component/friend/Listfriend";
 
 
 class Routes extends Component {
@@ -45,8 +46,13 @@ class Routes extends Component {
 
                     {/* <Route
                         exact={true}
-                        path={"/profile"}
-                        component={Profile}
+                        path={"/friend"}
+                        component={Listfriend}
+                    />
+                    {/* <Route 
+                        exact={true}
+                        path={"/"}
+                        component={Home}
                     /> */}
                     <AuthRoute
                         exact
