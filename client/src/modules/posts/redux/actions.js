@@ -1,15 +1,16 @@
-import { PostService } from './service';
+import { PostServices } from './services';
 import { PostConstants } from './constants';
 
 
 export const PostActions = {
-    createPost
+    createPost,
+
 }
 
 function createPost(data) {
     return dispatch => {
         dispatch({ type: PostConstants.CREATE_POST_REQUEST });
-        PostService.createPost(data)
+        PostServices.createPost(data)
             .then(res => {
                 dispatch({
                     type: PostConstants.CREATE_POST_SUCCESS,

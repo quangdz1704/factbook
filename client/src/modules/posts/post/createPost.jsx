@@ -7,6 +7,7 @@ import PhotoRoundedIcon from "@material-ui/icons/PhotoRounded";
 import EmojiEmotionsOutlinedIcon from "@material-ui/icons/EmojiEmotionsOutlined";
 import Styles from "./Style";
 import { DialogModal, UploadFile } from "../../../common-components";
+import { PostActions } from '../redux/actions';
 
 
 
@@ -50,16 +51,18 @@ function CreatePost(props) {
     const save = () => {
         const formData = new FormData();
         const { content, images } = state
-        console.log('fffff', content, images);
+        console.log('fffff',);
         if (content) {
             formData.append('content', content);
         }
         if (images && images.length) {
+
             images.forEach(x => {
-                formData.append("image", x.fileUpload);
+                console.log('fffff', x.fileUpload);
+                formData.append("post", x.fileUpload);
             })
         }
-
+        props.createPost(formData);
     }
     return (
         <DialogModal
@@ -109,10 +112,10 @@ function CreatePost(props) {
                 </div>
                 <div>
                     {
-                        state.images && state.images.length > 1 ?
+                        state.images && state.images.length > 0 ?
                             state.images.map((image, i) => {
                                 return (
-                                    <div >
+                                    <div>
                                         <img src={image.urlFile} width="80px" height="80px" alt="img" />
                                     </div>
                                 )
@@ -134,7 +137,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-
+    createPost: PostActions.createPost
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTranslate(CreatePost));

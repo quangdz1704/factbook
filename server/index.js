@@ -13,7 +13,6 @@ app.use("/upload/posts", express.static("upload/posts"));
 
 const db = process.env.DATABASE;// DB Config
 
-console.log('ddddd', db)
 mongoose // Connect to MongoDB
     .connect(
         db, {

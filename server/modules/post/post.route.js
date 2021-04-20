@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const postController = require('./post.controller');
-const {auth, uploadFile } = require('../../middleware/index');
+const { auth, uploadFile } = require('../../middleware/index');
 
 
-router.post("/add-post", auth, uploadFile([{name:'post', path:'/posts'}], 'array') , postController.addPost)
-router.patch("/edit-post/:id", auth, uploadFile([{name:'post', path:'/posts'}], 'array') , postController.editPost)
+router.post("/create-post", auth, uploadFile([{ name: 'post', path: '/posts' }], 'array'), postController.createPost)
+router.patch("/edit-post/:id", auth, uploadFile([{ name: 'post', path: '/posts' }], 'array'), postController.editPost)
 router.delete("/delete-post/:id", postController.deletePost)
 router.get("/get-post/:id", postController.getPost)
 router.get("/get-list-post", auth, postController.getListPost)

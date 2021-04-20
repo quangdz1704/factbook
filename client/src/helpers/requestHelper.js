@@ -25,7 +25,7 @@ const AuthenticateHeader = async () => {
     return {
         "crtp": encryptMessage(window.location.pathname),
         "fgp": encryptMessage(fingerprint.toString()),
-        "utk": getStorage('jwt'),
+        "auth-token": getStorage('jwt'),
         "crtr": encryptMessage(getStorage('currentRole'))
     }
 }
@@ -65,8 +65,10 @@ const showServerDisconnectedError = async () => {
  * @method : phương thức gọi
  * @data : data truyền đi - có thể có hoặc không
  */
-export async function sendRequest(options, showSuccessAlert = false, showFailAlert = true, module, successTitle = 'general.success', errorTitle = 'general.error') {
-
+export async function sendRequest(options, showSuccessAlert = false, showFailAlert = true,
+    module, successTitle = 'general.success', errorTitle = 'general.error') {
+    const abc = await AuthenticateHeader();
+    console.log('fefefefefefef', abc);
     const requestOptions = {
         url: options.url,
         method: options.method,
