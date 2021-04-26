@@ -183,6 +183,23 @@ exports.getProfile = async (req, res) => {
         });
     }
 };
+exports.getUser= async (req, res) => {
+    try {
+        const profile = await AuthService.getUser(req.user._id);
+
+        res.status(200).json({
+            success: true,
+            messages: ['get_user_success'],
+            content: profile
+        });
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            messages: Array.isArray(error) ? error : ['get_user_faile'],
+            content: error
+        });
+    }
+};
 
 exports.getNotifications = async (req, res) => {
     try {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Hidden, Avatar, Tooltip, Paper, Badge } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
@@ -17,13 +17,20 @@ import logo from "../../assets/images/logo.png";
 // import { ToggleTheme } from "../store/actions/util";
 // import { auth } from "../../firebase";
 import Style from "./Style";
+import { AuthActions } from "../auth/redux/actions"
+import { connect } from 'react-redux';
+import { withTranslate } from 'react-redux-multilingual';
 
-const Header = () => {
+
+function Header(props) {
   const classes = Style();
   const dispatch = useDispatch();
   const mode = useSelector((state) => state.util);
   // const { photoURL } = useSelector((state) => state.user);
 
+  useEffect(()=>{
+      props.getInforUser()
+  }, [])
   const changeTheme = () => {
     // dispatch(ToggleTheme());
   };
@@ -31,7 +38,13 @@ const Header = () => {
   const logout = () => {
     // auth.signOut();
   };
-
+  
+  const {user} = props.auth
+   
+  // const {user} = props.auth;
+  // let avt = process.env.REACT_APP_SERVER + user.avatar;
+  const avatar = `${process.env.REACT_APP_SERVER}${user.avatar}`;
+  console.log('avttttttttttt',avatar);
   return (
     <Paper elevation={0} style={{ borderRadius: 0, width: "100%", height: "100%" }}>
       <Grid container className={classes.header}>
@@ -71,7 +84,7 @@ const Header = () => {
           </div> */}
           <div className={`${classes.nav__links} ${classes.nav__links__specail}`}>
             <Avatar
-              // src={photoURL} 
+               src={avatar} 
               onClick={logout} />
           </div>
         </Grid>
@@ -86,7 +99,7 @@ const Header = () => {
               arrow
             >
               <Avatar
-                // src={photoURL} 
+                src={avatar} 
                 onClick={logout} />
             </Tooltip>
             <Hidden smDown>
@@ -110,4 +123,12 @@ const defaultProps = {
   children: <NotificationsNoneOutlinedIcon />,
 };
 
-export default Header;
+const mapStateToProps = state =>{
+  return state;
+}
+
+const mapDispatchToProps ={
+  getInforUser: AuthActions.getInforUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslate(Header));

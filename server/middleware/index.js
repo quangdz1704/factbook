@@ -28,7 +28,6 @@ const auth = async (req, res, next) => {
 }
 
 const uploadFile = (arrayFile, type) => {
-    console.log('aefeefefef');
     const staticPath = [
         '/avatars',
         '/posts'

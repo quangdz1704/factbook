@@ -16,7 +16,7 @@ exports.createPost = async (id, data, files = undefined) => {
     let post = await Post.create({
         creator: id,
         created: new Date(),
-        described: data.described,
+        content: data.content,
         status: data.status,
         images: listfile
     })

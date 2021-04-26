@@ -107,7 +107,7 @@ exports.checkVerifyCode = async (data) => {
 }
 
 exports.login = async (data) => {
-    console.log('server', data)
+    
     // check validate data
     const checkValidate = loginValidation(data);
     if (checkValidate.error) {
@@ -141,11 +141,12 @@ exports.login = async (data) => {
         let payload = {
             id: user._id,
             active: user.active,
-            name: user.name,
+            firstName: user.firstName,
+            surName: user.surName,
             token: token,
             avatar: user.avatar,
         };
-
+        console.log('server', payload)
         return {
             payload: payload,
             success: true,
@@ -226,6 +227,15 @@ exports.getProfile = async (id) => {
 
     return user;
 };
+exports.getUser = async (id) => {
+    let user = await User.findById(id)
+        .select("id active firstName surName avatar")
+
+    if (user === null) throw ["user_not_found"];
+   // console.log('user dayyyyyy', user);
+    return user;
+};
+
 
 exports.getNotifications = async (id) => {
     let notification = await Notification.findOne({ creator: id })
