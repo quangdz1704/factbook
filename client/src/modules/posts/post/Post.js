@@ -11,10 +11,12 @@ import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ReactPlayer from "react-player";
 import ReactTimeago from "react-timeago";
 import Style from "./Style";
-
-const Post = forwardRef(({ profile, username, timestamp, description, fileType, fileData }, ref) => {
+import { connect, useSelector, useDispatch } from 'react-redux';
+import { withTranslate } from 'react-redux-multilingual';
+import {PostActions} from '../redux/actions';
+const Post = (props) => {
 	const classes = Style();
-
+	const { profile, username, timestamp, description, fileType, fileData } = props
 	const [likesCount, setLikesCount] = useState(1);
 	const [heartIcontOrder, setHeartIcontOrder] = useState(1);
 	const [smileIconOrder, setSmileIconOrder] = useState(1);
@@ -27,6 +29,8 @@ const Post = forwardRef(({ profile, username, timestamp, description, fileType, 
 		setThumsUpIconOrder(Math.floor(Math.random() * (3 - 1 + 1)) + 1);
 	}, []);
 
+	const {newFeed} = props;
+	const user = newFeed ? newFeed.creator : {}
 	const Reactions = () => {
 		return (
 			<div className={classes.footer__stats}>
@@ -39,31 +43,42 @@ const Post = forwardRef(({ profile, username, timestamp, description, fileType, 
 			</div>
 		);
 	};
+	const checkTypeFile = (data) => {
+        if (typeof data === 'string' || data instanceof String) {
+            let index = data.lastIndexOf(".");
+            let typeFile = data.substring(index + 1, data.length);
+            if (typeFile === "png" || typeFile === "jpg" || typeFile === "jpeg") {
+                return true;
+            }
+            else return false;
+        }
+        else return false;
+    }
 
 	return (
-		<Paper ref={ref} className={classes.post}>
+		<Paper className={classes.post}>
 			<div className={classes.post__header}>
 				<Avatar
-					src={"avt.png"}
+					src={`${process.env.REACT_APP_SERVER}${user.avatar}`}
 				/>
 				<div className={classes.header__info}>
-					<h4>{username}</h4>
+					<h4>{user.surName} {user.firstName}</h4>
 					<p>
-						<ReactTimeago date={new Date(timestamp?.toDate()).toUTCString()} units="minute" />
+						<ReactTimeago date={new Date(newFeed.createAt?.toDate()).toUTCString()} units="minute" />
 					</p>
 				</div>
 				<MoreHorizOutlinedIcon />
 			</div>
 			<div className={classes.post__body}>
 				<div className={classes.body__description}>
-					<p>{description}</p>
+					<p>{newFeed.content}</p>
 				</div>
-				{fileData && (
+				{newFeed.images.length && (
 					<div className={classes.body__image}>
-						{fileType === "image" ? (
-							<img src={fileData} alt="post" />
+						{checkTypeFile(newFeed.images[0]) ? (
+							<img src={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} alt="post" />
 						) : (
-							<ReactPlayer url={fileData} controls={true} />
+							<ReactPlayer url={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} controls={true} />
 						)}
 					</div>
 				)}
@@ -87,7 +102,15 @@ const Post = forwardRef(({ profile, username, timestamp, description, fileType, 
 			</div>
 		</Paper>
 	);
-}
-);
+};
 
-export default Post;
+const mapStateToProps = (state)=>{
+    return state
+}
+
+const mapDispatchToProps ={
+	getNewFeed: PostActions.getNewFeed,
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslate(Post));

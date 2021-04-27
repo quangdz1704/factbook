@@ -44,7 +44,6 @@ function Header(props) {
   // const {user} = props.auth;
   // let avt = process.env.REACT_APP_SERVER + user.avatar;
   const avatar = `${process.env.REACT_APP_SERVER}${user.avatar}`;
-  console.log('avttttttttttt',avatar);
   return (
     <Paper elevation={0} style={{ borderRadius: 0, width: "100%", height: "100%" }}>
       <Grid container className={classes.header}>

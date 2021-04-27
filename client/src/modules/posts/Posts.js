@@ -4,21 +4,18 @@ import FlipMove from "react-flip-move";
 import Post from "./post/Post";
 import db from "../../firebase";
 import moment from "moment";
-
-const Posts = () => {
+import { connect, useSelector, useDispatch } from 'react-redux';
+import { withTranslate } from 'react-redux-multilingual';
+import {PostActions} from './redux/actions';
+const Posts = (props) => {
   const classes = Style();
 
-  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    props.getNewFeed();
+  }, []);
 
-  // useEffect(() => {
-  //   const unsubscribe = db
-  //     .collection("posts")
-  //     .orderBy("timestamp", "desc")
-  //     .onSnapshot((snap) => setPosts(snap.docs.map((doc) => ({ id: doc.id, data: doc.data() }))));
-  //   return unsubscribe;
-  // }, []);
-
-
+  const {posts} = props.post
+  console.log('posttttttttt', posts);
   const fakeData = [
     {
       key: "1",
@@ -61,15 +58,9 @@ const Posts = () => {
   return (
     <div className={classes.posts}>
       <FlipMove style={{ width: "100%" }}>
-        {fakeData.map((post) => (
+        {posts.map((post) => (
           <Post
-            key={post.id}
-            profile={post.profile}
-            username={post.username}
-            timestamp={post.timestamp}
-            description={post.description}
-            fileType={post.fileType}
-            fileData={post.fileData}
+            newFeed={post}
           />
         ))}
       </FlipMove>
@@ -87,4 +78,12 @@ const Style = makeStyles((theme) => ({
   },
 }));
 
-export default Posts;
+const mapStateToProps = (state=>{
+  return state
+});
+
+const mapDispatchToProps={
+  getNewFeed: PostActions.getNewFeed
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslate(Posts));

@@ -11,27 +11,25 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import * as images from "../../assets/images/images";
 import InfoBar from "../util/InfoBar";
 import Style from "./Style";
-
+import { connect } from 'react-redux';
+import { withTranslate } from 'react-redux-multilingual';
 const Sidebar = () => {
   const classes = Style();
 
   const [open, setOpen] = useState(false);
-
-  // const { photoURL, displayName } = useSelector((state) => state.user);
-
+  const {user} = useSelector((state) => state.auth)
   const toggle = () => {
     setOpen(!open);
   };
 
-  const displayName = "NTQ"
 
   return (
     <Paper elevation={0} className={classes.sidebar}>
       <Scrollbars autoHide autoHideDuration={200}>
         {/* User info */}
-        <InfoBar key={displayName} Source={<Avatar 
-            // src={photoURL} 
-          />} title={displayName} />
+        <InfoBar key={user.firstName} Source={<Avatar 
+              src={`${process.env.REACT_APP_SERVER}${user.avatar}`}
+          />} title={`${user.surName} ${user.firstName}`} />
         {/* Top item */}
         {topRows.map(({ src, title }, i) => (
           <InfoBar
@@ -127,4 +125,12 @@ const yourLinks = [
   { src: images.Javascript, title: "Javascript" },
 ];
 
-export default Sidebar;
+
+const mapStateToProps = state =>{
+  return state;
+}
+
+const mapDispatchToProps ={
+ // getInforUser: AuthActions.getInforUser
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslate(Sidebar));

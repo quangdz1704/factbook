@@ -8,11 +8,13 @@ import EmojiEmotionsOutlinedIcon from "@material-ui/icons/EmojiEmotionsOutlined"
 import Styles from "./Style";
 import { DialogModal, UploadFile } from "../../../common-components";
 import { PostActions } from '../redux/actions';
+import { StarRateOutlined } from '@material-ui/icons';
 
 
 
 function CreatePost(props) {
     const classes = Styles();
+    const { user } = props.auth;
     const [state, setState] = useState({
         content: "",
         feeling: "",
@@ -22,14 +24,11 @@ function CreatePost(props) {
 
     });
 
-    console.log("propssss", props);
-
     const onChangeText = (e) => {
         setState({ ...state, content: e.target.value });
     }
 
     function handleUploadFile(value) {
-        console.log('aaaaa', value);
         const { file, urlFile, fileUpload } = state
         if (value.length !== 0) {
             if (file !== value[0].fileName && urlFile !== value[0].urlFile && fileUpload !== value[0].fileUpload) {
@@ -50,15 +49,13 @@ function CreatePost(props) {
 
     const save = () => {
         const formData = new FormData();
-        const { content, images } = state
-        console.log('fffff',);
+        const { content, images } = StarRateOutlined
         if (content) {
             formData.append('content', content);
         }
         if (images && images.length) {
 
             images.forEach(x => {
-                console.log('fffff', x.fileUpload);
                 formData.append("post", x.fileUpload);
             })
         }
@@ -75,10 +72,10 @@ function CreatePost(props) {
             <div className={classes.post}>
                 <div className={classes.post__header}>
                     <Avatar
-                        src={"avt.png"}
+                         src={`${process.env.REACT_APP_SERVER}${user.avatar}`}
                     />
                     <div className={classes.header__info}>
-                        <h4>Thành đẹp trai vl</h4>
+                        <h4>{user.surName} {user.firstName}</h4>
                         {/* <p>
                             <ReactTimeago date={new Date(timestamp?.toDate()).toUTCString()} units="minute" />
                         </p> */}
@@ -87,7 +84,7 @@ function CreatePost(props) {
                 </div>
                 <div >
                     <input type="text"
-                        placeholder={`What's on your mind, Thành`}
+                        placeholder={`What's on your mind, ${user.firstName} ?`}
                         onChange={e => onChangeText(e)}
                     />
                 </div>
@@ -139,5 +136,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     createPost: PostActions.createPost
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTranslate(CreatePost));

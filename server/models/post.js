@@ -35,9 +35,7 @@ const PostSchema = new Schema({
             type: Date
         }
     }],
-    created: {
-        type: Date
-    },
+    
     reactions: [{
         userId: {
             type: String,
@@ -72,6 +70,6 @@ const PostSchema = new Schema({
             type: String,
         }
     }]
-})
+}, {timestamps: true})
 
 module.exports = mongoose.model('posts', PostSchema);

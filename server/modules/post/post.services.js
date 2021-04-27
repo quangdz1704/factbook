@@ -82,13 +82,10 @@ exports.getListPost = async (id) => {
     // }
 
     let post = await Post.find({})
-        .populate({ path: "creator", populate: "users", select: "name avatar" })
-
-    for (let i = 0; i < 10; i++) {
-        listpost.push(post[post.length - i])
-    }
-
-    return listpost;
+        .populate({ path: "creator", populate: "users", select: "firstName surName avatar" })
+        .sort({createdAt: 1})
+   
+    return post;
 };
 
 exports.getListPostPerson = async (id) => {

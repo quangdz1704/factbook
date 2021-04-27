@@ -7,14 +7,21 @@ import {
 
 export const PostServices = {
     createPost,
-
+    getNewFeed,
 }
 
 async function createPost(data) {
-    console.log('dddddddd', data);
     return sendRequest({
         url: `${process.env.REACT_APP_SERVER}/post/create-post`,
         method: 'POST',
         data
-    }, false, false, 'post')
+    }, true, true, 'post')
+}
+
+async function getNewFeed() {
+    return sendRequest({
+        url: `${process.env.REACT_APP_SERVER}/post/get-list-post`,
+        method: 'GET',
+
+    }, false, false,'post')
 }
