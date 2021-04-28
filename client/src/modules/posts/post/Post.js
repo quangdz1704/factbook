@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Paper from "@material-ui/core/Paper";
 import MoreHorizOutlinedIcon from "@material-ui/icons/MoreHorizOutlined";
@@ -14,6 +14,7 @@ import Style from "./Style";
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
 import {PostActions} from '../redux/actions';
+import moment from 'moment';
 const Post = (props) => {
 	const classes = Style();
 	const { profile, username, timestamp, description, fileType, fileData } = props
@@ -31,6 +32,7 @@ const Post = (props) => {
 
 	const {newFeed} = props;
 	const user = newFeed ? newFeed.creator : {}
+	
 	const Reactions = () => {
 		return (
 			<div className={classes.footer__stats}>
@@ -55,6 +57,9 @@ const Post = (props) => {
         else return false;
     }
 
+	if(newFeed){
+		console.log('timeeeeeeeee',newFeed.createdAt);
+	}
 	return (
 		<Paper className={classes.post}>
 			<div className={classes.post__header}>
@@ -64,7 +69,8 @@ const Post = (props) => {
 				<div className={classes.header__info}>
 					<h4>{user.surName} {user.firstName}</h4>
 					<p>
-						<ReactTimeago date={new Date(newFeed.createAt?.toDate()).toUTCString()} units="minute" />
+						{/* <ReactTimeago date={newFeed ?newFeed.createAt.toUTCString() : null} units="minute" /> */}
+						{moment(newFeed.createdAt).fromNow()}
 					</p>
 				</div>
 				<MoreHorizOutlinedIcon />

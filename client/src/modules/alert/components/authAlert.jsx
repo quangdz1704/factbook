@@ -13,7 +13,7 @@ class AuthAlert extends Component {
         this.state = {};
     }
     reset = () => {
-        store.dispatch({ type: SocketConstants.DISCONNECT_SOCKET_IO })
+        // store.dispatch({ type: SocketConstants.DISCONNECT_SOCKET_IO })
         store.dispatch({ type: 'RESET' });
     }
 

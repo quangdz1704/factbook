@@ -49,13 +49,16 @@ function CreatePost(props) {
 
     const save = () => {
         const formData = new FormData();
-        const { content, images } = StarRateOutlined
+        const { content, images } = state
         if (content) {
+             console.log('imageesss', content);
             formData.append('content', content);
         }
         if (images && images.length) {
 
             images.forEach(x => {
+                
+        console.log('imageesss', x.fileUpload);
                 formData.append("post", x.fileUpload);
             })
         }

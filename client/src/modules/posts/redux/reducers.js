@@ -34,7 +34,7 @@ export function post(state = initState, action) {
             return {
                 ...state,
                 isLoading: false,
-                posts:  action.payload.data
+                posts:  [action.payload, ...state.posts]
             }
         case PostConstants.GET_NEW_FEED_SUCCESS:
             return{

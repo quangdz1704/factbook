@@ -15,7 +15,6 @@ const Posts = (props) => {
   }, []);
 
   const {posts} = props.post
-  console.log('posttttttttt', posts);
   const fakeData = [
     {
       key: "1",
@@ -54,7 +53,7 @@ const Posts = (props) => {
       // fileData: { post.data.fileData }
     },
   ]
-
+  console.log('list pótttttttttttt', posts);
   return (
     <div className={classes.posts}>
       <FlipMove style={{ width: "100%" }}>

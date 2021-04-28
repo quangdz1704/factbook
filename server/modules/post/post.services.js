@@ -83,7 +83,7 @@ exports.getListPost = async (id) => {
 
     let post = await Post.find({})
         .populate({ path: "creator", populate: "users", select: "firstName surName avatar" })
-        .sort({createdAt: 1})
+        .sort({createdAt: -1})
    
     return post;
 };

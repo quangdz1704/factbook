@@ -63,7 +63,7 @@ class App extends Component {
         const userId = getStorage('userId');
         if(userId){
             const {socket} = store.getState();
-            if(!socket.connected) store.dispatch({ type: SocketConstants.CONNECT_SOCKET_IO });                                                                                                     
+            // if(!socket.connected) store.dispatch({ type: SocketConstants.CONNECT_SOCKET_IO });                                                                                                     
         }
     }
 
