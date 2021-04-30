@@ -1,4 +1,5 @@
 import React, {useEffect} from "react";
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Hidden, Avatar, Tooltip, Paper, Badge } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
@@ -50,7 +51,9 @@ function Header(props) {
         {/*----Logo & Search icon--------*/}
         <Hidden xsDown>
           <Grid item className={classes.header__logo} sm={2} md={3}>
+           <Link to="/">
             <img className={classes.logo__image} src={logo} alt="facebook-logo" />
+           </Link>
             <Hidden smDown>
               <div className={classes.logo__search}>
                 <SearchIcon />
@@ -81,26 +84,31 @@ function Header(props) {
           {/* <div className={classes.nav__links} onClick={changeTheme}>
             {mode ? <Brightness4Icon /> : <BrightnessHighIcon />}
           </div> */}
-          <div className={`${classes.nav__links} ${classes.nav__links__specail}`}>
+          <Link to={"/profile"} className={`${classes.nav__links} ${classes.nav__links__specail}`}>
             <Avatar
-               src={avatar} 
-              onClick={logout} />
-          </div>
+              src={avatar} 
+              // onClick={logout} 
+              />
+          </Link>
         </Grid>
         {/*----Userinfo and options--------*/}
         <Hidden xsDown>
           <Grid item className={classes.header__userinfo} sm={2} md={3}>
-            <Tooltip
+            {/* <Tooltip
               placement="left"
               TransitionComponent={Zoom}
               TransitionProps={{ timeout: 300 }}
               title={"logout"}
               arrow
-            >
+            > */}
+            <Link to={"/profile"} >
               <Avatar
                 src={avatar} 
-                onClick={logout} />
-            </Tooltip>
+                // onClick={logout} 
+              />
+            </Link>
+              
+            {/* </Tooltip> */}
             <Hidden smDown>
               <div className={classes.userinfo__options}>
                 <AddIcon />

@@ -50,6 +50,7 @@ export function post(state = initState, action) {
                 calledAPI: CallApiStatus.FINISHED,
             };
         
+            
         default:
             return {
                 ...state

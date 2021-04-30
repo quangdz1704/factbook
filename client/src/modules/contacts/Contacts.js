@@ -12,7 +12,12 @@ const Contacts = () => {
 
   const [users, setUsers] = useState([]);
 
-  useEffect(async () => {
+  const useEffectAsync = (effect, inputs) => {
+    useEffect(() => {
+      effect();
+    }, inputs);
+  }
+  useEffectAsync(async () => {
     const response = await axios.get("https://breakingbadapi.com/api/characters");
     setUsers(response.data);
   }, []);
