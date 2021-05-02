@@ -38,7 +38,7 @@ async function register(data) {
         url: `${process.env.REACT_APP_SERVER}/auth/register`,
         method: 'POST',
         data
-    }, false, false, 'auth')
+    }, true, true, 'auth')
 }
 
 function logout() {

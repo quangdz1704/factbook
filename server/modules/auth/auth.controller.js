@@ -19,6 +19,7 @@ exports.register = async (req, res) => {
             })
         }
     } catch (error) {
+        console.log(error);
         res.status(400).json({
             success: false,
             message: ['register_faile'],
@@ -183,7 +184,7 @@ exports.getProfile = async (req, res) => {
         });
     }
 };
-exports.getUser= async (req, res) => {
+exports.getUser = async (req, res) => {
     try {
         const profile = await AuthService.getUser(req.user._id);
 

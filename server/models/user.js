@@ -9,7 +9,9 @@ const UserSchema = new Schema({
     surName: {
         type: String
     },
-
+    gender: {
+        type: String
+    },
     code: {
         type: String
     },
