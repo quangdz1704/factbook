@@ -10,6 +10,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use("/upload/avatars", express.static("upload/avatars"));
 app.use("/upload/posts", express.static("upload/posts"));
+app.use("/upload/comments", express.static("upload/comments"));
 
 const db = process.env.DATABASE;// DB Config
 console.log('database', db);

@@ -28,7 +28,6 @@ function login(user) {
         dispatch({ type: AuthConstants.LOGIN_REQUEST });
         AuthService.login(user)
             .then(res => {
-                console.log("quang", res.data);
                 setStorage('jwt', res.data?.content?.payload?.token);
                 setStorage('userId', res.data?.content?.payload?.id);
 
@@ -60,7 +59,6 @@ function logout() {
     }
 }
 function register(data) {
-    console.log('iiiiiiiiiiiiii');
     return dispatch => {
         dispatch({ type: AuthConstants.REGISTER_REQUEST });
         AuthService.register(data)
@@ -294,18 +292,18 @@ function checkExistsPassword2() {
     }
 }
 
-function getInforUser(){
+function getInforUser() {
     return dispatch => {
-        dispatch({type: AuthConstants.GET_INFOR_USER_REQUEST});
+        dispatch({ type: AuthConstants.GET_INFOR_USER_REQUEST });
         AuthService.getInforUser()
-            .then(res=>{
+            .then(res => {
                 dispatch({
                     type: AuthConstants.GET_INFOR_USER_SUCCESS,
                     payload: res.data.content
                 });
             })
-            .catch(err=>{
-                dispatch({type:AuthConstants.GET_INFOR_USER_FAILE})
+            .catch(err => {
+                dispatch({ type: AuthConstants.GET_INFOR_USER_FAILE })
             })
     }
 }

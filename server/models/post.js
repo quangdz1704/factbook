@@ -33,9 +33,15 @@ const PostSchema = new Schema({
         },
         createAt: {
             type: Date
-        }
+        },
+        images: [{
+            type: String,
+        }],
+        videos: [{
+            type: String,
+        }],
     }],
-    
+
     reactions: [{
         userId: {
             type: String,
@@ -70,6 +76,6 @@ const PostSchema = new Schema({
             type: String,
         }
     }]
-}, {timestamps: true})
+}, { timestamps: true })
 
 module.exports = mongoose.model('posts', PostSchema);

@@ -30,7 +30,8 @@ const auth = async (req, res, next) => {
 const uploadFile = (arrayFile, type) => {
     const staticPath = [
         '/avatars',
-        '/posts'
+        '/posts',
+        '/comments'
     ]
 
     let getFile = multer({

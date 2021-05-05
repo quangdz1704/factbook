@@ -8,6 +8,7 @@ import {
 export const PostServices = {
     createPost,
     getNewFeed,
+    setComment,
 }
 
 async function createPost(data) {
@@ -23,5 +24,14 @@ async function getNewFeed() {
         url: `${process.env.REACT_APP_SERVER}/post/get-list-post`,
         method: 'GET',
 
-    }, false, false,'post')
+    }, false, false, 'post')
+}
+
+async function setComment(data) {
+    console.log('hello', data);
+    return sendRequest({
+        url: `${process.env.REACT_APP_SERVER}/post/set-comment/${data.id}`,
+        method: 'POST',
+        data
+    }, true, true, 'post')
 }
