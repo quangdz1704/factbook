@@ -48,13 +48,17 @@ exports.register = async (data) => {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
     // create new user
 
+    let splitter = data.birthday.split("-");
+    let dateISO = new Date(splitter[2], splitter[1] - 1, splitter[0])
+
     let newUser = await User.create({
         code: text,
         firstName: data.firstName,
         surName: data.surName,
         password: hashPassword,
-        birthday: data.birthday,
+        birthday: dateISO,
         email: data.email,
+        gender: data.gender,
         active: false,
     })
 
@@ -107,7 +111,7 @@ exports.checkVerifyCode = async (data) => {
 }
 
 exports.login = async (data) => {
-    
+
     // check validate data
     const checkValidate = loginValidation(data);
     if (checkValidate.error) {
@@ -232,7 +236,7 @@ exports.getUser = async (id) => {
         .select("id active firstName surName avatar")
 
     if (user === null) throw ["user_not_found"];
-   // console.log('user dayyyyyy', user);
+    // console.log('user dayyyyyy', user);
     return user;
 };
 

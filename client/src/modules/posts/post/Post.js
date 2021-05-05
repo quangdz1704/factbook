@@ -13,11 +13,13 @@ import ReactTimeago from "react-timeago";
 import Style from "./Style";
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
-import {PostActions} from '../redux/actions';
+import { PostActions } from '../redux/actions';
 import moment from 'moment';
+import Comment from "../comment/comment";
 const Post = (props) => {
 	const classes = Style();
 	const { profile, username, timestamp, description, fileType, fileData } = props
+	const [showComment, setShowComment] = useState(false);
 	const [likesCount, setLikesCount] = useState(1);
 	const [heartIcontOrder, setHeartIcontOrder] = useState(1);
 	const [smileIconOrder, setSmileIconOrder] = useState(1);
@@ -30,9 +32,10 @@ const Post = (props) => {
 		setThumsUpIconOrder(Math.floor(Math.random() * (3 - 1 + 1)) + 1);
 	}, []);
 
-	const {newFeed} = props;
+	const { newFeed } = props;
+	const comment = newFeed?.comment;
 	const user = newFeed ? newFeed.creator : {}
-	
+
 	const Reactions = () => {
 		return (
 			<div className={classes.footer__stats}>
@@ -46,19 +49,23 @@ const Post = (props) => {
 		);
 	};
 	const checkTypeFile = (data) => {
-        if (typeof data === 'string' || data instanceof String) {
-            let index = data.lastIndexOf(".");
-            let typeFile = data.substring(index + 1, data.length);
-            if (typeFile === "png" || typeFile === "jpg" || typeFile === "jpeg") {
-                return true;
-            }
-            else return false;
-        }
-        else return false;
-    }
+		if (typeof data === 'string' || data instanceof String) {
+			let index = data.lastIndexOf(".");
+			let typeFile = data.substring(index + 1, data.length);
+			if (typeFile === "png" || typeFile === "jpg" || typeFile === "jpeg") {
+				return true;
+			}
+			else return false;
+		}
+		else return false;
+	}
 
-	if(newFeed){
-		console.log('timeeeeeeeee',newFeed.createdAt);
+	const collapseComment = () => {
+		setShowComment(showComment => showComment = !showComment);
+	}
+
+	if (newFeed) {
+		console.log('timeeeeeeeee', newFeed.createdAt);
 	}
 	return (
 		<Paper className={classes.post}>
@@ -96,7 +103,7 @@ const Post = (props) => {
 						<ThumbUpAltOutlinedIcon />
 						<h4>Like</h4>
 					</div>
-					<div className={classes.action__icons}>
+					<div onClick={collapseComment} className={classes.action__icons}>
 						<ChatBubbleOutlineOutlinedIcon />
 						<h4>Comment</h4>
 					</div>
@@ -106,15 +113,18 @@ const Post = (props) => {
 					</div>
 				</div>
 			</div>
+			{
+				showComment && <Comment postId={newFeed?._id} listComment={comment} />
+			}
 		</Paper>
 	);
 };
 
-const mapStateToProps = (state)=>{
-    return state
+const mapStateToProps = (state) => {
+	return state
 }
 
-const mapDispatchToProps ={
+const mapDispatchToProps = {
 	getNewFeed: PostActions.getNewFeed,
 }
 

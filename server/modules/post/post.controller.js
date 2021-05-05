@@ -139,7 +139,20 @@ exports.getListPostPerson = async (req, res) => {
 };
 exports.setComment = async (req, res) => {
     try {
-        const post = await postService.setComment(req.params.id, req.user._id, req.body);
+
+        let files = [];
+        if (req.files !== undefined) {
+            req.files.forEach((elem) => {
+
+                let path = elem.destination + '/' + elem.filename;
+                files.push(path)
+
+            })
+        }
+        console.log('req id', req.params);
+        console.log('req body', req.body);
+        console.log('req file', files);
+        const post = await postService.setComment(req.params.id, req.user._id, req.body, files);
 
         res.status(200).json({
             success: true,
@@ -147,6 +160,7 @@ exports.setComment = async (req, res) => {
             content: post
         });
     } catch (error) {
+        console.log('error', error);
         res.status(400).json({
             success: false,
             messages: ['set_comment_faile'],

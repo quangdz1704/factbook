@@ -6,7 +6,7 @@ import db from "../../firebase";
 import moment from "moment";
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
-import {PostActions} from './redux/actions';
+import { PostActions } from './redux/actions';
 const Posts = (props) => {
   const classes = Style();
 
@@ -14,8 +14,9 @@ const Posts = (props) => {
     props.getNewFeed();
   }, []);
 
-  const {posts} = props.post
+  const { posts } = props.post
 
+  console.log('posts-list', posts);
   return (
     <div className={classes.posts}>
       <FlipMove style={{ width: "100%" }}>
@@ -39,11 +40,11 @@ const Style = makeStyles((theme) => ({
   },
 }));
 
-const mapStateToProps = (state=>{
+const mapStateToProps = (state => {
   return state
 });
 
-const mapDispatchToProps={
+const mapDispatchToProps = {
   getNewFeed: PostActions.getNewFeed
 }
 

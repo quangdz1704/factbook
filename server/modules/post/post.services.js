@@ -21,7 +21,12 @@ exports.createPost = async (id, data, files = undefined) => {
         images: listfile
     })
 
-    return post;
+    let createdPost = await Post.findById({ _id: post._id }).populate([
+        { path: "creator", populate: "users", select: "firstName surName avatar" },
+        { path: "comment.creator", populate: 'users', select: "firstName surName avatar" }
+    ])
+
+    return createdPost;
 };
 
 exports.editPost = async (id, data, files = undefined) => {
@@ -82,9 +87,12 @@ exports.getListPost = async (id) => {
     // }
 
     let post = await Post.find({})
-        .populate({ path: "creator", populate: "users", select: "firstName surName avatar" })
-        .sort({createdAt: -1})
-   
+        .populate([
+            { path: "creator", populate: "users", select: "firstName surName avatar" },
+            { path: "comment.creator", populate: 'users', select: "firstName surName avatar" }
+        ])
+        .sort({ createdAt: -1 })
+
     return post;
 };
 
@@ -95,14 +103,22 @@ exports.getListPostPerson = async (id) => {
     return post;
 };
 
-exports.setComment = async (id, userId, data) => {
+exports.setComment = async (id, userId, data, files) => {
+    let listfile = []
+    if (files) {
+        for (let i in files) {
+            let file = files[i].substring(1)
+            listfile.push(file)
+        }
+    }
     let post = await Post.findByIdAndUpdate(id,
         {
             $push: {
                 comment: {
                     creator: userId,
-                    described: data.described,
-                    createAt: new Date()
+                    described: data.content,
+                    createAt: new Date(),
+                    images: listfile,
                 }
             },
         })
@@ -128,7 +144,18 @@ exports.setComment = async (id, userId, data) => {
         })
     }
 
-    post = await Post.findById({ _id: id })
+    // post = await Post.findById({ _id: id }).populate([
+    //     { path: "creator", populate: "users", select: "firstName surName avatar" },
+    //     { path: "comment.creator", populate: 'users', select: "firstName surName avatar" }
+    // ])
+
+    post = await Post.find({})
+        .populate([
+            { path: "creator", populate: "users", select: "firstName surName avatar" },
+            { path: "comment.creator", populate: 'users', select: "firstName surName avatar" }
+        ])
+        .sort({ createdAt: -1 })
+
     return post
 }
 
