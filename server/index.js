@@ -52,7 +52,7 @@ io.on('connection', (socket) => {
     socket.on('sendMessage', ({name, message}, callback) => {
       //const user = getUser(socket.id);
       console.log('sendddddd', name, message);
-      socket.emit('message', { name, text: message });
+      socket.broadcast.emit('message', { name, text: message });
 
       callback();
   });

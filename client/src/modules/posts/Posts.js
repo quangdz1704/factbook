@@ -9,18 +9,25 @@ import { withTranslate } from 'react-redux-multilingual';
 import { PostActions } from './redux/actions';
 const Posts = (props) => {
   const classes = Style();
-
+  const { type } = props;
   useEffect(() => {
+
     props.getNewFeed();
   }, []);
 
-  const { posts } = props.post
+  const { posts } = props.post;
+  const { user } = props.auth;
+  let listPost = [];
+  if (type === "profile") {
+    listPost = posts.filter(post => post.creator._id === user._id)
+  }
+  else listPost = posts;
 
-  console.log('posts-list', posts);
+  console.log('posts-list', listPost, posts);
   return (
     <div className={classes.posts}>
       <FlipMove style={{ width: "100%" }}>
-        {posts ? posts.map((post) => (
+        {listPost ? listPost.map((post) => (
           <Post
             newFeed={post}
           />

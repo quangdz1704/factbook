@@ -28,7 +28,7 @@ const Comment = (props) => {
         return true;
       }
       else return false;
-    }
+  }
     else return false;
   }
 
@@ -66,19 +66,20 @@ const Comment = (props) => {
     const { content, images, userId } = state
     const { postId } = props
     if (content) {
-      console.log('conteent');
+      console.log('conteent', content);
       formData.append('content', content);
     }
     if (images && images.length) {
-      console.log('img');
+     
       images.forEach(x => {
+        console.log('img', x.fileUpload);
         formData.append("comment", x.fileUpload);
       })
     }
     formData.append('creator', userId);
     let data = { formData, id: postId };
     console.log("send cmt", data, state);
-    props.setComment(data);
+    props.setComment(formData, postId);
 
     setState({
       content: "",
@@ -103,7 +104,7 @@ const Comment = (props) => {
               </div>
               <div className="we-comment">
                 <h5><a href="#" style={{ fontSize: "15px", fontWeight: "bold" }}>{cmt.creator?.surName} {cmt.creator?.firstName}</a></h5>
-                <p>{cmt.content}</p>
+                <p>{cmt.described}</p>
                 {cmt.images.length && (
                   <div className={classes.body__image}>
                     {/* <img style={{ maxWidth: "50%", borderRadius: "5px" }} src="avt.png" alt="post" /> */}

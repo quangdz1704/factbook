@@ -1,6 +1,10 @@
 import React from 'react'
 import './general.css'
+import { connect, useSelector } from 'react-redux';
+import { withTranslate } from 'react-redux-multilingual';
 function Friend() {
+    const { user } = useSelector(state => state.auth)
+    const { listfriends } = user;
     return (
         <div className="box" style={{ height: "fit-content" }}>
             <div className="box-header with-border">
@@ -9,39 +13,17 @@ function Friend() {
             </div>
             <div className="box-body" >
                 <div >
-                    <div className="col-xs-4">
-                        <img src="avt.png" alt="" className="avatar-friend" />
-                        <span className="bold">user name</span>
-                    </div>
-                    <div className="col-xs-4">
+                    {listfriends && listfriends.length ? 
+                        listfriends.map((friend, index)=>
+                        <div className="col-xs-4">
+                            <img src={`${process.env.REACT_APP_SERVER}${friend.avatar}`} alt="" className="avatar-friend" />
+                            <span className="bold">{ friend.surName} {friend.firstName}</span>
+                        </div>
+                        ) : <div>Không có bạn bè, cô đơn quá</div>
 
-                        <img src="avt.png" alt="" className="avatar-friend" />
-                        <span className="bold">user name</span>
-                    </div>
-                    <div className="col-xs-4">
-                        <img src="avt.png" alt="" className="avatar-friend" />
-                        <span className="bold">user name</span>
-                    </div>
-                    <div className="w-100"></div>
-                    <div className="col-xs-4">
-                        <img src="avt.png" alt="" className="avatar-friend" />
-                    </div>
-                    <div className="col-xs-4">
-                        <img src="avt.png" alt="" className="avatar-friend" />
-                    </div>
-                    <div className="col-xs-4">
-                        <img src="avt.png" alt="" className="avatar-friend" />
-                    </div>
-                    <div className="w-100" style={{ height: "10px" }}></div>
-                    <div className="col-xs-4">
-                        <img src="avt.png" alt="" className="avatar-friend" />
-                    </div>
-                    <div className="col-xs-4">
-                        <img src="avt.png" alt="" className="avatar-friend" />
-                    </div>
-                    <div className="col-xs-4">
-                        <img src="avt.png" alt="" className="avatar-friend" />
-                    </div>
+                    }
+                    
+                    
                 </div>
             </div>
         </div>
@@ -50,4 +32,8 @@ function Friend() {
     )
 }
 
-export default Friend
+const mapStateToProps = (state) => {
+    return state
+}
+
+export default connect(mapStateToProps, null)(withTranslate(Friend))

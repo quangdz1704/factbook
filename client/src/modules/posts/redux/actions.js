@@ -44,10 +44,10 @@ function getNewFeed() {
     }
 }
 
-function setComment(data) {
+function setComment(data, postId) {
     return dispatch => {
         dispatch({ type: PostConstants.SET_COMMENT_REQUEST });
-        PostServices.setComment(data)
+        PostServices.setComment(data, postId)
             .then(res => {
                 dispatch({
                     type: PostConstants.SET_COMMENT_SUCCESS,

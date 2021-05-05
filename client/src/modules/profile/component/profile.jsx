@@ -6,6 +6,8 @@ import Background from './background';
 import General from './general';
 
 const Profile = () => {
+
+
     return (
         <>
         <div style={{ backgroundColor: "#F0F2F5" }}>
@@ -18,7 +20,7 @@ const Profile = () => {
                     </div>
                     <div className="col-md-7 right-post">
                         <Form />
-                        <Posts />
+                        <Posts type="profile"/>
                     </div>
                 </div>
             </div>

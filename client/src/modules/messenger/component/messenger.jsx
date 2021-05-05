@@ -56,7 +56,7 @@ const Messenger = (props) =>{
     <div>
       <Header />
       <div className="outerContainer">
-      <div div className="container">
+      <div div className="container containerChat">
           <InfoBar room={room} />
           <Messages messages={messages} name={name} />
           <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />

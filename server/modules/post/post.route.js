@@ -11,7 +11,7 @@ router.get("/get-post/:id", postController.getPost)
 router.get("/get-list-post", auth, postController.getListPost)
 router.get("/get-list-post-person/:id", postController.getListPostPerson)
 
-router.post("/set-comment/:id", auth, uploadFile([{ name: 'comments', path: '/comments' }], 'array'), postController.setComment)
+router.post("/set-comment/:id", auth, uploadFile([{ name: 'comment', path: '/comments' }], 'array'), postController.setComment)
 router.get("/get-comment/:id", postController.getComment)
 
 router.post("/like-post/:id", auth, postController.likePost)
