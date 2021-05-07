@@ -27,11 +27,11 @@ async function getNewFeed() {
     }, false, false, 'post')
 }
 
-async function setComment(data) {
-    console.log('hello', data);
+async function setComment(formData, postId) {
+    console.log('hello', formData);
     return sendRequest({
-        url: `${process.env.REACT_APP_SERVER}/post/set-comment/${data.id}`,
+        url: `${process.env.REACT_APP_SERVER}/post/set-comment/${postId}`,
         method: 'POST',
-        data
+        data: formData
     }, true, true, 'post')
 }

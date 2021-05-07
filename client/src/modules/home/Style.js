@@ -80,4 +80,24 @@ export default makeStyles((theme) => ({
     width: "100%",
     height: "100%",
   },
+
+  general__info: {
+    width: "100%",
+    height: "100%",
+    overflowY: "scroll",
+    "&::-webkit-scrollbar": {
+      width: 0,
+      background: "transparent",
+    },
+  },
+
+  content: {
+    width: "100%",
+    height: "92vh",
+    overflowY: "scroll",
+    "&::-webkit-scrollbar": {
+      width: 0,
+      background: "transparent",
+    },
+  },
 }));

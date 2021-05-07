@@ -9,37 +9,37 @@ function Friend() {
             </div>
             <div className="box-body" >
                 <div >
-                    <div className="col-xs-4">
+                    <div className="col-xs-4" style={{ display: "flex", flexDirection: "column" }}>
                         <img src="avt.png" alt="" className="avatar-friend" />
                         <span className="bold">user name</span>
                     </div>
-                    <div className="col-xs-4">
+                    <div className="col-xs-4" style={{ display: "flex", flexDirection: "column" }}>
 
                         <img src="avt.png" alt="" className="avatar-friend" />
                         <span className="bold">user name</span>
                     </div>
-                    <div className="col-xs-4">
+                    <div className="col-xs-4" style={{ display: "flex", flexDirection: "column" }}>
                         <img src="avt.png" alt="" className="avatar-friend" />
                         <span className="bold">user name</span>
                     </div>
                     <div className="w-100"></div>
-                    <div className="col-xs-4">
+                    <div className="col-xs-4" style={{ display: "flex", flexDirection: "column" }}>
                         <img src="avt.png" alt="" className="avatar-friend" />
                     </div>
-                    <div className="col-xs-4">
+                    <div className="col-xs-4" style={{ display: "flex", flexDirection: "column" }}>
                         <img src="avt.png" alt="" className="avatar-friend" />
                     </div>
-                    <div className="col-xs-4">
+                    <div className="col-xs-4" style={{ display: "flex", flexDirection: "column" }}>
                         <img src="avt.png" alt="" className="avatar-friend" />
                     </div>
                     <div className="w-100" style={{ height: "10px" }}></div>
-                    <div className="col-xs-4">
+                    <div className="col-xs-4" style={{ display: "flex", flexDirection: "column" }}>
                         <img src="avt.png" alt="" className="avatar-friend" />
                     </div>
-                    <div className="col-xs-4">
+                    <div className="col-xs-4" style={{ display: "flex", flexDirection: "column" }}>
                         <img src="avt.png" alt="" className="avatar-friend" />
                     </div>
-                    <div className="col-xs-4">
+                    <div className="col-xs-4" style={{ display: "flex", flexDirection: "column" }}>
                         <img src="avt.png" alt="" className="avatar-friend" />
                     </div>
                 </div>
