@@ -66,13 +66,13 @@ const Comment = (props) => {
     const { content, images, userId } = state
     const { postId } = props
     if (content) {
-      console.log('conteent');
+      console.log('conteent', content);
       formData.append('content', content);
     }
     if (images && images.length) {
-      console.log('img');
+
       images.forEach(x => {
-        console.log('xxxxx', x.fileUpload);
+        console.log('img', x.fileUpload);
         formData.append("comment", x.fileUpload);
       })
     }

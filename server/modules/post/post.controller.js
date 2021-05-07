@@ -13,7 +13,6 @@ exports.createPost = async (req, res) => {
         //         content: checkValidate.error
         //     }
         // }
-        console.log('eeeeee', req.files)
         let files = [];
         if (req.files !== undefined) {
             req.files.forEach((elem) => {
@@ -23,7 +22,7 @@ exports.createPost = async (req, res) => {
 
             })
         }
-
+        console.log('body', req.body);
         const post = await postService.createPost(req.user._id, req.body, files);
 
         res.status(200).json({
@@ -141,7 +140,9 @@ exports.setComment = async (req, res) => {
     try {
 
         let files = [];
+         console.log("fieleeeeee", req.files);
         if (req.files !== undefined) {
+           
             req.files.forEach((elem) => {
 
                 let path = elem.destination + '/' + elem.filename;

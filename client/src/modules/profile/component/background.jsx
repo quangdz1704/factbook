@@ -1,8 +1,12 @@
 import React from 'react';
 import "./background.css"
-
+import { connect, useSelector } from 'react-redux';
+import { withTranslate } from 'react-redux-multilingual';
 // boxShadow: "0px -60px 100px 50px #888888" 
 const Background = () => {
+
+    const {user} = useSelector(state => state.auth)
+    console.log('backkkkkkkkkkkk', user);
     return (
         <div className="wrap-content-bg" style={{ backgroundColor: "#FFF", height: "60vh" }}>
             <div className="container">
@@ -12,7 +16,7 @@ const Background = () => {
                     />
                 </div>
                 <div className="img-profile" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <img onClick={() => { console.log('profile-image'); }} src="avt.png" style={{
+                    <img onClick={() => { console.log('profile-image'); }} src={`${process.env.REACT_APP_SERVER}${user.avatar}`} style={{
                         width: "20vh",
                         height: "20vh",
                         borderRadius: "50%",
@@ -22,7 +26,7 @@ const Background = () => {
                     }} alt="" />
                 </div>
                 <div className="profile-name" style={{ display: "flex", justifyContent: "center" }}>
-                    <p style={{ fontSize: "30px", fontWeight: "bolder" }}>Quang Nguyễn Thế</p>
+                    <p style={{ fontSize: "30px", fontWeight: "bolder" }}>{user.surName} {user.firstName}</p>
                 </div>
                 <hr style={{ borderTopColor: "#ccc" }}></hr>
                 <div className="profile-option-bar">
@@ -57,4 +61,8 @@ const Background = () => {
     );
 };
 
-export default Background;
+const mapStateToProps = state => {
+    return state;
+}
+
+export default connect(mapStateToProps, null)(withTranslate(Background));

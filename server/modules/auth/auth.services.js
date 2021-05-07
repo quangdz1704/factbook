@@ -233,8 +233,10 @@ exports.getProfile = async (id) => {
 };
 exports.getUser = async (id) => {
     let user = await User.findById(id)
-        .select("id active firstName surName avatar")
-
+        .select("id active firstName surName avatar birthday listfriends")
+        .populate([
+            { path: "listfriends", select: "id active firstName surName avatar birthday" },
+        ]);
     if (user === null) throw ["user_not_found"];
     // console.log('user dayyyyyy', user);
     return user;

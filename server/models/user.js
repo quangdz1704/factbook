@@ -47,6 +47,6 @@ const UserSchema = new Schema({
     active: {
         type: Boolean,
     }
-})
+}, {timestamps: true})
 
 module.exports = mongoose.model('users', UserSchema);

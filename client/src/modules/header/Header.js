@@ -12,7 +12,7 @@ import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
 import ArrowDropDownRoundedIcon from "@material-ui/icons/ArrowDropDownRounded";
 import AddIcon from "@material-ui/icons/Add";
-import TelegramIcon from "@material-ui/icons/Telegram";
+import Chat from "@material-ui/icons/Chat";
 import Zoom from "@material-ui/core/Zoom";
 import logo from "../../assets/images/logo.png";
 // import { ToggleTheme } from "../store/actions/util";
@@ -112,7 +112,10 @@ function Header(props) {
             <Hidden smDown>
               <div className={classes.userinfo__options}>
                 <AddIcon />
-                <TelegramIcon />
+                <Link to={"/messenger"}>
+                  <Chat />
+                </Link>
+                
                 <Badge badgeContent={10} max={9} {...defaultProps} />
 
                 <ArrowDropDownRoundedIcon />
