@@ -171,8 +171,8 @@ exports.likePost = async (userId, id) => {
     let post = await Post.findByIdAndUpdate(id,
         {
             $push: {
-                like: {
-                    creator: userId,
+                reactions: {
+                    userId: userId,
                     createAt: new Date()
                 }
             },
@@ -199,7 +199,14 @@ exports.likePost = async (userId, id) => {
         })
     }
 
-    post = await Post.findById({ _id: id })
+    // post = await Post.findById({ _id: id })
+    post = await Post.find({})
+        .populate([
+            { path: "creator", populate: "users", select: "firstName surName avatar" },
+            { path: "comment.creator", populate: 'users', select: "firstName surName avatar" }
+        ])
+        .sort({ createdAt: -1 })
+
     return post
 }
 
@@ -208,13 +215,19 @@ exports.unlikePost = async (userId, id) => {
         {
             $pull:
             {
-                like: {
-                    creator: userId
+                reactions: {
+                    userId: userId
                 }
             },
         })
 
-    post = await Post.findById({ _id: id })
+    post = await Post.find({})
+        .populate([
+            { path: "creator", populate: "users", select: "firstName surName avatar" },
+            { path: "comment.creator", populate: 'users', select: "firstName surName avatar" }
+        ])
+        .sort({ createdAt: -1 })
+
     return post
 }
 

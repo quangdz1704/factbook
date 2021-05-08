@@ -15,7 +15,7 @@ router.post("/set-comment/:id", auth, uploadFile([{ name: 'comment', path: '/com
 router.get("/get-comment/:id", postController.getComment)
 
 router.post("/like-post/:id", auth, postController.likePost)
-router.post("/unlike-post/:id", auth, postController.unlikePost)
+router.post("/dislike-post/:id", auth, postController.unlikePost)
 
 router.post("/report-post/:id", auth, postController.reportPost)
 
