@@ -47,13 +47,17 @@ const Post = (props) => {
 
   const Reactions = () => {
     return (
-      <div className={classes.footer__stats}>
-        <div>
-          {/* <FavoriteIcon style={{ color: "red", order: `${heartIcontOrder} ` }} />
+      <div>
+        {newFeed.reactions.length ?
+          <div className={classes.footer__stats}>
+            <div>
+              {/* <FavoriteIcon style={{ color: "red", order: `${heartIcontOrder} ` }} />
           <EmojiEmotionsIcon style={{ color: "orange", order: `${smileIconOrder} ` }} /> */}
-          <ThumbUpAltIcon style={{ color: " #2e81f4", order: `${thumsUpIconOrder} ` }} />
-        </div>
-        <h4>{newFeed.reactions.length}</h4>
+              <ThumbUpAltIcon style={{ color: " #2e81f4", order: `${thumsUpIconOrder} ` }} />
+            </div>
+            <h4>{newFeed.reactions.length}</h4>
+          </div> : <div></div>
+        }
       </div>
     );
   };
@@ -107,20 +111,20 @@ const Post = (props) => {
         <div className={classes.body__description}>
           <p>{newFeed.content}</p>
         </div>
-        {newFeed.images.length && (
+        {newFeed.images.length ?
           <div className={classes.body__image}>
             {checkTypeFile(newFeed.images[0]) ? (
               <img src={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} alt="post" />
             ) : (
-                <ReactPlayer url={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} controls={true} />
-              )}
-          </div>
-        )}
+              <ReactPlayer url={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} controls={true} />
+            )}
+          </div> : <div></div>
+        }
       </div>
       <div className={classes.post__footer}>
         <Reactions />
-        <div onClick={onClickLikePost} className={classes.footer__actions} >
-          <div className={classes.action__icons} style={{ color: likedPost && "#2e81f4" }}>
+        <div className={classes.footer__actions} >
+          <div onClick={onClickLikePost} className={classes.action__icons} style={{ color: likedPost && "#2e81f4" }}>
             <ThumbUpAltOutlinedIcon />
             <h4>Like</h4>
           </div>

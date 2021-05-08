@@ -11,9 +11,9 @@ const fs = require("fs");
  *  API Register
  * @param {} data
  * @body data : phoneNumber, name, password, birth
- * 
+ *
  * Did validate, check username, email, create new user
- * 
+ *
  */
 
 exports.register = async (data) => {
@@ -245,7 +245,7 @@ exports.getUser = async (id) => {
 
 exports.getNotifications = async (id) => {
     let notification = await Notification.findOne({ creator: id })
-        .populate({ path: "data.from", populate: "users", select: "name avatar" })
+        .populate({ path: "data.from", populate: "users", select: "firstName surName avatar" })
         .populate({ path: "data.post", populate: "posts", select: "" })
 
     return notification;

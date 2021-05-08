@@ -16,10 +16,11 @@ import Chat from "@material-ui/icons/Chat";
 import Zoom from "@material-ui/core/Zoom";
 import logo from "../../assets/images/logo.png";
 import Style from "./Style";
-import Notifications from "./notification";
+import Notifications from "../notifications/components/notification";
 import { AuthActions } from "../auth/redux/actions"
 import { connect } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
+import { NotificationActions } from "../notifications/redux/actions";
 
 
 function Header(props) {
@@ -28,7 +29,8 @@ function Header(props) {
   const mode = useSelector((state) => state.util);
 
   useEffect(() => {
-    props.getInforUser()
+    props.getInforUser();
+    props.getNotifications();
   }, [])
 
   const { user } = props.auth
@@ -125,7 +127,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  getInforUser: AuthActions.getInforUser
+  getInforUser: AuthActions.getInforUser,
+  getNotifications: NotificationActions.getNotifications
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTranslate(Header));

@@ -5,13 +5,17 @@ import { withTranslate } from 'react-redux-multilingual';
 
 function Album() {
 
-    const {posts} = useSelector(state => state.post)
-     const { user } = useSelector(state => state.auth)
+    const { posts } = useSelector(state => state.post)
+    const { user } = useSelector(state => state.auth)
     const listPost = posts.filter(post => post.creator._id === user._id);
     let listImages = []
     listPost.forEach(post => {
         const images = post.images;
-        listImages = [...listImages, images];
+        if (listImages.length <= 9) {
+            if (post.images?.length != 0) {
+                listImages = [...listImages, images];
+            }
+        }
     })
     return (
         <div className="box" style={{ height: "fit-content" }}>
@@ -20,14 +24,14 @@ function Album() {
                 <a className="pull-right" style={{ color: "#1877F2", fontSize: "normal", cursor: "pointer" }}>Xem tất cả</a>
             </div>
             <div className="box-body" >
-                <div style={{  display: "flex" ,flexWrap: "wrap"}}>
+                <div style={{ display: "flex", flexWrap: "wrap" }}>
                     {
                         listImages.length ?
-                            listImages.map((image) => 
-                            <div className="col-xs-4">
-                                <img src={`${process.env.REACT_APP_SERVER}${image}`} alt="" className="album" />
-                            </div>
-                        ) : <div>Không có ảnh</div>
+                            listImages.map((image) =>
+                                <div className="col-xs-4">
+                                    <img src={`${process.env.REACT_APP_SERVER}${image}`} alt="" className="album" />
+                                </div>
+                            ) : <div>Chưa có ảnh</div>
                     }
 
                 </div>
@@ -43,4 +47,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, null)(withTranslate(Album))
+export default connect(null, null)(withTranslate(Album))
