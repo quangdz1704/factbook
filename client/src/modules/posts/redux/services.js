@@ -9,6 +9,8 @@ export const PostServices = {
     createPost,
     getNewFeed,
     setComment,
+    likePost,
+    dislikePost,
 }
 
 async function createPost(data) {
@@ -27,11 +29,25 @@ async function getNewFeed() {
     }, false, false, 'post')
 }
 
-async function setComment(data, postId) {
-    console.log('hello', data);
+async function setComment(formData, postId) {
+    console.log('hello', formData);
     return sendRequest({
         url: `${process.env.REACT_APP_SERVER}/post/set-comment/${postId}`,
         method: 'POST',
-        data
+        data: formData
+    }, true, true, 'post')
+}
+
+async function likePost(postId) {
+    return sendRequest({
+        url: `${process.env.REACT_APP_SERVER}/post/like-post/${postId}`,
+        method: 'POST',
+    }, true, true, 'post')
+}
+
+async function dislikePost(postId) {
+    return sendRequest({
+        url: `${process.env.REACT_APP_SERVER}/post/dislike-post/${postId}`,
+        method: 'POST',
     }, true, true, 'post')
 }

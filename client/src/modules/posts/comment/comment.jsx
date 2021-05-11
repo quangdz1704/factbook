@@ -23,12 +23,12 @@ const Comment = (props) => {
   const checkTypeFile = (data) => {
     if (typeof data === 'string' || data instanceof String) {
       let index = data.lastIndexOf(".");
-      let typeFile = data.substring(index + 1, data.length);
+      let typeFile = data.substring(index + 1, data.length).toLowerCase();
       if (typeFile === "png" || typeFile === "jpg" || typeFile === "jpeg") {
         return true;
       }
       else return false;
-  }
+    }
     else return false;
   }
 
@@ -70,14 +70,14 @@ const Comment = (props) => {
       formData.append('content', content);
     }
     if (images && images.length) {
-     
+
       images.forEach(x => {
         console.log('img', x.fileUpload);
         formData.append("comment", x.fileUpload);
       })
     }
     formData.append('creator', userId);
-    let data = { formData, id: postId };
+    let data = { formData: formData, id: postId };
     console.log("send cmt", data, state);
     props.setComment(formData, postId);
 
@@ -91,7 +91,9 @@ const Comment = (props) => {
 
   const { content, images, videos } = state;
   const { postId, listComment } = props;
-  console.log('list com', props);
+  const { auth } = props;
+
+  const { user } = auth;
 
   return (
     <div className="coment-area" style={{ display: 'block', paddingLeft: "10px", paddingRight: "5px", marginTop: 0, borderTopColor: "#ccc", borderTopWidth: "1px", borderTopStyle: "solid" }}>
@@ -100,19 +102,20 @@ const Comment = (props) => {
           return (
             <li key={key}>
               <div className="comet-avatar" style={{ marginTop: "10px" }}>
-                <Avatar src="avt.png" />
+                <Avatar src={`${process.env.REACT_APP_SERVER}${user?.avatar}`} />
               </div>
               <div className="we-comment">
                 <h5><a href="#" style={{ fontSize: "15px", fontWeight: "bold" }}>{cmt.creator?.surName} {cmt.creator?.firstName}</a></h5>
+                <br />
                 <p>{cmt.described}</p>
                 {cmt.images.length && (
                   <div className={classes.body__image}>
                     {/* <img style={{ maxWidth: "50%", borderRadius: "5px" }} src="avt.png" alt="post" /> */}
 
                     {checkTypeFile(cmt.images[0]) ? (
-                      <img src={`${process.env.REACT_APP_SERVER}${cmt.images[0]}`} alt="image" />
+                      <img style={{ maxWidth: "50%", borderRadius: "5px" }} src={`${process.env.REACT_APP_SERVER}${cmt.images[0]}`} alt="image" />
                     ) : (
-                      <ReactPlayer url={`${process.env.REACT_APP_SERVER}${cmt.images[0]}`} controls={true} />
+                      <ReactPlayer style={{ maxWidth: "50%" }} url={`${process.env.REACT_APP_SERVER}${cmt.images[0]}`} controls={true} />
                     )}
                   </div>
                 )}

@@ -118,17 +118,17 @@ export default makeStyles((theme) => ({
     marginLeft: 10,
     color: theme.palette.type === "dark" ? "lightgrey" : "grey",
     "& > *": {
-      borderRadius: 999,
+      // borderRadius: 999,
       cursor: "pointer",
       fontSize: 30,
       [theme.breakpoints.down("md")]: {
         fontSize: 24,
       },
-      backgroundColor: theme.palette.type === "dark" ? darkSecondary : "lightgrey",
+      // backgroundColor: theme.palette.type === "dark" ? darkSecondary : "#ccc",
       transition: "all 0.3s ease",
       "&:hover": {
-        backgroundColor: "grey",
-        color: "white",
+        // backgroundColor: "#bbb",
+        color: "#1878F3",
       },
     },
   },

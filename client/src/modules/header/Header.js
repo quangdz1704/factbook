@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Hidden, Avatar, Tooltip, Paper, Badge } from "@material-ui/core";
@@ -15,35 +15,25 @@ import AddIcon from "@material-ui/icons/Add";
 import Chat from "@material-ui/icons/Chat";
 import Zoom from "@material-ui/core/Zoom";
 import logo from "../../assets/images/logo.png";
-// import { ToggleTheme } from "../store/actions/util";
-// import { auth } from "../../firebase";
 import Style from "./Style";
+import Notifications from "../notifications/components/notification";
 import { AuthActions } from "../auth/redux/actions"
 import { connect } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
+import { NotificationActions } from "../notifications/redux/actions";
 
 
 function Header(props) {
   const classes = Style();
   const dispatch = useDispatch();
   const mode = useSelector((state) => state.util);
-  // const { photoURL } = useSelector((state) => state.user);
 
-  useEffect(()=>{
-      props.getInforUser()
+  useEffect(() => {
+    props.getInforUser();
+    props.getNotifications();
   }, [])
-  const changeTheme = () => {
-    // dispatch(ToggleTheme());
-  };
 
-  const logout = () => {
-    // auth.signOut();
-  };
-  
-  const {user} = props.auth
-   
-  // const {user} = props.auth;
-  // let avt = process.env.REACT_APP_SERVER + user.avatar;
+  const { user } = props.auth
   const avatar = `${process.env.REACT_APP_SERVER}${user.avatar}`;
   return (
     <Paper elevation={0} style={{ borderRadius: 0, width: "100%", height: "100%" }}>
@@ -51,9 +41,9 @@ function Header(props) {
         {/*----Logo & Search icon--------*/}
         <Hidden xsDown>
           <Grid item className={classes.header__logo} sm={2} md={3}>
-           <Link to="/">
-            <img className={classes.logo__image} src={logo} alt="facebook-logo" />
-           </Link>
+            <Link to="/">
+              <img className={classes.logo__image} src={logo} alt="facebook-logo" />
+            </Link>
             <Hidden smDown>
               <div className={classes.logo__search}>
                 <SearchIcon />
@@ -86,9 +76,8 @@ function Header(props) {
           </div> */}
           <Link to={"/profile"} className={`${classes.nav__links} ${classes.nav__links__specail}`}>
             <Avatar
-              src={avatar} 
-              // onClick={logout} 
-              />
+              src={avatar}
+            />
           </Link>
         </Grid>
         {/*----Userinfo and options--------*/}
@@ -103,23 +92,23 @@ function Header(props) {
             > */}
             <Link to={"/profile"} >
               <Avatar
-                src={avatar} 
-                // onClick={logout} 
+                src={avatar}
               />
             </Link>
-              
+
             {/* </Tooltip> */}
+
             <Hidden smDown>
               <div className={classes.userinfo__options}>
                 <AddIcon />
                 <Link to={"/messenger"}>
                   <Chat />
                 </Link>
-                
-                <Badge badgeContent={10} max={9} {...defaultProps} />
-
+                {/* <Badge badgeContent={10} max={9} {...defaultProps} /> */}
+                <Notifications />
                 <ArrowDropDownRoundedIcon />
               </div>
+
             </Hidden>
           </Grid>
         </Hidden>
@@ -133,12 +122,13 @@ const defaultProps = {
   children: <NotificationsNoneOutlinedIcon />,
 };
 
-const mapStateToProps = state =>{
+const mapStateToProps = state => {
   return state;
 }
 
-const mapDispatchToProps ={
-  getInforUser: AuthActions.getInforUser
+const mapDispatchToProps = {
+  getInforUser: AuthActions.getInforUser,
+  getNotifications: NotificationActions.getNotifications
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTranslate(Header));

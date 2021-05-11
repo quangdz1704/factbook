@@ -6,6 +6,8 @@ export const PostActions = {
     createPost,
     getNewFeed,
     setComment,
+    likePost,
+    dislikePost,
 }
 
 function createPost(data) {
@@ -57,6 +59,42 @@ function setComment(data, postId) {
             .catch((err) => {
                 dispatch({
                     type: PostConstants.SET_COMMENT_FAILE
+                })
+            })
+    }
+}
+
+function likePost(postId) {
+    return dispatch => {
+        dispatch({ type: PostConstants.LIKE_POST_REQUEST });
+        PostServices.likePost(postId)
+            .then(res => {
+                dispatch({
+                    type: PostConstants.LIKE_POST_SUCCESS,
+                    payload: res.data.content
+                })
+            })
+            .catch((err) => {
+                dispatch({
+                    type: PostConstants.LIKE_POST_FAILE
+                })
+            })
+    }
+}
+
+function dislikePost(postId) {
+    return dispatch => {
+        dispatch({ type: PostConstants.DISLIKE_POST_REQUEST });
+        PostServices.dislikePost(postId)
+            .then(res => {
+                dispatch({
+                    type: PostConstants.DISLIKE_POST_SUCCESS,
+                    payload: res.data.content
+                })
+            })
+            .catch((err) => {
+                dispatch({
+                    type: PostConstants.DISLIKE_POST_FAILE
                 })
             })
     }
