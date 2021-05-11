@@ -39,7 +39,7 @@ const Profile = () => {
                                             </Grid>
                                             <Grid item container className={classes.feed__posts}>
                                                 {/* ----Posts---- */}
-                                                <Posts />
+                                                <Posts type={"profile"} />
                                             </Grid>
                                         </Grid>
                                     </Grid>
