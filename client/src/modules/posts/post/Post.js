@@ -119,8 +119,8 @@ const Post = (props) => {
       </div>
       <div className={classes.post__footer}>
         <Reactions />
-        <div onClick={onClickLikePost} className={classes.footer__actions} >
-          <div className={classes.action__icons} style={{ color: likedPost && "#2e81f4" }}>
+        <div className={classes.footer__actions} >
+          <div onClick={onClickLikePost} className={classes.action__icons} style={{ color: likedPost && "#2e81f4" }}>
             <ThumbUpAltOutlinedIcon />
             <h4>Like</h4>
           </div>

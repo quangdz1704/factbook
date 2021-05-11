@@ -51,14 +51,14 @@ function CreatePost(props) {
         const formData = new FormData();
         const { content, images } = state
         if (content) {
-             console.log('imageesss', content);
+            console.log('imageesss', content);
             formData.append('content', content);
         }
         if (images && images.length) {
 
             images.forEach(x => {
-                
-        console.log('imageesss', x.fileUpload);
+
+                console.log('imageesss', x.fileUpload);
                 formData.append("post", x.fileUpload);
             })
         }
@@ -70,12 +70,14 @@ function CreatePost(props) {
             formID="form-create-post"
             title="Create Post"
             func={save} size="50"
+            hasNote={false}
+            hasCloseButton={false}
         //disableSubmit={!isValidateForm()}
         >
             <div className={classes.post}>
                 <div className={classes.post__header}>
                     <Avatar
-                         src={`${process.env.REACT_APP_SERVER}${user.avatar}`}
+                        src={`${process.env.REACT_APP_SERVER}${user.avatar}`}
                     />
                     <div className={classes.header__info}>
                         <h4>{user.surName} {user.firstName}</h4>
@@ -85,31 +87,38 @@ function CreatePost(props) {
                     </div>
                     {/* <MoreHorizOutlinedIcon /> */}
                 </div>
-                <div >
-                    <input type="text"
-                        placeholder={`What's on your mind, ${user.firstName} ?`}
-                        onChange={e => onChangeText(e)}
-                    />
+                {/* <div > */}
+                <textarea type="text"
+                    className={classes.input_text}
+                    placeholder={`What's on your mind, ${user.firstName} ?`}
+                    onChange={e => onChangeText(e)}
+                />
+                {/* </div> */}
+                {/* <div className={classes.upload__media}> */}
+                {/* <label className={classes.media__options}> */}
+
+                {/* <h4>Video</h4> */}
+                <div className="form-inline" style={{ width: "100%" }}>
+                    <strong style={{ display: "inline", marginRight: 10 }}>Thêm vào bài viết</strong>
+                    <VideocamRoundedIcon style={{ color: "red", marginRight: 10 }} />
+                    <PhotoRoundedIcon style={{ color: "green", marginRight: 10 }} />
+                    <EmojiEmotionsOutlinedIcon style={{ color: "orange", marginRight: 10 }} />
+
+                    <UploadFile
+                        accept="image/*,audio/*,video/*"
+                        multiple={true}
+                        show={false}
+                        onChange={handleUploadFile} />
                 </div>
-                <div className={classes.upload__media}>
-                    <label className={classes.media__options}>
-                        <VideocamRoundedIcon style={{ color: "red" }} />
-                        <h4>Video</h4>
-                        <UploadFile
-                            accept="image/*,audio/*,video/*"
-                            multiple={true}
-                            show={false}
-                            onChange={handleUploadFile} />
-                    </label>
-                    <label htmlFor="upload-image" className={classes.media__options}>
-                        <PhotoRoundedIcon style={{ color: "green" }} />
+
+                {/* </label> */}
+                {/* <label htmlFor="upload-image" className={classes.media__options}>
                         <h4>Photo</h4>
                     </label>
                     <div className={classes.media__options}>
-                        <EmojiEmotionsOutlinedIcon style={{ color: "orange" }} />
                         <h4>Feeling/Activity</h4>
-                    </div>
-                </div>
+                    </div> */}
+                {/* </div> */}
                 <div>
                     {
                         state.images && state.images.length > 0 ?
