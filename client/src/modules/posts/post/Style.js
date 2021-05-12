@@ -151,6 +151,5 @@ export default makeStyles((theme) => ({
     fontSize: 24,
     border: "none",
     width: "100%",
-    resizeTo: "none"
   },
 }));

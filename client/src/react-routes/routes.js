@@ -12,6 +12,7 @@ import { NotFound } from "../modules/not-found/components";
 import Login from "../modules/auth/components/login";
 import ResetPassword from "../modules/auth/components/resetPassword";
 import Home from "../modules/home/home";
+import Watch from "../modules/watch/watch";
 import General from "../modules/profile/component/general";
 import Profile from "../modules/profile/component/profile";
 import Listfriend from "../modules/profile/component/friend/Listfriend";
@@ -41,11 +42,17 @@ class Routes extends Component {
                         component={Home}
                     />
                     <PrivateRoute
-                        // exact={true}
                         path={"/profile"}
                         pageName={"Profile"}
                         component={Profile}
                     />
+
+                    <PrivateRoute
+                        path={"/watch"}
+                        pageName={"Watch"}
+                        component={Watch}
+                    />
+
                     <PrivateRoute
                         // exact={true}
                         path={"/messenger"}

@@ -17,6 +17,7 @@ import { PostActions } from '../redux/actions';
 import moment from 'moment';
 import Comment from "../comment/comment";
 import ModalViewPost from "./modalViewPost";
+
 const Post = (props) => {
   const classes = Style();
   const { profile, username, timestamp, description, fileType, fileData } = props
@@ -59,7 +60,7 @@ const Post = (props) => {
     if (typeof data === 'string' || data instanceof String) {
       let index = data.lastIndexOf(".");
       let typeFile = data.substring(index + 1, data.length);
-      if (typeFile === "png" || typeFile === "jpg" || typeFile === "jpeg") {
+      if (typeFile === "png" || typeFile === "jpg" || typeFile === "jpeg" || typeFile === "mp4") {
         return true;
       }
       else return false;
