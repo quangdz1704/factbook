@@ -50,7 +50,8 @@ const Watch = () => {
 
                             <Grid item container className={classes.feed__posts}>
                                 {/* ----Posts---- */}
-                                <Posts />
+                                <Posts
+                                    type="watch" />
                             </Grid>
                         </Grid>
 

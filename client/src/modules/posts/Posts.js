@@ -17,13 +17,28 @@ const Posts = (props) => {
 
   const { posts } = props.post;
   const { user } = props.auth;
+
+  const checkTypeVideo = (post) => {
+    if (typeof post === 'string' || post instanceof String) {
+      let index = post.lastIndexOf(".");
+      let typeFile = post.substring(index + 1, post.length).toLowerCase();
+      if (typeFile === "mp4") {
+        return true;
+      }
+      else return false;
+    }
+    else return false;
+  }
+
   let listPost = [];
   if (type === "profile") {
     listPost = posts.filter(post => post.creator._id === user._id)
   }
+  else if (type === "watch") {
+    listPost = posts.filter((post) => checkTypeVideo(post.images[0]))
+  }
   else listPost = posts;
 
-  console.log('posts-list', listPost, posts);
   return (
     <div className={classes.posts}>
       <FlipMove style={{ width: "100%" }}>
