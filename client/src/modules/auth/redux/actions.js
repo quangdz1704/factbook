@@ -20,6 +20,7 @@ export const AuthActions = {
     checkExistsPassword2,
     register,
     getInforUser,
+    changeAvatar,
 }
 
 function login(user) {
@@ -304,6 +305,22 @@ function getInforUser() {
             })
             .catch(err => {
                 dispatch({ type: AuthConstants.GET_INFOR_USER_FAILE })
+            })
+    }
+}
+
+function changeAvatar(data) {
+    return dispatch => {
+        dispatch({ type: AuthConstants.CHANGE_AVATAR_REQUEST });
+        AuthService.changeAvatar(data)
+            .then(res => {
+                dispatch({
+                    type: AuthConstants.CHANGE_AVATAR_SUCCESS,
+                    payload: res.data.content
+                });
+            })
+            .catch(err => {
+                dispatch({ type: AuthConstants.CHANGE_AVATAR_FAILE})
             })
     }
 }

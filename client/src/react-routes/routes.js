@@ -16,7 +16,7 @@ import Watch from "../modules/watch/watch";
 import General from "../modules/profile/component/general";
 import Profile from "../modules/profile/component/profile";
 import Listfriend from "../modules/profile/component/friend/Listfriend";
-import Messenger from '../modules/messenger/component/messenger';
+import Chat from '../modules/messenger/component/chat';
 
 class Routes extends Component {
     render() {
@@ -55,8 +55,8 @@ class Routes extends Component {
                     <PrivateRoute
                         // exact={true}
                         path={"/messenger"}
-                        pageName={"Messenger"}
-                        component={Messenger}
+                        pageName={"Chat"}
+                        component={Chat}
                     />
                     <AuthRoute
                         exact

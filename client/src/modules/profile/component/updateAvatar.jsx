@@ -12,73 +12,49 @@ import { StarRateOutlined } from '@material-ui/icons';
 import { AuthActions } from '../../auth/redux/actions';
 
 
-function CreatePost(props) {
+function UpdateAvatar(props) {
     const classes = Styles();
     const { user } = props.auth;
-    const [state, setState] = useState({
-        content: "",
-        feeling: "",
-        activity: "",
-        images: [],
-        videos: [],
-
-    });
+    const [content, setContent] = useState('');
+    const [image, setImage] = useState('');
 
     const onChangeText = (e) => {
-        setState({ ...state, content: e.target.value });
+        setContent(e.target.value);
     }
 
     function handleUploadFile(value) {
-        const { file, urlFile, fileUpload } = state
-        if (value.length !== 0) {
-            if (file !== value[0].fileName && urlFile !== value[0].urlFile && fileUpload !== value[0].fileUpload) {
-                const newImage = {
-                    file: value[value.length - 1].fileName,
-                    urlFile: value[value.length - 1].urlFile,
-                    fileUpload: value[value.length - 1].fileUpload
-                }
-                setState({
-                    ...state,
-                    images: [...state.images, newImage]
-                })
-            }
+        console.log('uploadddd', value);
+        const newImage = {
+            file: value[0].fileName,
+            urlFile: value[0].urlFile,
+            fileUpload: value[0].fileUpload
         }
-
+        console.log('newwwwwwwwwwwww', newImage);
+        setImage(newImage);
     }
 
 
     const save = () => {
         const formData = new FormData();
-        const { content, images } = state
         if (content) {
             console.log('imageesss', content);
             formData.append('content', content);
         }
-        if (images && images.length) {
-
-            images.forEach(x => {
-
-                console.log('imageesss', x.fileUpload);
-                formData.append("post", x.fileUpload);
-            })
+        if (image) {
+            console.log('imageesss', image.fileUpload);
+            formData.append("avatar", image.fileUpload);
         }
-        props.createPost(formData);
-    }
-    const isValidateForm = () => {
-        const { content, images } = state;
-        if (content || images.length)
-            return true;
-        return false;
+        props.changeAvatar(formData);
     }
     return (
         <DialogModal
-            modalID="modal-create-post"
-            formID="form-create-post"
-            title="Create Post"
+            modalID="modal-update-avatar"
+            formID="form-update-avatar"
+            title="Update Avatar"
             func={save} size="50"
             hasNote={false}
             hasCloseButton={false}
-            disableSubmit={!isValidateForm()}
+        //disableSubmit={!isValidateForm()}
         >
             <div className={classes.post}>
                 <div className={classes.post__header}>
@@ -105,14 +81,14 @@ function CreatePost(props) {
 
                 {/* <h4>Video</h4> */}
                 <div className="form-inline" style={{ width: "100%" }}>
-                    <strong style={{ display: "inline", marginRight: 10 }}>Thêm vào bài viết</strong>
+                    <strong style={{ display: "inline", marginRight: 10 }}>Cập nhật ảnh đại diện</strong>
                     <VideocamRoundedIcon style={{ color: "red", marginRight: 10 }} />
                     <PhotoRoundedIcon style={{ color: "green", marginRight: 10 }} />
                     <EmojiEmotionsOutlinedIcon style={{ color: "orange", marginRight: 10 }} />
 
                     <UploadFile
-                        accept="image/*,audio/*,video/*"
-                        multiple={true}
+                        accept="image/*"
+                        multiple={false}
                         show={false}
                         onChange={handleUploadFile} />
                 </div>
@@ -127,14 +103,12 @@ function CreatePost(props) {
                 {/* </div> */}
                 <div>
                     {
-                        state.images && state.images.length > 0 ?
-                            state.images.map((image, i) => {
-                                return (
+                        image ?
+                            (
                                     <div>
                                         <img src={image.urlFile} width="80px" height="80px" alt="img" />
                                     </div>
-                                )
-                            }) : null
+                             ) : null
                     }
                 </div>
             </div>
@@ -152,9 +126,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    createPost: PostActions.createPost,
     changeAvatar: AuthActions.changeAvatar,
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(withTranslate(CreatePost));
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslate(UpdateAvatar));

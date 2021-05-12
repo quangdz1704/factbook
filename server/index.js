@@ -7,6 +7,8 @@ const cors = require('cors');
 const auth = require('./modules/auth/auth.route')
 const post = require('./modules/post/post.route')
 const search = require('./modules/search/search.route')
+const chat = require('./modules/chat/chat.route')
+const {serverSocket} = require('./serverSocket');
 require('dotenv').config();
 const app = express();
 const server = http.createServer(app);
@@ -39,29 +41,11 @@ global.isLog = false;
 app.use(cors());
 app.use('/auth', auth);
 app.use('/post', post);
-app.use('/search', search)
+app.use('/search', search);
+app.use('/chat', chat);
 
 
-io.on('connection', (socket) => {
-    console.log('conectttt', socket.id)
-
-    socket.on('join', ({name, room}) =>{
-      console.log(name, room);
-    })
-
-    socket.on('sendMessage', ({name, message}, callback) => {
-      //const user = getUser(socket.id);
-      console.log('sendddddd', name, message);
-      socket.broadcast.emit('message', { name, text: message });
-
-      callback();
-  });
-
-    socket.on("disconnect", () =>{
-        console.log("Dissconnet");
-    })
-})
-
+serverSocket(io);
 
 const port = process.env.PORT;
 server.listen(port, () => console.log(`Server up and running on: ${port} !`));
