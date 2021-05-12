@@ -13,6 +13,9 @@ exports.createPost = async (id, data, files = undefined) => {
             listfile.push(file)
         }
     }
+    console.log(data.content, listfile.length);
+    if (!(data.content && listfile.length))
+        return null;
     let post = await Post.create({
         creator: id,
         created: new Date(),

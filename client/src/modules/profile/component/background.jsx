@@ -2,21 +2,31 @@ import React from 'react';
 import "./background.css"
 import { connect, useSelector } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
+import { AuthActions } from '../../auth/redux/actions';
+import UpdateAvatar from './updateAvatar';
 // boxShadow: "0px -60px 100px 50px #888888" 
 const Background = () => {
 
     const {user} = useSelector(state => state.auth)
     console.log('backkkkkkkkkkkk', user);
+
+    const toggleUpdateAvatar = (event) =>{
+        event.preventDefault();
+        window.$('#modal-update-avatar').modal('show');
+    }
+
     return (
         <div className="wrap-content-bg" style={{ backgroundColor: "#FFF", height: "60vh" }}>
+           
             <div className="container">
                 <div className="img-bg" style={{ height: "40vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <img onClick={() => { console.log('background'); }} src="bg.png" alt="background image" 
                         style={{ width: "85vw", height: "40vh", borderRadius: "10px"}} 
                     />
                 </div>
+                 <UpdateAvatar />
                 <div className="img-profile" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <img onClick={() => { console.log('profile-image'); }} src={`${process.env.REACT_APP_SERVER}${user.avatar}`} style={{
+                    <img onClick={toggleUpdateAvatar} src={`${process.env.REACT_APP_SERVER}${user.avatar}`} style={{
                         width: "20vh",
                         height: "20vh",
                         borderRadius: "50%",
@@ -63,6 +73,9 @@ const Background = () => {
 
 const mapStateToProps = state => {
     return state;
+}
+const mapDispatchToProps = {
+    changAvatar: AuthActions.changeAvatar
 }
 
 export default connect(mapStateToProps, null)(withTranslate(Background));

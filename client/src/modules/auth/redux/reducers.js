@@ -39,6 +39,7 @@ export function auth(state = initState, action) {
         case AuthConstants.ANSWER_AUTH_QUESTIONS_REQUEST:
         case AuthConstants.CHECK_PASSWORD2_EXITS_REQUEST:
         case AuthConstants.GET_INFOR_USER_REQUEST:
+        case AuthConstants.CHANGE_AVATAR_REQUEST:
             return {
                 ...state,
                 isLoading: true,
@@ -130,6 +131,13 @@ export function auth(state = initState, action) {
                 user: action.payload,
               //  calledAPI: CallApiStatus.FINISHED,
             };
+        case AuthConstants.CHANGE_AVATAR_SUCCESS:
+             return {
+                ...state,
+                isLoading: false,
+                user: action.payload.user,
+                calledAPI: CallApiStatus.FINISHED,
+            };
 
         case AuthConstants.GET_COMPONENTS_OF_USER_IN_LINK_SUCCESS:
             return {
@@ -153,23 +161,21 @@ export function auth(state = initState, action) {
             };
 
         case AuthConstants.GET_LINKS_OF_ROLE_FAILE:
-            return {
-                ...state,
-                isLoading: false,
-                calledAPI: CallApiStatus.FINISHED,
-            };
-
         case AuthConstants.REFRESH_DATA_USER_FAILE:
         case AuthConstants.GET_COMPONENTS_OF_USER_IN_LINK_FAILE:
         case AuthConstants.CHANGE_USER_INFORMATION_FAILE:
         case AuthConstants.CHANGE_USER_PASSWORD_FAILE:
         case AuthConstants.ANSWER_AUTH_QUESTIONS_FAILE:
         case AuthConstants.GET_INFOR_USER_FAILE:
+        case AuthConstants.CHANGE_AVATAR_FAILE:
             return {
                 ...state,
                 isLoading: false,
+                calledAPI: CallApiStatus.FINISHED,
             };
 
+       
+          
         case AuthConstants.DOWNLOAD_FILE_REQUEST:
             return {
                 ...state,

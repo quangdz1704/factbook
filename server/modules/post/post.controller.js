@@ -16,7 +16,6 @@ exports.createPost = async (req, res) => {
         let files = [];
         if (req.files !== undefined) {
             req.files.forEach((elem) => {
-
                 let path = elem.destination + '/' + elem.filename;
                 files.push(path)
 

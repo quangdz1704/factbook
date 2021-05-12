@@ -22,6 +22,7 @@ export const AuthService = {
     answerAuthQuestion,
     checkExistsPassword2,
     getInforUser,
+    changeAvatar,
 };
 
 async function login(data) {
@@ -162,4 +163,12 @@ function getInforUser() {
         url: `${process.env.REACT_APP_SERVER}/auth/get-user`,
         method: 'GET',
     }, false, false, 'auth');
+}
+
+function changeAvatar(data) {
+      return sendRequest({
+        url: `${process.env.REACT_APP_SERVER}/auth/profile/change-avatar`,
+        method: 'PATCH',
+        data,
+    },true, true, 'auth');
 }
