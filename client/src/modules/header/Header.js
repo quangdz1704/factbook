@@ -57,12 +57,15 @@ function Header(props) {
           <div className={`${classes.nav__links} ${classes.nav__links__specail}`}>
             <Avatar src={logo} />
           </div>
-          <div className={classes.nav__links}>
+
+          <Link to="/" className={classes.nav__links}>
             <HomeOutlined />
-          </div>
-          <div className={classes.nav__links}>
+          </Link>
+
+          <Link to="/watch" className={classes.nav__links}>
             <PlayCircleFilledWhiteOutlined />
-          </div>
+          </Link>
+
           <Hidden xsDown>
             <div className={classes.nav__links}>
               <StoreMallDirectoryOutlined />
@@ -71,9 +74,7 @@ function Header(props) {
               <SupervisedUserCircleOutlined />
             </div>
           </Hidden>
-          {/* <div className={classes.nav__links} onClick={changeTheme}>
-            {mode ? <Brightness4Icon /> : <BrightnessHighIcon />}
-          </div> */}
+
           <Link to={"/profile"} className={`${classes.nav__links} ${classes.nav__links__specail}`}>
             <Avatar
               src={avatar}

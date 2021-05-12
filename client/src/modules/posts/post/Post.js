@@ -16,13 +16,12 @@ import { withTranslate } from 'react-redux-multilingual';
 import { PostActions } from '../redux/actions';
 import moment from 'moment';
 import Comment from "../comment/comment";
+
 const Post = (props) => {
   const classes = Style();
   const { profile, username, timestamp, description, fileType, fileData } = props
   const [showComment, setShowComment] = useState(false);
   const [likedPost, setLikedPost] = useState(false);
-  // const [heartIcontOrder, setHeartIcontOrder] = useState(1);
-  // const [smileIconOrder, setSmileIconOrder] = useState(1);
   const [thumsUpIconOrder, setThumsUpIconOrder] = useState(1);
 
   useEffect(() => {
@@ -35,10 +34,6 @@ const Post = (props) => {
       setLikedPost(true);
     }
 
-    // setLikesCount(Math.floor(Math.random() * 1000) + 1);
-    // setHeartIcontOrder(Math.floor(Math.random() * (3 - 1 + 1)) + 1);
-    // setSmileIconOrder(Math.floor(Math.random() * (3 - 1 + 1)) + 1);
-    // setThumsUpIconOrder(Math.floor(Math.random() * (3 - 1 + 1)) + 1);
   }, []);
 
   const { newFeed } = props;
@@ -51,8 +46,6 @@ const Post = (props) => {
         {newFeed.reactions.length ?
           <div className={classes.footer__stats}>
             <div>
-              {/* <FavoriteIcon style={{ color: "red", order: `${heartIcontOrder} ` }} />
-          <EmojiEmotionsIcon style={{ color: "orange", order: `${smileIconOrder} ` }} /> */}
               <ThumbUpAltIcon style={{ color: " #2e81f4", order: `${thumsUpIconOrder} ` }} />
             </div>
             <h4>{newFeed.reactions.length}</h4>
@@ -65,7 +58,7 @@ const Post = (props) => {
     if (typeof data === 'string' || data instanceof String) {
       let index = data.lastIndexOf(".");
       let typeFile = data.substring(index + 1, data.length);
-      if (typeFile === "png" || typeFile === "jpg" || typeFile === "jpeg") {
+      if (typeFile === "png" || typeFile === "jpg" || typeFile === "jpeg" || typeFile === "mp4") {
         return true;
       }
       else return false;
@@ -116,8 +109,8 @@ const Post = (props) => {
             {checkTypeFile(newFeed.images[0]) ? (
               <img src={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} alt="post" />
             ) : (
-              <ReactPlayer url={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} controls={true} />
-            )}
+                <ReactPlayer url={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} controls={true} />
+              )}
           </div> : <div></div>
         }
       </div>
