@@ -16,13 +16,14 @@ import { withTranslate } from 'react-redux-multilingual';
 import { PostActions } from '../redux/actions';
 import moment from 'moment';
 import Comment from "../comment/comment";
+import ModalViewPost from "./modalViewPost";
 const Post = (props) => {
   const classes = Style();
   const { profile, username, timestamp, description, fileType, fileData } = props
-  const [showComment, setShowComment] = useState(false);
+  const { viewType } = props
+  const [onViewPost, setViewPost] = useState(undefined);
+  const [showComment, setShowComment] = useState(viewType === "single");
   const [likedPost, setLikedPost] = useState(false);
-  // const [heartIcontOrder, setHeartIcontOrder] = useState(1);
-  // const [smileIconOrder, setSmileIconOrder] = useState(1);
   const [thumsUpIconOrder, setThumsUpIconOrder] = useState(1);
 
   useEffect(() => {
@@ -34,11 +35,6 @@ const Post = (props) => {
     if (liked) {
       setLikedPost(true);
     }
-
-    // setLikesCount(Math.floor(Math.random() * 1000) + 1);
-    // setHeartIcontOrder(Math.floor(Math.random() * (3 - 1 + 1)) + 1);
-    // setSmileIconOrder(Math.floor(Math.random() * (3 - 1 + 1)) + 1);
-    // setThumsUpIconOrder(Math.floor(Math.random() * (3 - 1 + 1)) + 1);
   }, []);
 
   const { newFeed } = props;
@@ -51,8 +47,6 @@ const Post = (props) => {
         {newFeed.reactions.length ?
           <div className={classes.footer__stats}>
             <div>
-              {/* <FavoriteIcon style={{ color: "red", order: `${heartIcontOrder} ` }} />
-          <EmojiEmotionsIcon style={{ color: "orange", order: `${smileIconOrder} ` }} /> */}
               <ThumbUpAltIcon style={{ color: " #2e81f4", order: `${thumsUpIconOrder} ` }} />
             </div>
             <h4>{newFeed.reactions.length}</h4>
@@ -89,18 +83,23 @@ const Post = (props) => {
     }
   }
 
-  // if (newFeed) {
-  //   console.log('timeeeeeeeee', newFeed.createdAt);
-  // }
+
+  const clickViewPost = (e, id) => {
+    e.preventDefault();
+    setViewPost(id);
+    window.$(`#modal-view-post-${id}`).modal('show');
+  }
+
   return (
     <Paper className={classes.post}>
       <div className={classes.post__header}>
         <Avatar
+          style={{ marginLeft: "10px" }}
           src={`${process.env.REACT_APP_SERVER}${user.avatar}`}
         />
         <div className={classes.header__info}>
-          <h4>{user.surName} {user.firstName}</h4>
-          <p>
+          <h4 style={{ cursor: "pointer" }}>{user.surName} {user.firstName}</h4>
+          <p style={{ cursor: "pointer" }} onClick={(e) => clickViewPost(e, newFeed._id)}>
             {/* <ReactTimeago date={newFeed ?newFeed.createAt.toUTCString() : null} units="minute" /> */}
             {moment(newFeed.createdAt).fromNow()}
           </p>
@@ -108,7 +107,7 @@ const Post = (props) => {
         <MoreHorizOutlinedIcon />
       </div>
       <div className={classes.post__body}>
-        <div className={classes.body__description}>
+        <div className={classes.body__description} style={{ cursor: "pointer" }} onClick={(e) => clickViewPost(e, newFeed._id)}>
           <p>{newFeed.content}</p>
         </div>
         {newFeed.images.length ?
@@ -122,7 +121,14 @@ const Post = (props) => {
         }
       </div>
       <div className={classes.post__footer}>
-        <Reactions />
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <Reactions />
+          {comment?.length ? <div onClick={collapseComment} style={{ cursor: "pointer" }}>
+            {comment?.length}&nbsp;comment
+          </div> : <div></div>
+          }
+        </div>
+
         <div className={classes.footer__actions} >
           <div onClick={onClickLikePost} className={classes.action__icons} style={{ color: likedPost && "#2e81f4" }}>
             <ThumbUpAltOutlinedIcon />
@@ -140,6 +146,9 @@ const Post = (props) => {
       </div>
       {
         showComment && <Comment postId={newFeed?._id} listComment={comment} />
+      }
+      {onViewPost &&
+        <ModalViewPost viewType={"single"} id={newFeed?._id} postItem={newFeed} />
       }
     </Paper>
   );

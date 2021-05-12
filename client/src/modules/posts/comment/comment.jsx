@@ -80,13 +80,17 @@ const Comment = (props) => {
     let data = { formData: formData, id: postId };
     console.log("send cmt", data, state);
     props.setComment(formData, postId);
-
+    props.getPostById(postId)
     setState({
       content: "",
       images: [],
       videos: [],
       userId: userId,
     })
+  }
+
+  const validateSubmit = () => {
+    return state.content.trim() !== ""
   }
 
   const { content, images, videos } = state;
@@ -102,13 +106,13 @@ const Comment = (props) => {
           return (
             <li key={key}>
               <div className="comet-avatar" style={{ marginTop: "10px" }}>
-                <Avatar src={`${process.env.REACT_APP_SERVER}${user?.avatar}`} />
+                <Avatar src={`${process.env.REACT_APP_SERVER}${cmt?.creator?.avatar}`} />
               </div>
               <div className="we-comment">
                 <h5><a href="#" style={{ fontSize: "15px", fontWeight: "bold" }}>{cmt.creator?.surName} {cmt.creator?.firstName}</a></h5>
                 <br />
                 <p>{cmt.described}</p>
-                {cmt.images.length && (
+                {cmt.images.length ?
                   <div className={classes.body__image}>
                     {/* <img style={{ maxWidth: "50%", borderRadius: "5px" }} src="avt.png" alt="post" /> */}
 
@@ -117,8 +121,8 @@ const Comment = (props) => {
                     ) : (
                       <ReactPlayer style={{ maxWidth: "50%" }} url={`${process.env.REACT_APP_SERVER}${cmt.images[0]}`} controls={true} />
                     )}
-                  </div>
-                )}
+                  </div> : <div></div>
+                }
 
                 <div className="inline-itms">
                   <span>{moment(cmt.createAt).fromNow()}</span>
@@ -137,7 +141,7 @@ const Comment = (props) => {
         </li>
         <li className="post-comment">
           <div className="comet-avatar">
-            <Avatar src="avt.png" alt="" />
+            <Avatar src={`${process.env.REACT_APP_SERVER}${user?.avatar}`} alt="" />
           </div>
           <div className="post-comt-box">
             <form>
@@ -145,17 +149,22 @@ const Comment = (props) => {
                 onChange={(e) => handleChangeCommentText(e)}
               />
               <div className="add-smile">
-                <div className="upload pull-right" style={{ display: "flex", paddingBottom: "10px" }}>
+                <div className="upload row" style={{ display: "flex", paddingBottom: "10px" }}>
                   {/* <i className="fa fa-image" /> */}
-                  <UploadFile
-                    accept="image/*,audio/*,video/*"
-                    multiple={false}
-                    show={false}
-                    onChange={handleUploadFile}
-                  />
-                  <a className="btn btn-success" onClick={() => sendComment()}>
-                    <i className="fa fa-paper-plane"></i>
-                  </a>
+                  <div className="col-md-11">
+                    <UploadFile
+                      accept="image/*,audio/*,video/*"
+                      multiple={false}
+                      show={false}
+                      onChange={handleUploadFile}
+                    />
+                  </div>
+                  <div className="col-md-auto" >
+                    <a className="btn btn-success" title="Post comment" onClick={() => sendComment()}>
+                      <i className="fa fa-paper-plane"></i>
+                    </a>
+                  </div>
+
                 </div>
               </div>
             </form>
@@ -174,6 +183,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   setComment: PostActions.setComment,
+  getPostById: PostActions.getPostById,
 }
 
 

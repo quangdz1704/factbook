@@ -16,6 +16,7 @@ import General from "../modules/profile/component/general";
 import Profile from "../modules/profile/component/profile";
 import Listfriend from "../modules/profile/component/friend/Listfriend";
 import Chat from '../modules/messenger/component/chat';
+import ViewSinglePost from "../modules/posts/post/viewSinglePost";
 
 class Routes extends Component {
     render() {
@@ -50,6 +51,12 @@ class Routes extends Component {
                         path={"/messenger"}
                         pageName={"Chat"}
                         component={Chat}
+                    />
+                    <PrivateRoute
+                        // exact={true}
+                        path={"/post/:id"}
+                        pageName={"View Post"}
+                        component={ViewSinglePost}
                     />
                     <AuthRoute
                         exact

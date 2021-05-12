@@ -72,8 +72,11 @@ exports.deletePost = async (id) => {
 };
 
 exports.getPost = async (id) => {
-    let post = await Post.findById({ _id: id })
-
+    let post = await Post.findById({ _id: id }).populate([
+        { path: "creator", populate: "users", select: "firstName surName avatar" },
+        { path: "comment.creator", populate: 'users', select: "firstName surName avatar" }
+    ])
+    console.log(post);
     return post
 };
 

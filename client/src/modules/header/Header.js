@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { Grid, Hidden, Avatar, Tooltip, Paper, Badge } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import { HomeOutlined } from "@material-ui/icons";
-import { PlayCircleFilledWhiteOutlined } from "@material-ui/icons";
-import { StoreMallDirectoryOutlined } from "@material-ui/icons";
-import { SupervisedUserCircleOutlined } from "@material-ui/icons";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { HomeOutlined, PlayCircleFilledWhiteOutlined, StoreMallDirectoryOutlined, SupervisedUserCircleOutlined } from "@material-ui/icons";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
 import BrightnessHighIcon from "@material-ui/icons/BrightnessHigh";
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
@@ -83,20 +81,20 @@ function Header(props) {
         {/*----Userinfo and options--------*/}
         <Hidden xsDown>
           <Grid item className={classes.header__userinfo} sm={2} md={3}>
-            {/* <Tooltip
+            <Tooltip
               placement="left"
               TransitionComponent={Zoom}
               TransitionProps={{ timeout: 300 }}
-              title={"logout"}
+              title={`${user.firstName}`}
               arrow
-            > */}
-            <Link to={"/profile"} >
-              <Avatar
-                src={avatar}
-              />
-            </Link>
+            >
+              <Link to={"/profile"} >
+                <Avatar
+                  src={avatar}
+                />
+              </Link>
 
-            {/* </Tooltip> */}
+            </Tooltip>
 
             <Hidden smDown>
               <div className={classes.userinfo__options}>
@@ -106,7 +104,16 @@ function Header(props) {
                 </Link>
                 {/* <Badge badgeContent={10} max={9} {...defaultProps} /> */}
                 <Notifications />
-                <ArrowDropDownRoundedIcon />
+                {/* <ArrowDropDownRoundedIcon /> */}
+                <Tooltip
+                  placement="left"
+                  TransitionComponent={Zoom}
+                  TransitionProps={{ timeout: 300 }}
+                  title={`Log out`}
+                  arrow
+                >
+                  <ExitToAppIcon />
+                </Tooltip>
               </div>
 
             </Hidden>
