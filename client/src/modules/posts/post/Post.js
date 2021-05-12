@@ -59,8 +59,8 @@ const Post = (props) => {
   const checkTypeFile = (data) => {
     if (typeof data === 'string' || data instanceof String) {
       let index = data.lastIndexOf(".");
-      let typeFile = data.substring(index + 1, data.length);
-      if (typeFile === "png" || typeFile === "jpg" || typeFile === "jpeg" || typeFile === "mp4") {
+      let typeFile = data.substring(index + 1, data.length).toLowerCase();
+      if (typeFile === "png" || typeFile === "jpg" || typeFile === "jpeg") {
         return true;
       }
       else return false;
