@@ -42,3 +42,39 @@
     background-color: #333;
     transition: 0.3s
 }
+
+/* viết lại CSS upload File */
+
+
+/* ===Ref: Viblo: ( https://viblo.asia/p/tuy-bien-input-file-type-L4x5xyPwKBM ) ==== */
+/* file HTML
+    <div className="upload" disabled={disabled} >
+        <input id="file" className="input-file-viblo" type="file" name="file" accept={accept} disabled={disabled} style={{ cursor: disabled ? "not-allowed" : 'pointer' }}
+            onChange={this.handleUploadFile} multiple={multiple} />
+        <label for="file"><i className="fa fa-folder"></i>&nbsp;Choose...</label>
+    </div>
+*/
+
+.input-file-viblo {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.input-file-viblo + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: #1f4a81;
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.input-file-viblo:focus + label,
+.input-file-viblo + label:hover {
+    background-color: #2d6cbe;
+}

@@ -33,7 +33,8 @@ const Comment = (props) => {
   }
 
 
-  function handleUploadFile(value) {
+  const handleUploadFile = (value) => {
+    console.log('values', value);
     const { file, urlFile, fileUpload } = state
     if (value.length !== 0) {
       if (file !== value[0].fileName && urlFile !== value[0].urlFile && fileUpload !== value[0].fileUpload) {
@@ -114,8 +115,6 @@ const Comment = (props) => {
                 <p>{cmt.described}</p>
                 {cmt.images.length ?
                   <div className={classes.body__image}>
-                    {/* <img style={{ maxWidth: "50%", borderRadius: "5px" }} src="avt.png" alt="post" /> */}
-
                     {checkTypeFile(cmt.images[0]) ? (
                       <img style={{ maxWidth: "50%", borderRadius: "5px" }} src={`${process.env.REACT_APP_SERVER}${cmt.images[0]}`} alt="image" />
                     ) : (
@@ -150,13 +149,12 @@ const Comment = (props) => {
               />
               <div className="add-smile">
                 <div className="upload row" style={{ display: "flex", paddingBottom: "10px" }}>
-                  {/* <i className="fa fa-image" /> */}
                   <div className="col-md-11">
                     <UploadFile
                       accept="image/*,audio/*,video/*"
                       multiple={false}
-                      show={false}
-                      onChange={handleUploadFile}
+                      // show={false}
+                      onChange={(e) => handleUploadFile(e)}
                     />
                   </div>
                   <div className="col-md-auto" >

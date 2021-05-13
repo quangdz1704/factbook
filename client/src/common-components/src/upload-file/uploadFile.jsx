@@ -105,6 +105,8 @@ class UploadFile extends Component {
 
         const { files } = this.state;
 
+        console.log('filessss', files, files && files.length);
+
         return (
             <React.Fragment>
                 <div className="form-group">
@@ -112,6 +114,11 @@ class UploadFile extends Component {
                         <input className="upload" type="file" name="file" accept={accept} disabled={disabled} style={{ cursor: disabled ? "not-allowed" : 'pointer' }}
                             onChange={this.handleUploadFile} multiple={multiple} />
                     </div>
+                    {/* <div className="upload" disabled={disabled} >
+                        <input id="file" className="upload input-file-viblo" type="file" name="file" accept={accept} disabled={disabled} style={{ cursor: disabled ? "not-allowed" : 'pointer' }}
+                            onChange={this.handleUploadFile} multiple={multiple} />
+                        <label htmlFor="file"><i className="fa fa-folder"></i>&nbsp;Choose...</label>
+                    </div> */}
                 </div>
                 {files && files.length ?
                     <div className="list-upload-file-cmc">

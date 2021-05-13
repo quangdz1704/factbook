@@ -89,28 +89,10 @@ function UpdateAvatar(props) {
                     <UploadFile
                         accept="image/*"
                         multiple={false}
-                        show={false}
+                        // show={false}
                         onChange={handleUploadFile} />
                 </div>
 
-                {/* </label> */}
-                {/* <label htmlFor="upload-image" className={classes.media__options}>
-                        <h4>Photo</h4>
-                    </label>
-                    <div className={classes.media__options}>
-                        <h4>Feeling/Activity</h4>
-                    </div> */}
-                {/* </div> */}
-                <div>
-                    {
-                        image ?
-                            (
-                                    <div>
-                                        <img src={image.urlFile} width="80px" height="80px" alt="img" />
-                                    </div>
-                             ) : null
-                    }
-                </div>
             </div>
 
         </DialogModal>
