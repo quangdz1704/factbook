@@ -15,8 +15,8 @@ const serverSocket =  (io) => {
         // nhận tin nhắn từ client
         socket.on('sendMessage', (data, callback) => {
             console.log('sendddddd', data, socket.id);
-          //  io.to(data.roomId).emit('message', { name: data.userId, text: data.message });
-          socket.broadcast.emit('message', { name: data.userId, text: data.message });
+             io.to(data.roomId).emit('message', { name: data.userId, text: data.message });
+          //socket.broadcast.emit('message', { name: data.userId, text: data.message });
             callback();        
         });
         
