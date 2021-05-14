@@ -76,7 +76,7 @@ margin-bottom: 0;
   top: 12px;
   position: absolute;
   content: '';
-}*/
+}
 
 .we-comet > li ul {
   border-left: 2px solid #23d2e2;
@@ -88,7 +88,7 @@ margin-bottom: 0;
 
 .we-comet > li ul li {
   margin-bottom: 20px;
-}
+} */
 
 .we-comet li a.showmore {
   display: table;
@@ -97,10 +97,10 @@ margin-bottom: 0;
   text-transform: capitalize;
 font-weight: 500;
 }
-
+/*
 .we-comet > li ul li:last-child {
   margin-bottom: 0;
-}
+} */
 
 .coment-head {
   display: inline-block;
@@ -126,7 +126,7 @@ font-weight: 500;
   margin-top: 0;
 }
 
-.inline-itms > a, 
+.inline-itms > a,
 .inline-itms > span {
   display: inline-block;
   font-size: 12px;

@@ -81,6 +81,10 @@ export default makeStyles((theme) => ({
         },
       },
     },
+    "& > div": {
+      width: "100% !important",
+      height: "auto",
+    },
   },
   post__footer: {
     width: "100%",
