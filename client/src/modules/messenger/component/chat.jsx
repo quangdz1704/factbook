@@ -32,25 +32,41 @@ const Chat = (props) =>{
         setRoom("abc");
     setName(user.firstName);
     // conversation là các cuộc nói chuyện, thực hiện join vào các cuộc nói chuyện
-    conversations.forEach(con => {
-      let data = {
-        userId: user.firstName,
-        roomId: con._id,
-      }
+    // conversations.forEach(con => {
+    //   let data = {
+    //     userId: user.firstName,
+    //     roomId: con._id,
+    //   }
+    //   socket.emit('join', data, (error) => {
+    //     if (error) {
+    //       alert(error);
+    //     }
+    //   });
+    // })
+      if (conversations.length) {
+        let data = {   
+          userId: user.firstName,
+          roomId: "aaa",
+        }
       socket.emit('join', data, (error) => {
         if (error) {
           alert(error);
         }
       });
-    })
+      
+     }
   }, [conversations.length]);
   
     useEffect(() => {
         socket.on('message', (data) => {
-          //console.log('messengerrrrrrrrrrrr', data);
+          console.log('messengerrrrrrrrrrrr', data);
           setMessages(messages => [ ...messages, {text:data.text, name: data.name} ]);
         });
-    }, []);
+       socket.on("roomData", (data) => {
+        console.log('roomdata', data);
+       });
+      
+    },[]);
 
     // ham gửi tin nhắn
   const sendMessage = (event) => {
@@ -58,7 +74,7 @@ const Chat = (props) =>{
     if (message) {
       let data = {
         userId: user.firstName,
-        roomId: currentConversation._id,
+        roomId: "aaa",
         message,
       }
       socket.emit('sendMessage', data, () =>{
