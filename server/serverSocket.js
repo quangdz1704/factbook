@@ -1,4 +1,4 @@
-
+const ChatServices = require('./modules/chat/chat.service');
 
 const serverSocket =  (io) => {
     io.on('connection', (socket) => {
@@ -13,10 +13,10 @@ const serverSocket =  (io) => {
         
 
         // nhận tin nhắn từ client
-        socket.on('sendMessage', (data, callback) => {
+        socket.on('sendMessage',async (data, callback) => {
             console.log('sendddddd', data, socket.id);
-             io.to(data.roomId).emit('message', { name: data.userId, text: data.message });
-          //socket.broadcast.emit('message', { name: data.userId, text: data.message });
+            const con = await ChatServices.saveMessage(data);
+            io.to(data.roomId).emit('message', {creator: data.creator, text: data.message });
             callback();        
         });
         

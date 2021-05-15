@@ -23,6 +23,7 @@ const Chat = (props) =>{
   const [currentConversation, setCurrentConversation] = useState();
   const { conversations } = props.chat;
 
+  console.log('aaaaaaaaaaaaa', conversations);
 
   useEffect(() => {
     props.getAllConversations();
@@ -50,7 +51,7 @@ const Chat = (props) =>{
   
     useEffect(() => {
         socket.on('message', (data) => {
-          setMessages(messages => [ ...messages, {text:data.text, name: data.name} ]);
+          setMessages(messages => [ ...messages, {content:data.text, creator: data.creator} ]);
         });
       
        socket.on("roomData", (data) => {
@@ -64,7 +65,7 @@ const Chat = (props) =>{
     event.preventDefault();
     if (message) {
       let data = {
-        userId: user.firstName,
+        creator: user,
         roomId: currentConversation._id,
         message,
       }

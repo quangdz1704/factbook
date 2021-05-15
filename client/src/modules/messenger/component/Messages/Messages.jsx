@@ -10,12 +10,13 @@ import './Messages.css';
 const Messages = (props) => {
  
   const { messages } = props;
+     console.log('lítttttttmesssssssssssss', messages);
   useEffect(() => {
     //messages = props
   }, [props.currentConversation])
   return(
   <ScrollToBottom className="messages">
-    {messages.map((message, i) => <div key={i}><Message text={message.text} name={message.name}/></div>)}
+    {messages.map((message, i) => <div key={i}><Message message={message}/></div>)}
   </ScrollToBottom>
 )
 };
