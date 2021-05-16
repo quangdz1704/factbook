@@ -17,6 +17,7 @@ import General from "../modules/profile/component/general";
 import Profile from "../modules/profile/component/profile";
 import Listfriend from "../modules/profile/component/friend/Listfriend";
 import Chat from '../modules/messenger/component/chat';
+import Search from '../modules/search/Search';
 import ViewSinglePost from "../modules/posts/post/viewSinglePost";
 
 class Routes extends Component {
@@ -59,6 +60,14 @@ class Routes extends Component {
                         pageName={"Chat"}
                         component={Chat}
                     />
+
+                    <PrivateRoute
+                        // exact={true}
+                        path={"/search"}
+                        pageName={"Search"}
+                        component={Search}
+                    />
+
                     <PrivateRoute
                         // exact={true}
                         path={"/post/:id"}

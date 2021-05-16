@@ -4,15 +4,17 @@ import { clearStorage } from '../config';
 import { combineReducers } from 'redux';
 import { auth } from '../modules/auth/redux/reducers';
 import { post } from '../modules/posts/redux/reducers';
-import {chat} from '../modules/messenger/redux/reducers'
+import { chat } from '../modules/messenger/redux/reducers'
 import { notification } from '../modules/notifications/redux/reducers';
+import { searchPost } from '../modules/header/redux/reducers';
 const appReducer = combineReducers({
     socket,
     auth,
     Intl,
     post,
     chat,
-    notification
+    notification,
+    searchPost,
 });
 
 const rootReducer = (state, action) => {
