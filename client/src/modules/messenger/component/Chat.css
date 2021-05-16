@@ -4,6 +4,7 @@
   /* align-items: center; */
   height: 92vh;
   background-color: #fff;
+  overflow: auto;
 }
 
 .container-chat {
@@ -15,7 +16,7 @@
   height: 60%;
   width: 100%;
 }
-
+/*
 @media (min-width: 320px) and (max-width: 480px) {
   .outerContainer {
     height: 100%;
@@ -31,4 +32,4 @@
   .container-chat {
     width: 60%;
   }
-}
+} */

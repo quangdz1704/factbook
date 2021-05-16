@@ -92,7 +92,7 @@ const Chat = (props) => {
           <TextContainer users={conversations} setCurrentConversation={joinConversation} />
         </div>
 
-        <div div className="container-chat col-8">
+        <div div className="container-chat col-9" style={{ minWidth: "500px" }}>
           {
             currentConversation ? (
               <div>
