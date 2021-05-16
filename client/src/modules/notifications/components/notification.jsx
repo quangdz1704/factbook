@@ -38,7 +38,7 @@ const Notifications = (props) => {
 										return <li key={key} onClick={() => onClickNotify(e.post?._id)}>
 											<Link to={`/post/${e.post?._id}`} style={{ whiteSpace: "break-spaces" }}>
 												<div style={{ display: "flex", alignItems: "center" }}>
-													<Avatar src={`${process.env.REACT_APP_SERVER}${user.avatar}`} /> &nbsp;&nbsp;
+													<Avatar src={`${process.env.REACT_APP_SERVER}${e.from?.avatar}`} /> &nbsp;&nbsp;
 													<p style={{ wordBreak: "break-all !important" }}><strong>{e?.from?.surName} {e?.from?.firstName}</strong> liked your post.</p>
 												</div>
 												<i>{moment(e.createAt).fromNow()}</i>
@@ -49,7 +49,7 @@ const Notifications = (props) => {
 										return <li key={key} onClick={() => onClickNotify(e.post?._id)}>
 											<Link to={`/post/${e.post?._id}`} style={{ whiteSpace: "break-spaces" }}>
 												<div style={{ display: "flex", alignItems: "center" }}>
-													<Avatar src={`${process.env.REACT_APP_SERVER}${user.avatar}`} /> &nbsp;&nbsp;
+													<Avatar src={`${process.env.REACT_APP_SERVER}${e.from?.avatar}`} /> &nbsp;&nbsp;
 													<p style={{ wordBreak: "break-all !important" }}><strong>{e?.from?.surName} {e?.from?.firstName}</strong> commented in your post.</p>
 												</div>
 												<i>{moment(e.createAt).fromNow()}</i>
