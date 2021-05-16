@@ -1,15 +1,19 @@
 import React from 'react';
 
 import './Message.css';
-
+import { connect } from 'react-redux';
+import { withTranslate } from 'react-redux-multilingual';
 import ReactEmoji from 'react-emoji';
-
-const Message = ({ message: { text, user }, name }) => {
+import { Avatar } from "@material-ui/core";
+const Message = (props) => {
+  
+  console.log('messssssssssss', props);
+  
   let isSentByCurrentUser = false;
-
-  const trimmedName = name.trim().toLowerCase();
-
-  if(user === trimmedName) {
+  const { content, name, creator } = props.message;
+  const { user } = props.auth;
+  //const trimmedName = name.trim().toLowerCase();
+  if(user._id === creator._id) {
     isSentByCurrentUser = true;
   }
 
@@ -17,21 +21,27 @@ const Message = ({ message: { text, user }, name }) => {
     isSentByCurrentUser
       ? (
         <div className="messageContainer justifyEnd">
-          <p className="sentText pr-10">{trimmedName}</p>
+          {/* <p className="sentText pr-10">{name}</p> */}
           <div className="messageBox backgroundBlue">
-            <p className="messageText colorWhite">{ReactEmoji.emojify(text)}</p>
+            <p className="messageText colorWhite">{ReactEmoji.emojify(content)}</p>
           </div>
+           <Avatar  src={`${process.env.REACT_APP_SERVER}${user.avatar}`} />
         </div>
         )
         : (
-          <div className="messageContainer justifyStart">
+        <div className="messageContainer justifyStart">
+          <Avatar  src={`${process.env.REACT_APP_SERVER}${creator.avatar}`} />
             <div className="messageBox backgroundLight">
-              <p className="messageText colorDark">{ReactEmoji.emojify(text)}</p>
+              <p className="messageText colorDark">{ReactEmoji.emojify(content)}</p>
             </div>
-            <p className="sentText pl-10 ">{user}</p>
+            {/* <p className="sentText pl-10 ">{name}</p> */}
           </div>
         )
   );
 }
 
-export default Message;
+const mapStateToProps = (state) => {
+  return state;
+}
+
+export default connect(mapStateToProps, null)(withTranslate(Message));

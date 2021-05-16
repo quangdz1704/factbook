@@ -46,6 +46,9 @@ const UserSchema = new Schema({
     }],
     active: {
         type: Boolean,
+    },
+    coverImage: {
+        type: String,
     }
 }, {timestamps: true})
 

@@ -22,6 +22,9 @@ const Chat = (props) =>{
   const [messages, setMessages] = useState([]);
   const [currentConversation, setCurrentConversation] = useState();
   const { conversations } = props.chat;
+
+  console.log('aaaaaaaaaaaaa', conversations);
+
   useEffect(() => {
     props.getAllConversations();
   }, []);
@@ -43,21 +46,26 @@ const Chat = (props) =>{
         }
       });
     })
+  
   }, [conversations.length]);
   
     useEffect(() => {
         socket.on('message', (data) => {
-          //console.log('messengerrrrrrrrrrrr', data);
-          setMessages(messages => [ ...messages, {text:data.text, name: data.name} ]);
+          setMessages(messages => [ ...messages, {content:data.text, creator: data.creator} ]);
         });
-    }, []);
+      
+       socket.on("roomData", (data) => {
+        console.log('roomdata', data);
+       });
+      
+    },[conversations.length]);
 
     // ham gửi tin nhắn
   const sendMessage = (event) => {
     event.preventDefault();
     if (message) {
       let data = {
-        userId: user.firstName,
+        creator: user,
         roomId: currentConversation._id,
         message,
       }
@@ -69,6 +77,7 @@ const Chat = (props) =>{
   }
 
   const joinConversation = (conversation) => {
+    setMessages(conversation.message)
     setCurrentConversation(conversation);
   }
     return(
@@ -85,8 +94,8 @@ const Chat = (props) =>{
               currentConversation  ? (
                 <div>
                   <InfoBar room={currentConversation} />
-                  <Messages messages={messages} name={name} />
-                  <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
+                  <Messages messages={messages} name={name} currentConversation={currentConversation} />
+                  <Input message={message} setMessage={setMessage} sendMessage={sendMessage}  />
                 </div>
               ) : <> </>
             }

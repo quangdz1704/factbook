@@ -5,7 +5,6 @@ const Notification = require('../../models/notification')
 const fs = require("fs");
 
 exports.createPost = async (id, data, files = undefined) => {
-    console.log('sssssss', id, data, files);
     let listfile = []
     if (files) {
         for (let i in files) {
@@ -13,9 +12,8 @@ exports.createPost = async (id, data, files = undefined) => {
             listfile.push(file)
         }
     }
-    console.log(data.content, listfile.length);
-    if (!(data.content && listfile.length))
-        return null;
+    if (!(data.content || listfile.length))
+        throw['null']
     let post = await Post.create({
         creator: id,
         created: new Date(),
@@ -76,7 +74,6 @@ exports.getPost = async (id) => {
         { path: "creator", populate: "users", select: "firstName surName avatar" },
         { path: "comment.creator", populate: 'users', select: "firstName surName avatar" }
     ])
-    console.log(post);
     return post
 };
 

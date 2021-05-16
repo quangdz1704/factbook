@@ -87,23 +87,13 @@ function CreatePost(props) {
                     />
                     <div className={classes.header__info}>
                         <h4>{user.surName} {user.firstName}</h4>
-                        {/* <p>
-                            <ReactTimeago date={new Date(timestamp?.toDate()).toUTCString()} units="minute" />
-                        </p> */}
                     </div>
-                    {/* <MoreHorizOutlinedIcon /> */}
                 </div>
-                {/* <div > */}
                 <textarea type="text"
                     className={classes.input_text}
                     placeholder={`What's on your mind, ${user.firstName} ?`}
                     onChange={e => onChangeText(e)}
                 />
-                {/* </div> */}
-                {/* <div className={classes.upload__media}> */}
-                {/* <label className={classes.media__options}> */}
-
-                {/* <h4>Video</h4> */}
                 <div className="form-inline" style={{ width: "100%" }}>
                     <strong style={{ display: "inline", marginRight: 10 }}>Thêm vào bài viết</strong>
                     <VideocamRoundedIcon style={{ color: "red", marginRight: 10 }} />
@@ -113,29 +103,8 @@ function CreatePost(props) {
                     <UploadFile
                         accept="image/*,audio/*,video/*"
                         multiple={true}
-                        show={false}
+                        // show={false}
                         onChange={handleUploadFile} />
-                </div>
-
-                {/* </label> */}
-                {/* <label htmlFor="upload-image" className={classes.media__options}>
-                        <h4>Photo</h4>
-                    </label>
-                    <div className={classes.media__options}>
-                        <h4>Feeling/Activity</h4>
-                    </div> */}
-                {/* </div> */}
-                <div>
-                    {
-                        state.images && state.images.length > 0 ?
-                            state.images.map((image, i) => {
-                                return (
-                                    <div>
-                                        <img src={image.urlFile} width="80px" height="80px" alt="img" />
-                                    </div>
-                                )
-                            }) : null
-                    }
                 </div>
             </div>
 
