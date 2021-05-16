@@ -10,6 +10,8 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ReactPlayer from "react-player";
 import ReactTimeago from "react-timeago";
+import Carousel from 'react-bootstrap/Carousel';
+import Dropdown from 'react-bootstrap/Dropdown'
 import Style from "./Style";
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
@@ -105,19 +107,36 @@ const Post = (props) => {
             {moment(newFeed.createdAt).fromNow()}
           </p>
         </div>
-        <MoreHorizOutlinedIcon />
+        {/* <MoreHorizOutlinedIcon /> */}
+        <Dropdown>
+          <Dropdown.Toggle id="dropdown-basic">
+           <MoreHorizOutlinedIcon /> 
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
       <div className={classes.post__body}>
         <div className={classes.body__description} style={{ cursor: "pointer" }} onClick={(e) => clickViewPost(e, newFeed._id)}>
           <p>{newFeed.content}</p>
         </div>
         {newFeed.images.length ?
-          <div className={classes.body__image}>
-            {checkTypeFile(newFeed.images[0]) ? (
-              <img src={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} alt="post" />
-            ) : (
-              <ReactPlayer url={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} controls={true} />
-            )}
+          <div>
+            <Carousel>
+              {newFeed.images.map((image, index) => (
+                <Carousel.Item className={classes.body__image} id={index}>
+                  {checkTypeFile(image) ? (
+                   <img className="d-block w-100" src={`${process.env.REACT_APP_SERVER}${image}`} alt={index} id={index}/>
+                     ) : (
+                    <ReactPlayer url={`${process.env.REACT_APP_SERVER}${image}`} controls={true} />
+                  )}
+                </Carousel.Item>
+              ))}
+            </Carousel>
           </div> : <div></div>
         }
       </div>

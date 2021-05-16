@@ -32,7 +32,6 @@ const Chat = (props) =>{
 
   useEffect(() => {
         socket = io.connect(process.env.REACT_APP_SERVER);
-        setRoom("abc");
     setName(user.firstName);
     // conversation là các cuộc nói chuyện, thực hiện join vào các cuộc nói chuyện
     conversations.forEach(con => {
@@ -51,7 +50,8 @@ const Chat = (props) =>{
   
     useEffect(() => {
         socket.on('message', (data) => {
-          setMessages(messages => [ ...messages, {content:data.text, creator: data.creator} ]);
+          setMessages(messages => [...messages, { content: data.text, creator: data.creator }]);
+          props.receiveMessage({ content: data.text, creator: data.creator }, data.roomId)
         });
       
        socket.on("roomData", (data) => {
@@ -111,6 +111,8 @@ const mapStateToProps = (state)=>{
 
 const mapDispatchToProps = {
   getAllConversations: ChatActions.getAllConversations,
+  receiveMessage: ChatActions.receiveMessage,
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTranslate(Chat));

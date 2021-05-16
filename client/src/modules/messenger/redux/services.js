@@ -16,3 +16,7 @@ async function getAllConversations() {
 
     }, false, false, 'message')
 }
+
+async function saveMessage() {
+    
+}
