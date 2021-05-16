@@ -4,9 +4,10 @@ import { withTranslate } from 'react-redux-multilingual';
 import moment from 'moment';
 function Introduction() {
 
-      const {user} = useSelector(state => state.auth)
+    const { user } = useSelector(state => state.auth)
+    console.log("userrrrrrr============", user);
     return (
-        <div className="box" style={{lineHeight: 2.5}}>
+        <div className="box" style={{ lineHeight: 2.5 }}>
             <div className="box-header with-border">
                 <h3 className="box-title">Giới thiệu</h3>
             </div>
@@ -14,17 +15,17 @@ function Introduction() {
                 <div >
                     <i className="fa fa-birthday-cake" style={{ width: 25 }}></i>
                     <span style={{ marginRight: 3 }}>Ngày sinh</span>
-                    <span style={{ fontWeight: "bold" }}>{ moment(user.birthday).format("DD/MM/YYYY")}</span>
+                    <span style={{ fontWeight: "bold" }}>{moment(user.birthday).format("DD/MM/YYYY")}</span>
                 </div>
                 <div >
                     <i className="fa fa-user" style={{ width: 25 }}></i>
                     <span style={{ marginRight: 3 }}>Giới tính</span>
-                    <span style={{ fontWeight: "bold" }}>{user.gender? user.gender : "Unknow" }</span>
+                    <span style={{ fontWeight: "bold" }}>{user.gender ? user.gender : "Unknow"}</span>
                 </div>
                 <div >
                     <i className="fa fa-clock-o" style={{ width: 25 }}></i>
                     <span style={{ marginRight: 3 }}>Đã tham gia từ</span>
-                    <span style={{ fontWeight: "bold" }}>{user.createdAt? user.createdAt : "Unknow" }</span>
+                    <span style={{ fontWeight: "bold" }}>{user.createdAt ? user.createdAt : "Unknow"}</span>
                 </div>
             </div>
         </div>
