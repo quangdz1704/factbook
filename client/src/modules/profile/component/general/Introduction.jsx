@@ -2,10 +2,17 @@ import React from 'react'
 import { connect, useSelector } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
 import moment from 'moment';
+
 function Introduction() {
 
     const { user } = useSelector(state => state.auth)
-    console.log("userrrrrrr============", user);
+
+    const convertGender = (gender) => {
+        if (gender === 0) return "Nữ";
+        else if (gender === 1) return "Nam";
+        else return "Other"
+    }
+
     return (
         <div className="box" style={{ lineHeight: 2.5 }}>
             <div className="box-header with-border">
@@ -17,15 +24,15 @@ function Introduction() {
                     <span style={{ marginRight: 3 }}>Ngày sinh</span>
                     <span style={{ fontWeight: "bold" }}>{moment(user.birthday).format("DD/MM/YYYY")}</span>
                 </div>
-                <div >
+                <div>
                     <i className="fa fa-user" style={{ width: 25 }}></i>
                     <span style={{ marginRight: 3 }}>Giới tính</span>
-                    <span style={{ fontWeight: "bold" }}>{user.gender ? user.gender : "Unknow"}</span>
+                    <span style={{ fontWeight: "bold" }}>{user.gender && convertGender(user.gender)}</span>
                 </div>
                 <div >
                     <i className="fa fa-clock-o" style={{ width: 25 }}></i>
                     <span style={{ marginRight: 3 }}>Đã tham gia từ</span>
-                    <span style={{ fontWeight: "bold" }}>{user.createdAt ? user.createdAt : "Unknow"}</span>
+                    <span style={{ fontWeight: "bold" }}>{user.createdAt ? moment(user.createdAt).format("DD/MM/YYYY") : "Unknow"}</span>
                 </div>
             </div>
         </div>
