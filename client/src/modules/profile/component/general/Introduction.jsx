@@ -4,15 +4,12 @@ import { withTranslate } from 'react-redux-multilingual';
 import moment from 'moment';
 
 function Introduction() {
-
-    const { user } = useSelector(state => state.auth)
-
-    const convertGender = (gender) => {
-        if (gender === 0) return "Nữ";
-        else if (gender === 1) return "Nam";
-        else return "Other"
+    const formatGender = (gender) => {
+        if (gender == 0) return "Nam"
+        else if (gender == 1) return "Nữ"
+        else return "Giới tính thứ ba"
     }
-
+    const { user } = useSelector(state => state.auth)
     return (
         <div className="box" style={{ lineHeight: 2.5 }}>
             <div className="box-header with-border">
@@ -27,7 +24,7 @@ function Introduction() {
                 <div>
                     <i className="fa fa-user" style={{ width: 25 }}></i>
                     <span style={{ marginRight: 3 }}>Giới tính</span>
-                    <span style={{ fontWeight: "bold" }}>{user.gender && convertGender(user.gender)}</span>
+                    <span style={{ fontWeight: "bold" }}>{user.gender ? formatGender(user.gender) : "Unknow"}</span>
                 </div>
                 <div >
                     <i className="fa fa-clock-o" style={{ width: 25 }}></i>

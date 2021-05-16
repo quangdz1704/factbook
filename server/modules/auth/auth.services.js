@@ -218,11 +218,11 @@ exports.changeAvatar = async (
             content: content ? content : "Mình thay ảnh đại diện rồi nè !!",
             status: "Đã thay đổi ảnh đại diện",
             images: avatar
-    })
+        })
     }
     await user.save();
 
-    return {user, post};
+    return { user, post };
 };
 
 exports.getProfile = async (id) => {
@@ -235,9 +235,9 @@ exports.getProfile = async (id) => {
 };
 exports.getUser = async (id) => {
     let user = await User.findById(id)
-        .select("id active firstName surName avatar birthday listfriends")
+        .select("id active firstName surName avatar birthday listfriends  gender createdAt")
         .populate([
-            { path: "listfriends", select: "id active firstName surName avatar birthday" },
+            { path: "listfriends", select: "id active firstName surName avatar birthday gender createdAt" },
         ]);
     if (user === null) throw ["user_not_found"];
     return user;
