@@ -2,6 +2,7 @@ import React from 'react'
 import { connect, useSelector } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
 import moment from 'moment';
+
 function Introduction() {
     const formatGender = (gender) => {
         if (gender == 0) return "Nam"
@@ -20,7 +21,7 @@ function Introduction() {
                     <span style={{ marginRight: 3 }}>Ngày sinh</span>
                     <span style={{ fontWeight: "bold" }}>{moment(user.birthday).format("DD/MM/YYYY")}</span>
                 </div>
-                <div >
+                <div>
                     <i className="fa fa-user" style={{ width: 25 }}></i>
                     <span style={{ marginRight: 3 }}>Giới tính</span>
                     <span style={{ fontWeight: "bold" }}>{user.gender ? formatGender(user.gender) : "Unknow"}</span>
