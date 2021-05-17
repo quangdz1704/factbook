@@ -54,7 +54,7 @@ function SearchBox(props) {
                                         </li>
                                     })
                                     }
-                                    {result?.post?.length ? <li key="more">
+                                    {result?.post?.length || result?.user?.length ? <li key="more">
                                         <Link to={`/search`} style={{ whiteSpace: "break-spaces" }}>
                                             <div style={{ textAlign: "center", color: "blue" }}>
                                                 <div>Tìm kiếm thêm</div>
