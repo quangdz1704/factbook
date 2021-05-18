@@ -19,6 +19,7 @@ import { AuthActions } from "../auth/redux/actions"
 import { connect } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
 import { NotificationActions } from "../notifications/redux/actions";
+import SearchBox from "./SearchBox";
 
 
 function Header(props) {
@@ -43,10 +44,11 @@ function Header(props) {
               <img className={classes.logo__image} src={logo} alt="facebook-logo" />
             </Link>
             <Hidden smDown>
-              <div className={classes.logo__search}>
-                <SearchIcon />
-                <input placeholder="Search facebook ..." />
-              </div>
+              {/* <div className={classes.logo__search}> */}
+              {/* <SearchIcon /> */}
+              {/* <input placeholder="Search facebook ..." /> */}
+              <SearchBox />
+              {/* </div> */}
             </Hidden>
           </Grid>
         </Hidden>
