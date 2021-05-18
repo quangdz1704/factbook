@@ -115,7 +115,7 @@ exports.logout = async (req, res) => {
 
 exports.changeInformation = async (req, res) => {
 
-    try {
+  //  try {
         let avatar;
         if (req.file) {
             let path = req.file.destination + '/' + req.file.filename;
@@ -123,21 +123,21 @@ exports.changeInformation = async (req, res) => {
             avatar = path.substr(1, path.length)
         }
         console.log("re", req.body)
-        const profile = await AuthService.changeInformation(req.user._id, req.body.name, avatar);
+        const profile = await AuthService.changeInformation(req.user._id, req.body, avatar);
 
         res.status(200).json({
             success: true,
             messages: ['change_user_information_success'],
             content: profile
         });
-    } catch (error) {
+    // } catch (error) {
 
-        res.status(400).json({
-            success: false,
-            messages: Array.isArray(error) ? error : ['change_user_information_faile'],
-            content: error
-        });
-    }
+    //     res.status(400).json({
+    //         success: false,
+    //         messages: Array.isArray(error) ? error : ['change_user_information_faile'],
+    //         content: error
+    //     });
+    // }
 };
 
 
