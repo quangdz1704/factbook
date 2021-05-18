@@ -31,8 +31,9 @@ exports.createPost = async (id, data, files = undefined) => {
 };
 
 exports.editPost = async (id, data, files = undefined) => {
+    console.log('ddddddd',data);
     let post = await Post.findById({ _id: id })
-    post.described = data.described
+    post.content = data.content
     post.modified = new Date()
     if (files) {
         if (post.image.length !== 0) {
@@ -46,14 +47,18 @@ exports.editPost = async (id, data, files = undefined) => {
 
         post.image = files
     }
-    post.save();
-
-    return post;
+    await post.save()
+    
+    let editPost = await Post.findById(id).populate([
+        { path: "creator", populate: "users", select: "firstName surName avatar" },
+        { path: "comment.creator", populate: 'users', select: "firstName surName avatar" }
+    ])
+    return editPost;
 };
 
 exports.deletePost = async (id) => {
     let post = await Post.findById({ _id: id })
-    if (post.image.length !== 0) {
+    if (post.images.length !== 0) {
         for (let i in post.image) {
             if (fs.existsSync(post.image[i])) {
                 fs.unlinkSync(post.image[i])
