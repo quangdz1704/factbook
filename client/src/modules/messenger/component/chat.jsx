@@ -24,8 +24,6 @@ const Chat = (props) => {
   const [currentConversation, setCurrentConversation] = useState();
   const { conversations } = props.chat;
 
-  console.log('aaaaaaaaaaaaa', conversations);
-
   useEffect(() => {
     props.getAllConversations();
   }, []);
@@ -50,25 +48,13 @@ const Chat = (props) => {
 
   }, [conversations.length]);
 
-  useEffect(() => {
-    socket.on('message', (data) => {
-      setMessages(messages => [...messages, { content: data.text, creator: data.creator }]);
-    });
-
-    socket.on("roomData", (data) => {
-      console.log('roomdata', data);
-    });
-
-  }, [conversations.length]);
-  
     useEffect(() => {
-        socket.on('message', (data) => {
+      socket.on('message', (data) => {
           setMessages(messages => [...messages, { content: data.text, creator: data.creator }]);
           props.receiveMessage({ content: data.text, creator: data.creator }, data.roomId)
         });
       
        socket.on("roomData", (data) => {
-        console.log('roomdata', data);
        });
       
     },[conversations.length]);
@@ -92,7 +78,6 @@ const Chat = (props) => {
     setMessages(conversation.message)
     setCurrentConversation(conversation);
   }
-  console.log('currentConversation', currentConversation, conversations);
   return (
 
     <LayoutOnlyHeader>
