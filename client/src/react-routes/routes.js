@@ -19,6 +19,7 @@ import Listfriend from "../modules/profile/component/friend/Listfriend";
 import Chat from '../modules/messenger/component/chat';
 import Search from '../modules/search/Search';
 import ViewSinglePost from "../modules/posts/post/viewSinglePost";
+import ViewOtherProfile from "../modules/profile/component/viewOtherUserProfile";
 
 class Routes extends Component {
     render() {
@@ -42,10 +43,16 @@ class Routes extends Component {
                         pageName={"home"}
                         component={Home}
                     />
-                    <PrivateRoute
+                    {/* <PrivateRoute
                         path={"/profile"}
                         pageName={"Profile"}
                         component={Profile}
+                    /> */}
+                    <PrivateRoute
+                        path={"/profile/:id"}
+                        pageName={"Profile"}
+                        // component={Profile}
+                        component={ViewOtherProfile}
                     />
 
                     <PrivateRoute

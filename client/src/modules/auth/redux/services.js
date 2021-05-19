@@ -23,6 +23,9 @@ export const AuthService = {
     checkExistsPassword2,
     getInforUser,
     changeAvatar,
+    getProfileById,
+    unfriend,
+    addFriend
 };
 
 async function login(data) {
@@ -165,10 +168,33 @@ function getInforUser() {
     }, false, false, 'auth');
 }
 
+function getProfileById(id) {
+    return sendRequest({
+        url: `${process.env.REACT_APP_SERVER}/auth/get-profile/${id}`,
+        method: 'GET',
+    }, false, false, 'auth');
+}
+
+function addFriend(id) {
+    return sendRequest({
+        url: `${process.env.REACT_APP_SERVER}/friend/add-friend`,
+        method: 'POST',
+        data: { id: id }
+    }, true, true, 'auth');
+}
+
+function unfriend(id) {
+    return sendRequest({
+        url: `${process.env.REACT_APP_SERVER}/friend/unfriend`,
+        method: 'POST',
+        data: { id: id }
+    }, true, true, 'auth');
+}
+
 function changeAvatar(data) {
-      return sendRequest({
+    return sendRequest({
         url: `${process.env.REACT_APP_SERVER}/auth/profile/change-avatar`,
         method: 'PATCH',
         data,
-    },true, true, 'auth');
+    }, true, true, 'auth');
 }

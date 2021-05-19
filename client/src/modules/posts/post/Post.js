@@ -17,6 +17,8 @@ import { PostActions } from '../redux/actions';
 import moment from 'moment';
 import Comment from "../comment/comment";
 import ModalViewPost from "./modalViewPost";
+import { Link } from "react-router-dom";
+import { AuthActions } from "../../auth/redux/actions";
 
 const Post = (props) => {
   const classes = Style();
@@ -94,12 +96,16 @@ const Post = (props) => {
   return (
     <Paper className={classes.post}>
       <div className={classes.post__header}>
-        <Avatar
-          style={{ marginLeft: "10px" }}
-          src={`${process.env.REACT_APP_SERVER}${user.avatar}`}
-        />
+        <Link to={`/profile/${user?._id}`} onClick={() => props.getProfileById(user?._id)}>
+          <Avatar
+            style={{ marginLeft: "10px" }}
+            src={`${process.env.REACT_APP_SERVER}${user.avatar}`}
+          />
+        </Link>
         <div className={classes.header__info}>
-          <h4 style={{ cursor: "pointer" }}>{user.surName} {user.firstName}</h4>
+          <h4 style={{ cursor: "pointer" }} onClick={() => props.getProfileById(user?._id)}>
+            <Link to={`/profile/${user?._id}`} >{user.surName} {user.firstName}</Link>
+          </h4>
           <p style={{ cursor: "pointer" }} onClick={(e) => clickViewPost(e, newFeed._id)}>
             {/* <ReactTimeago date={newFeed ?newFeed.createAt.toUTCString() : null} units="minute" /> */}
             {moment(newFeed.createdAt).fromNow()}
@@ -163,6 +169,7 @@ const mapDispatchToProps = {
   getNewFeed: PostActions.getNewFeed,
   likePost: PostActions.likePost,
   dislikePost: PostActions.dislikePost,
+  getProfileById: AuthActions.getProfileById,
 }
 
 

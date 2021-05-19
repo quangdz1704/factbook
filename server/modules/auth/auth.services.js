@@ -228,7 +228,9 @@ exports.changeAvatar = async (
 exports.getProfile = async (id) => {
     let user = await User.findById(id)
         .select("-password -active -token")
-
+        .populate([
+            { path: "listfriends", select: "id active firstName surName avatar birthday gender createdAt" },
+        ]);
     if (user === null) throw ["user_not_found"];
 
     return user;

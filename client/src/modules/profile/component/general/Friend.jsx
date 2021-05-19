@@ -3,8 +3,8 @@ import './general.css'
 import { connect, useSelector } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
 function Friend() {
-    const { user } = useSelector(state => state.auth)
-    const { listfriends } = user;
+    const { user, otherUser } = useSelector(state => state.auth)
+    const { listfriends } = otherUser;
     return (
         <div className="box" style={{ height: "fit-content" }}>
             <div className="box-header with-border">
