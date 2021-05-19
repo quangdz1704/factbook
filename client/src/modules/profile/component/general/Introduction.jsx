@@ -40,7 +40,7 @@ function Introduction() {
                     <span style={{ fontWeight: "bold" }}>{user.createdAt ? moment(otherUser.createdAt).format("DD/MM/YYYY") : "Unknow"}</span>
                 </div>
                 <div>
-                    <button type="button" className="btn btn-primary" onClick={toggleEditProfile}>Chỉnh sửa thông tin cá nhân</button>
+                    <button type="button" className="btn btn-light" onClick={toggleEditProfile}>Chỉnh sửa thông tin cá nhân</button>
                 </div>
             </div>
         </div>

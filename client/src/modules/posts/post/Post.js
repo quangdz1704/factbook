@@ -171,13 +171,26 @@ const Post = (props) => {
           user._id === userId ?
             (
               <Dropdown>
-                <Dropdown.Toggle id="dropdown-basic">
+                <Dropdown.Toggle id="dropdown-basic" style={{
+                  backgroundColor: "transparent",
+                  border: "none",
+                  color: "#111"
+                }}>
                   <MoreHorizOutlinedIcon />
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  <Dropdown.Item href="" onClick={toggleEditPost}>Chỉnh sửa</Dropdown.Item>
-                  <Dropdown.Item href="" onClick={deletePost}>Xóa</Dropdown.Item>
+                <Dropdown.Menu style={{ minWidth: "100px" }}>
+                  <Dropdown.Item style={{ display: "flex", alignItems: 'center', }} onClick={toggleEditPost}>
+                    <span style={{ padding: "5px" }}>
+                      <i className="fa fa-pencil-square-o" ></i>&nbsp;Chỉnh sửa
+                    </span>
+                  </Dropdown.Item>
+                  <br />
+                  <Dropdown.Item style={{ display: "flex", alignItems: 'center', }} onClick={deletePost}>
+                    <span style={{ padding: "5px" }}>
+                      <i className="fa fa-trash" ></i>&nbsp;Xóa
+                    </span>
+                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             ) : <> </>
