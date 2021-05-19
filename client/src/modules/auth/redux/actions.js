@@ -21,6 +21,9 @@ export const AuthActions = {
     register,
     getInforUser,
     changeAvatar,
+    getProfileById,
+    addFriend,
+    unFriend,
 }
 
 function login(user) {
@@ -309,6 +312,55 @@ function getInforUser() {
     }
 }
 
+function getProfileById(id) {
+    console.log('getProfileById', id);
+    return dispatch => {
+        dispatch({ type: AuthConstants.GET_USER_BY_ID_REQUEST });
+        AuthService.getProfileById(id)
+            .then(res => {
+                dispatch({
+                    type: AuthConstants.GET_USER_BY_ID_SUCCESS,
+                    payload: res.data.content
+                });
+            })
+            .catch(err => {
+                dispatch({ type: AuthConstants.GET_USER_BY_ID_FAILE })
+            })
+    }
+}
+
+function addFriend(id) {
+    return dispatch => {
+        dispatch({ type: AuthConstants.ADD_FRIEND_REQUEST });
+        AuthService.addFriend(id)
+            .then(res => {
+                dispatch({
+                    type: AuthConstants.ADD_FRIEND_SUCCESS,
+                    payload: res.data.content
+                });
+            })
+            .catch(err => {
+                dispatch({ type: AuthConstants.ADD_FRIEND_FAILE })
+            })
+    }
+}
+
+function unFriend(id) {
+    return dispatch => {
+        dispatch({ type: AuthConstants.UN_FRIEND_REQUEST });
+        AuthService.unfriend(id)
+            .then(res => {
+                dispatch({
+                    type: AuthConstants.UN_FRIEND_SUCCESS,
+                    payload: res.data.content
+                });
+            })
+            .catch(err => {
+                dispatch({ type: AuthConstants.UN_FRIEND_FAILE })
+            })
+    }
+}
+
 function changeAvatar(data) {
     return dispatch => {
         dispatch({ type: AuthConstants.CHANGE_AVATAR_REQUEST });
@@ -320,7 +372,7 @@ function changeAvatar(data) {
                 });
             })
             .catch(err => {
-                dispatch({ type: AuthConstants.CHANGE_AVATAR_FAILE})
+                dispatch({ type: AuthConstants.CHANGE_AVATAR_FAILE })
             })
     }
 }

@@ -9,13 +9,12 @@ function Introduction() {
         else if (gender == 1) return "Nữ"
         else return "Giới tính thứ ba"
     }
-    const { user } = useSelector(state => state.auth)
+    const { user, otherUser } = useSelector(state => state.auth)
 
-   
-  const toggleEditProfile = (e) => {
-    e.preventDefault();
-    window.$('#modal-edit-profile').modal('show');
-  }
+    const toggleEditProfile = (e) => {
+        e.preventDefault();
+        window.$('#modal-edit-profile').modal('show');
+    }
 
 
     return (
@@ -28,20 +27,20 @@ function Introduction() {
                 <div >
                     <i className="fa fa-birthday-cake" style={{ width: 25 }}></i>
                     <span style={{ marginRight: 3 }}>Ngày sinh</span>
-                    <span style={{ fontWeight: "bold" }}>{moment(user.birthday).format("DD/MM/YYYY")}</span>
+                    <span style={{ fontWeight: "bold" }}>{moment(otherUser.birthday).format("DD/MM/YYYY")}</span>
                 </div>
                 <div>
                     <i className="fa fa-user" style={{ width: 25 }}></i>
                     <span style={{ marginRight: 3 }}>Giới tính</span>
-                    <span style={{ fontWeight: "bold" }}>{user.gender ? formatGender(user.gender) : "Unknow"}</span>
+                    <span style={{ fontWeight: "bold" }}>{user.gender ? formatGender(otherUser.gender) : "Unknow"}</span>
                 </div>
                 <div >
                     <i className="fa fa-clock-o" style={{ width: 25 }}></i>
                     <span style={{ marginRight: 3 }}>Đã tham gia từ</span>
-                    <span style={{ fontWeight: "bold" }}>{user.createdAt ? moment(user.createdAt).format("DD/MM/YYYY") : "Unknow"}</span>
+                    <span style={{ fontWeight: "bold" }}>{user.createdAt ? moment(otherUser.createdAt).format("DD/MM/YYYY") : "Unknow"}</span>
                 </div>
                 <div>
-                    <button type="button" className="btn btn-primary" onClick={toggleEditProfile}>Chỉnh sửa thông tin cá nhân</button>
+                    <button type="button" className="btn btn-light" onClick={toggleEditProfile}>Chỉnh sửa thông tin cá nhân</button>
                 </div>
             </div>
         </div>

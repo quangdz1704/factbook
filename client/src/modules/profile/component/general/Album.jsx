@@ -6,7 +6,7 @@ import { withTranslate } from 'react-redux-multilingual';
 function Album() {
 
     const { posts } = useSelector(state => state.post)
-    const { user } = useSelector(state => state.auth)
+    const { user, otherUser } = useSelector(state => state.auth)
     const checkTypeVideo = (post) => {
         if (typeof post === 'string' || post instanceof String) {
             let index = post.lastIndexOf(".");
@@ -18,12 +18,12 @@ function Album() {
         }
         else return false;
     }
-    const listPost = posts.filter(post => !checkTypeVideo(post.images[0]) && post.creator._id === user._id);
+    const listPost = posts.filter(post => !checkTypeVideo(post.images[0]) && post.creator._id === otherUser._id);
 
     let listImages = []
     listPost.forEach(post => {
         const images = post.images;
-        if (listImages.length <= 9) {
+        if (listImages.length < 9) {
             if (post.images?.length != 0) {
                 listImages = [...listImages, images];
             }

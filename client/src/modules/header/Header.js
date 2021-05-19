@@ -75,7 +75,7 @@ function Header(props) {
             </div>
           </Hidden>
 
-          <Link to={"/profile"} className={`${classes.nav__links} ${classes.nav__links__specail}`}>
+          <Link to={`/profile/${user._id}`} onClick={() => props.getProfileById(user?._id)} className={`${classes.nav__links} ${classes.nav__links__specail}`}>
             <Avatar
               src={avatar}
             />
@@ -91,7 +91,7 @@ function Header(props) {
               title={`${user.firstName}`}
               arrow
             >
-              <Link to={"/profile"} >
+              <Link to={`/profile/${user._id}`} onClick={() => props.getProfileById(user?._id)}>
                 <Avatar
                   src={avatar}
                 />
@@ -138,7 +138,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   getInforUser: AuthActions.getInforUser,
-  getNotifications: NotificationActions.getNotifications
+  getNotifications: NotificationActions.getNotifications,
+  getProfileById: AuthActions.getProfileById,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTranslate(Header));

@@ -19,6 +19,7 @@ const Posts = (props) => {
   
   const { posts } = props.post;
   const { user } = props.auth;
+  const { otherUser } = props.auth;
 
   const checkTypeVideo = (post) => {
     if (typeof post === 'string' || post instanceof String) {
@@ -35,6 +36,10 @@ const Posts = (props) => {
   let listPost = [];
   if (type === "profile") {
     listPost = posts.filter(post => post.creator._id === user._id)
+  }
+  else if (type === "other-profile") {
+    listPost = posts.filter(post => post.creator._id === otherUser?._id)
+    console.log('otherUser?._id', otherUser?._id, listPost);
   }
   else if (type === "watch") {
     listPost = posts.filter((post) => checkTypeVideo(post.images[0]))

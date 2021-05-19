@@ -26,6 +26,8 @@ import { PostActions } from '../redux/actions';
 import moment from 'moment';
 import Comment from "../comment/comment";
 import ModalViewPost from "./modalViewPost";
+import { Link } from "react-router-dom";
+import { AuthActions } from "../../auth/redux/actions";
 import EditPost from "./editPost";
 
 const Post = (props) => {
@@ -59,7 +61,7 @@ const Post = (props) => {
   useEffect(() => {
     const { newFeed } = props;
     const reaction = newFeed.reactions;
-   
+
     const liked = reaction.find(x => x.userId === userId)
 
     if (liked) {
@@ -135,26 +137,30 @@ const Post = (props) => {
       onExiting={() => setAnimating(true)}
       onExited={() => setAnimating(false)}
       key={image}
-      >
+    >
       {checkTypeFile(image) ? (
         <img className="d-block w-100" src={`${process.env.REACT_APP_SERVER}${image}`} alt={index} id={index} />
       ) : (
-          <ReactPlayer url={`${process.env.REACT_APP_SERVER}${image}`} controls={true} />
+        <ReactPlayer url={`${process.env.REACT_APP_SERVER}${image}`} controls={true} />
       )}
     </CarouselItem>
   ))
-  
+
 
   return (
     <Paper className={classes.post}>
       <EditPost postEdit={postEdit} />
       <div className={classes.post__header}>
-        <Avatar
-          style={{ marginLeft: "10px" }}
-          src={`${process.env.REACT_APP_SERVER}${user.avatar}`}
-        />
+        <Link to={`/profile/${user?._id}`} onClick={() => props.getProfileById(user?._id)}>
+          <Avatar
+            style={{ marginLeft: "10px" }}
+            src={`${process.env.REACT_APP_SERVER}${user.avatar}`}
+          />
+        </Link>
         <div className={classes.header__info}>
-          <h4 style={{ cursor: "pointer" }}>{user.surName} {user.firstName}</h4>
+          <h4 style={{ cursor: "pointer" }} onClick={() => props.getProfileById(user?._id)}>
+            <Link to={`/profile/${user?._id}`} >{user.surName} {user.firstName}</Link>
+          </h4>
           <p style={{ cursor: "pointer" }} onClick={(e) => clickViewPost(e, newFeed._id)}>
             {/* <ReactTimeago date={newFeed ?newFeed.createAt.toUTCString() : null} units="minute" /> */}
             {moment(newFeed.createdAt).fromNow()}
@@ -165,15 +171,28 @@ const Post = (props) => {
           user._id === userId ?
             (
               <Dropdown>
-                <Dropdown.Toggle id="dropdown-basic">
-                  <MoreHorizOutlinedIcon /> 
+                <Dropdown.Toggle id="dropdown-basic" style={{
+                  backgroundColor: "transparent",
+                  border: "none",
+                  color: "#111"
+                }}>
+                  <MoreHorizOutlinedIcon />
                 </Dropdown.Toggle>
 
-              <Dropdown.Menu>
-                <Dropdown.Item href="" onClick={toggleEditPost}>Chỉnh sửa</Dropdown.Item>
-                <Dropdown.Item href="" onClick={deletePost}>Xóa</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+                <Dropdown.Menu style={{ minWidth: "100px" }}>
+                  <Dropdown.Item style={{ display: "flex", alignItems: 'center', }} onClick={toggleEditPost}>
+                    <span style={{ padding: "5px" }}>
+                      <i className="fa fa-pencil-square-o" ></i>&nbsp;Chỉnh sửa
+                    </span>
+                  </Dropdown.Item>
+                  <br />
+                  <Dropdown.Item style={{ display: "flex", alignItems: 'center', }} onClick={deletePost}>
+                    <span style={{ padding: "5px" }}>
+                      <i className="fa fa-trash" ></i>&nbsp;Xóa
+                    </span>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             ) : <> </>
         }
       </div>
@@ -188,7 +207,7 @@ const Post = (props) => {
               next={next}
               previous={previous}
             >
-             <CarouselIndicators items={newFeed.images} activeIndex={activeIndex} onClickHandler={goToIndex} />
+              <CarouselIndicators items={newFeed.images} activeIndex={activeIndex} onClickHandler={goToIndex} />
               {listImage}
               <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
               <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
@@ -238,6 +257,7 @@ const mapDispatchToProps = {
   getNewFeed: PostActions.getNewFeed,
   likePost: PostActions.likePost,
   dislikePost: PostActions.dislikePost,
+  getProfileById: AuthActions.getProfileById,
   deletePost: PostActions.deletePost
 }
 
