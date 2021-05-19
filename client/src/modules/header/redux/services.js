@@ -14,5 +14,5 @@ async function searchPost(keyword) {
         url: `${process.env.REACT_APP_SERVER}/search/search-post`,
         method: 'POST',
         data: { keyword }
-    }, true, true, 'searchPost')
+    }, false, false, 'searchPost')
 }

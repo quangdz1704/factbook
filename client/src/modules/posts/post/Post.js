@@ -10,6 +10,15 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ReactPlayer from "react-player";
 import ReactTimeago from "react-timeago";
+//import Carousel from 'react-bootstrap/Carousel';
+import {
+  Carousel,
+  CarouselItem,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselCaption
+} from 'reactstrap';
+import Dropdown from 'react-bootstrap/Dropdown'
 import Style from "./Style";
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
@@ -19,20 +28,40 @@ import Comment from "../comment/comment";
 import ModalViewPost from "./modalViewPost";
 import { Link } from "react-router-dom";
 import { AuthActions } from "../../auth/redux/actions";
+import EditPost from "./editPost";
 
 const Post = (props) => {
   const classes = Style();
-  const { profile, username, timestamp, description, fileType, fileData } = props
   const { viewType } = props
   const [onViewPost, setViewPost] = useState(undefined);
   const [showComment, setShowComment] = useState(viewType === "single");
   const [likedPost, setLikedPost] = useState(false);
   const [thumsUpIconOrder, setThumsUpIconOrder] = useState(1);
+  const userId = localStorage.getItem("userId");
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [animating, setAnimating] = useState(false);
+
+  const next = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === newFeed.images.length - 1 ? 0 : activeIndex + 1;
+    setActiveIndex(nextIndex);
+  }
+
+  const previous = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === 0 ? newFeed.images.length - 1 : activeIndex - 1;
+    setActiveIndex(nextIndex);
+  }
+
+  const goToIndex = (newIndex) => {
+    if (animating) return;
+    setActiveIndex(newIndex);
+  }
 
   useEffect(() => {
     const { newFeed } = props;
     const reaction = newFeed.reactions;
-    const userId = localStorage.getItem("userId");
+
     const liked = reaction.find(x => x.userId === userId)
 
     if (liked) {
@@ -43,7 +72,7 @@ const Post = (props) => {
   const { newFeed } = props;
   const comment = newFeed?.comment;
   const user = newFeed ? newFeed.creator : {}
-
+  const { postEdit } = props;
   const Reactions = () => {
     return (
       <div>
@@ -93,8 +122,34 @@ const Post = (props) => {
     window.$(`#modal-view-post-${id}`).modal('show');
   }
 
+  const toggleEditPost = (e) => {
+    e.preventDefault();
+    props.setPostEdit(newFeed)
+    window.$('#modal-edit-post').modal('show');
+  }
+
+  const deletePost = () => {
+    props.deletePost(newFeed._id);
+  }
+  console.log('-------------------------', newFeed);
+  const listImage = newFeed.images.map((image, index) => (
+    <CarouselItem className={classes.body__image}
+      onExiting={() => setAnimating(true)}
+      onExited={() => setAnimating(false)}
+      key={image}
+    >
+      {checkTypeFile(image) ? (
+        <img className="d-block w-100" src={`${process.env.REACT_APP_SERVER}${image}`} alt={index} id={index} />
+      ) : (
+        <ReactPlayer url={`${process.env.REACT_APP_SERVER}${image}`} controls={true} />
+      )}
+    </CarouselItem>
+  ))
+
+
   return (
     <Paper className={classes.post}>
+      <EditPost postEdit={postEdit} />
       <div className={classes.post__header}>
         <Link to={`/profile/${user?._id}`} onClick={() => props.getProfileById(user?._id)}>
           <Avatar
@@ -111,19 +166,39 @@ const Post = (props) => {
             {moment(newFeed.createdAt).fromNow()}
           </p>
         </div>
-        <MoreHorizOutlinedIcon />
+        {/* <MoreHorizOutlinedIcon /> */}
+        {
+          user._id === userId ?
+            (
+              <Dropdown>
+                <Dropdown.Toggle id="dropdown-basic">
+                  <MoreHorizOutlinedIcon />
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item href="" onClick={toggleEditPost}>Chỉnh sửa</Dropdown.Item>
+                  <Dropdown.Item href="" onClick={deletePost}>Xóa</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            ) : <> </>
+        }
       </div>
       <div className={classes.post__body}>
         <div className={classes.body__description} style={{ cursor: "pointer" }} onClick={(e) => clickViewPost(e, newFeed._id)}>
           <p>{newFeed.content}</p>
         </div>
         {newFeed.images.length ?
-          <div className={classes.body__image}>
-            {checkTypeFile(newFeed.images[0]) ? (
-              <img src={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} alt="post" />
-            ) : (
-              <ReactPlayer url={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} controls={true} />
-            )}
+          <div>
+            <Carousel
+              activeIndex={activeIndex}
+              next={next}
+              previous={previous}
+            >
+              <CarouselIndicators items={newFeed.images} activeIndex={activeIndex} onClickHandler={goToIndex} />
+              {listImage}
+              <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+              <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+            </Carousel>
           </div> : <div></div>
         }
       </div>
@@ -170,6 +245,7 @@ const mapDispatchToProps = {
   likePost: PostActions.likePost,
   dislikePost: PostActions.dislikePost,
   getProfileById: AuthActions.getProfileById,
+  deletePost: PostActions.deletePost
 }
 
 

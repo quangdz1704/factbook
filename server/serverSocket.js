@@ -16,7 +16,7 @@ const serverSocket =  (io) => {
         socket.on('sendMessage',async (data, callback) => {
             console.log('sendddddd', data, socket.id);
             const con = await ChatServices.saveMessage(data);
-            io.to(data.roomId).emit('message', {creator: data.creator, text: data.message });
+            io.to(data.roomId).emit('message', {creator: data.creator, text: data.message, roomId: data.roomId });
             callback();        
         });
         

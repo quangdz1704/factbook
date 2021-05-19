@@ -15,6 +15,8 @@ const Posts = (props) => {
     props.getNewFeed();
   }, []);
 
+  const [postEdit, setPostEdit] = useState();
+  
   const { posts } = props.post;
   const { user } = props.auth;
   const { otherUser } = props.auth;
@@ -50,6 +52,8 @@ const Posts = (props) => {
         {listPost ? listPost.map((post) => (
           <Post
             newFeed={post}
+            setPostEdit={setPostEdit}
+            postEdit={postEdit}
           />
         )) : <></>}
       </FlipMove>

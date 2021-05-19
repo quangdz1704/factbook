@@ -60,7 +60,18 @@ const Chat = (props) => {
     });
 
   }, [conversations.length]);
-
+  
+    useEffect(() => {
+        socket.on('message', (data) => {
+          setMessages(messages => [...messages, { content: data.text, creator: data.creator }]);
+          props.receiveMessage({ content: data.text, creator: data.creator }, data.roomId)
+        });
+      
+       socket.on("roomData", (data) => {
+        console.log('roomdata', data);
+       });
+      
+    },[conversations.length]);
   // ham gửi tin nhắn
   const sendMessage = (event) => {
     event.preventDefault();
@@ -114,6 +125,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   getAllConversations: ChatActions.getAllConversations,
+  receiveMessage: ChatActions.receiveMessage,
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withTranslate(Chat));
