@@ -23,6 +23,7 @@
     "c3": "^0.7.18",
     "d3-format": "^2.0.0",
     "dhtmlx-gantt": "^7.0.12",
+    "emoji-picker-react": "^3.4.5",
     "env-cmd": "^10.1.0",
     "eslint": "^6.6.0",
     "exceljs": "^4.1.1",

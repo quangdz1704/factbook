@@ -9,7 +9,8 @@ import Styles from "./Style";
 import { DialogModal, UploadFile } from "../../../common-components";
 import { PostActions } from '../redux/actions';
 import { AuthActions } from '../../auth/redux/actions';
-
+import Picker from 'emoji-picker-react';
+import Feeling from './feelingModal';
 
 function CreatePost(props) {
     const classes = Styles();
@@ -22,6 +23,8 @@ function CreatePost(props) {
         videos: [],
 
     });
+    const [chosenEmoji, setChosenEmoji] = useState(null);
+
 
     const onChangeText = (e) => {
         setState({ ...state, content: e.target.value });
@@ -45,6 +48,16 @@ function CreatePost(props) {
         }
 
     }
+
+    const onEmojiClick = (event, emojiObject) => {
+        setChosenEmoji(emojiObject);
+    };
+
+    const toggleFeeling = (e) => {
+        e.preventDefault();
+        window.$("#modal-create-post-feeling").modal('show');
+    }
+    
 
 
     const save = () => {
@@ -80,6 +93,7 @@ function CreatePost(props) {
             hasCloseButton={false}
             disableSubmit={!isValidateForm()}
         >
+            <Feeling />
             <div className={classes.post}>
                 <div className={classes.post__header}>
                     <Avatar
@@ -98,13 +112,14 @@ function CreatePost(props) {
                     <strong style={{ display: "inline", marginRight: 10 }}>Thêm vào bài viết</strong>
                     <VideocamRoundedIcon style={{ color: "red", marginRight: 10 }} />
                     <PhotoRoundedIcon style={{ color: "green", marginRight: 10 }} />
-                    <EmojiEmotionsOutlinedIcon style={{ color: "orange", marginRight: 10 }} />
+                    <EmojiEmotionsOutlinedIcon onClick={toggleFeeling} style={{ color: "orange", marginRight: 10 }} />
 
                     <UploadFile
                         accept="image/*,audio/*,video/*"
                         multiple={true}
                         // show={false}
                         onChange={handleUploadFile} />
+                    {/* <Picker onEmojiClick={onEmojiClick} groupVisibility={{smileys_people: false, }} pickerStyle={{ width: '100%' }} /> */}
                 </div>
             </div>
 
