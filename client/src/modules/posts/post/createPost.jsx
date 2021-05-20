@@ -11,20 +11,21 @@ import { PostActions } from '../redux/actions';
 import { AuthActions } from '../../auth/redux/actions';
 import Picker from 'emoji-picker-react';
 import Feeling from './feelingModal';
-
+import ReactEmoji from 'react-emoji';
 function CreatePost(props) {
     const classes = Styles();
     const { user } = props.auth;
+    const [ feeling, setFeeling]  = useState(null);
     const [state, setState] = useState({
         content: "",
-        feeling: "",
         activity: "",
         images: [],
         videos: [],
 
     });
-    const [chosenEmoji, setChosenEmoji] = useState(null);
-
+    useEffect(() => {
+        console.log('feelinggggg', feeling);
+    }, [feeling]);
 
     const onChangeText = (e) => {
         setState({ ...state, content: e.target.value });
@@ -49,9 +50,10 @@ function CreatePost(props) {
 
     }
 
-    const onEmojiClick = (event, emojiObject) => {
-        setChosenEmoji(emojiObject);
-    };
+    const onChangeFeeling = (value) => {
+        console.log('emoji create', value);
+        setFeeling(value);
+    }
 
     const toggleFeeling = (e) => {
         e.preventDefault();
@@ -75,6 +77,9 @@ function CreatePost(props) {
                 formData.append("post", x.fileUpload);
             })
         }
+        if (feeling) {
+            formData.append("feeling", feeling);
+        }
         props.createPost(formData);
     }
     const isValidateForm = () => {
@@ -93,7 +98,7 @@ function CreatePost(props) {
             hasCloseButton={false}
             disableSubmit={!isValidateForm()}
         >
-            <Feeling />
+            <Feeling onChangeFeeling={ onChangeFeeling}/>
             <div className={classes.post}>
                 <div className={classes.post__header}>
                     <Avatar
@@ -101,7 +106,14 @@ function CreatePost(props) {
                     />
                     <div className={classes.header__info}>
                         <h4>{user.surName} {user.firstName}</h4>
+                        {feeling ? (
+                        <div >
+                            đang đang {ReactEmoji.emojify(feeling.code)} cảm thấy <strong>{feeling.name}</strong>
+                        </div>
+                    ) : <> </>
+                    }
                     </div>
+                    
                 </div>
                 <textarea type="text"
                     className={classes.input_text}

@@ -56,6 +56,12 @@ const listFeeling = [
 ]
 
 const Feeling = (props) => {
+
+    const onChangeFeeling = (value) => {
+        console.log('emojiiiiiiiiiii', value);
+        props.onChangeFeeling(value)
+    }
+
     return (
         <DialogModal
             modalID="modal-create-post-feeling"
@@ -67,7 +73,7 @@ const Feeling = (props) => {
             <div style= {{display: "flex", flexWrap:"wrap",}}>
                  {
                     listFeeling.map(emoji => (
-                        <div className={'col-md-6'}  style= {{display: "flex"}}  id = {emoji.id}>
+                        <div className={'col-md-6'} onClick={()=>onChangeFeeling(emoji)}  style= {{display: "flex"}}  id = {emoji.id}>
                             <div>{ReactEmoji.emojify(emoji.code)}</div>
                             <div style= {{ marginLeft:"10px"}}>{emoji.name}</div>
                         </div>
