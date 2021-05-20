@@ -248,7 +248,7 @@ class SelectBox extends Component {
         return (
             <React.Fragment>
                 <div className="select2">
-                    <select className={className} style={style} ref="select" value={this.formatValue(value, multiple)} id={id} multiple={multiple} onChange={() => { }} disabled={disabled}>
+                    <select className={className} style={style} ref="select" value={this.formatValue(value, multiple)} id={id} multiple={multiple} onChange={() => { }} placeholder={options.placeholder} disabled={disabled}>
                         {!searching &&
                             <React.Fragment>
                                 {options.placeholder !== undefined && multiple === false && <option></option>} {/*Ở chế độ single selection, nếu muốn mặc định không chọn gì*/}

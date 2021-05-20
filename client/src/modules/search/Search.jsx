@@ -69,8 +69,8 @@ const PostSearched = (props) => {
                         {checkTypeFile(newFeed.images[0]) ? (
                             <img style={{ maxWidth: "50vw" }} src={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} alt="post" />
                         ) : (
-                                <ReactPlayer url={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} controls={true} />
-                            )}
+                            <ReactPlayer url={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} controls={true} />
+                        )}
                     </div> : <div></div>
                 }
             </div>
@@ -110,7 +110,7 @@ const PostSearched = (props) => {
 const SearchResult = () => {
     const classes = Style();
 
-    const { result } = useSelector(state => state.searchPost);
+    const { result } = useSelector(state => state.search);
     return (
         <div>
             <section className="section">
@@ -138,7 +138,7 @@ const SearchResult = () => {
                         <Link to={`#`} style={{ whiteSpace: "break-spaces" }}>
                             <div className="header_user_post">
                                 <Avatar style={{ height: 40, width: 40 }} src={`${process.env.REACT_APP_SERVER}${item.creator.avatar}`} /> &nbsp;&nbsp;
-                                    <div >
+                                <div >
                                     <strong className="user_name">{item.creator.surName + " " + item.creator.firstName}</strong>
                                     <span className="is_fr">Bạn bè</span>
                                 </div>

@@ -20,6 +20,7 @@ import { connect } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
 import { NotificationActions } from "../notifications/redux/actions";
 import SearchBox from "./SearchBox";
+import { SearchActions } from "./redux/actions";
 
 
 function Header(props) {
@@ -28,6 +29,7 @@ function Header(props) {
   const mode = useSelector((state) => state.util);
 
   useEffect(() => {
+    props.searchUser({ type: "all" });
     props.getInforUser();
     props.getNotifications();
   }, [])
@@ -138,6 +140,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   getInforUser: AuthActions.getInforUser,
+  searchUser: SearchActions.searchUser,
   getNotifications: NotificationActions.getNotifications,
   getProfileById: AuthActions.getProfileById,
 }
