@@ -21,7 +21,10 @@ exports.createPost = async (id, data, files = undefined) => {
         content: data.content,
         status: data.status,
         images: listfile,
-        feeling: data.feeling,
+        feeling: {
+            code: data.feeling_code,
+            name: data.feeling_name
+        }
     })
 
     let createdPost = await Post.findById({ _id: post._id }).populate([

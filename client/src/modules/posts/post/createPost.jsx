@@ -78,7 +78,8 @@ function CreatePost(props) {
             })
         }
         if (feeling) {
-            formData.append("feeling", feeling);
+            formData.append("feeling_code", feeling.code);
+            formData.append("feeling_name", feeling.name);
         }
         props.createPost(formData);
     }
