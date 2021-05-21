@@ -1,5 +1,4 @@
 .section{
-    width: 70vw;
     background: white;
     margin: 10px;
     padding: 10px;
@@ -31,3 +30,7 @@
     padding: 5px 0px;
 }
 
+.reactions{
+    display: flex;
+    align-items: center;
+}

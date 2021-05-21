@@ -21,9 +21,9 @@ const Reactions = (props) => {
     return (
         <div>
             {newFeed.reactions.length ?
-                <div >
+                <div className="reactions">
                     <ThumbUpAltIcon style={{ color: " #2e81f4" }} />
-                    <h5 style={{ display: "inline", marginRight: 5 }}>{newFeed.reactions.length}</h5>
+                    <h5 style={{ display: "inline", marginLeft: 5, color: "#333" }}>{newFeed.reactions.length}</h5>
                 </div> : <div></div>
             }
         </div>
@@ -67,7 +67,7 @@ const PostSearched = (props) => {
                 {newFeed.images.length ?
                     <div className={classes.body__image}>
                         {checkTypeFile(newFeed.images[0]) ? (
-                            <img style={{ maxWidth: "50vw" }} src={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} alt="post" />
+                            <img style={{ maxHeight: "60vh" }} src={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} alt="post" />
                         ) : (
                                 <ReactPlayer url={`${process.env.REACT_APP_SERVER}${newFeed.images[0]}`} controls={true} />
                             )}
@@ -109,16 +109,17 @@ const PostSearched = (props) => {
 }
 const SearchResult = () => {
     const classes = Style();
-
     const { result } = useSelector(state => state.searchPost);
+    console.log("========", result);
+
     return (
-        <div>
+        <div style={{ width: "inherit" }}>
             <section className="section">
                 <p style={{ fontSize: 20, fontWeight: "600" }}>Mọi người</p>
                 <ul style={{ listStyle: "none", padding: 0 }}>
                     {result?.user?.map((e, key) => {
                         return <li key={key} className="list_user">
-                            <Link to={`#`} style={{ whiteSpace: "break-spaces" }}>
+                            <a href={`http://localhost:3000/profile/${e._id}`} style={{ whiteSpace: "break-spaces" }}>
                                 <div style={{ display: "flex", alignItems: "center" }}>
                                     <Avatar style={{ height: 60, width: 60 }} src={`${process.env.REACT_APP_SERVER}${e.avatar}`} /> &nbsp;&nbsp;
                                     <div >
@@ -126,7 +127,7 @@ const SearchResult = () => {
                                         <span className="is_fr">Bạn bè</span>
                                     </div>
                                 </div>
-                            </Link>
+                            </a>
                         </li>
                     })
                     }
@@ -135,7 +136,7 @@ const SearchResult = () => {
             <ul style={{ listStyle: "none", padding: 0 }}>
                 {result?.post?.map((item, key) => {
                     return <li key={key} className="section">
-                        <Link to={`#`} style={{ whiteSpace: "break-spaces" }}>
+                        <Link to={`/post/${item?._id}`} style={{ whiteSpace: "break-spaces" }}>
                             <div className="header_user_post">
                                 <Avatar style={{ height: 40, width: 40 }} src={`${process.env.REACT_APP_SERVER}${item.creator.avatar}`} /> &nbsp;&nbsp;
                                     <div >
@@ -183,8 +184,14 @@ const Search = () => {
                         </Hidden>
 
                         <Hidden smDown>
-                            <Grid item container className={classes.body__feed} md={9}>
+                            <Grid item container className={classes.body__feed} md={6}>
                                 <SearchResult />
+                            </Grid>
+                        </Hidden>
+
+                        <Hidden smDown>
+                            <Grid item container className={classes.body__right} md={3}>
+
                             </Grid>
                         </Hidden>
                     </Grid>

@@ -45,12 +45,12 @@ function SearchBox(props) {
                                 <ul className="menu" style={{ maxHeight: "60vh" }}>
                                     {result?.user?.map((e, key) => {
                                         return <li key={key}>
-                                            <Link to={`#`} style={{ whiteSpace: "break-spaces" }}>
+                                            <a href={`http://localhost:3000/profile/${e._id}`} style={{ whiteSpace: "break-spaces" }}>
                                                 <div style={{ display: "flex", alignItems: "center" }}>
                                                     <Avatar src={`${process.env.REACT_APP_SERVER}${e.avatar}`} /> &nbsp;&nbsp;
                                                     <div>{e.surName + " " + e.firstName}</div>
                                                 </div>
-                                            </Link>
+                                            </a>
                                         </li>
                                     })
                                     }
