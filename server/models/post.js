@@ -11,7 +11,12 @@ const PostSchema = new Schema({
     },
 
     feeling: {
-        type: String,
+        code: {
+            type: String,
+        },
+        name: {
+            type: String,
+        }
     },
 
     activity: {

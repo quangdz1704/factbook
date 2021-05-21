@@ -4,6 +4,7 @@ import { SearchConstants } from './constants';
 
 export const SearchActions = {
     searchPost,
+    searchUser,
 }
 
 function searchPost(keyword) {
@@ -19,6 +20,24 @@ function searchPost(keyword) {
             .catch((err) => {
                 dispatch({
                     type: SearchConstants.SEARCH_POST_FAILE,
+                })
+            })
+    }
+}
+
+function searchUser(keyword) {
+    return dispatch => {
+        dispatch({ type: SearchConstants.SEARCH_USER_REQUEST });
+        SearchServices.searchUser(keyword)
+            .then(res => {
+                dispatch({
+                    type: SearchConstants.SEARCH_USER_SUCCESS,
+                    payload: res.data.content,
+                });
+            })
+            .catch((err) => {
+                dispatch({
+                    type: SearchConstants.SEARCH_USER_FAILE,
                 })
             })
     }

@@ -46,6 +46,7 @@ const Posts = (props) => {
   }
   else listPost = posts;
 
+  console.log('aaaaaaaaaaa', listPost);
   return (
     <div className={classes.posts}>
       <FlipMove style={{ width: "100%" }}>

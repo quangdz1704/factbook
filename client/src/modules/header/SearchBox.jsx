@@ -5,12 +5,11 @@ import { useState } from 'react';
 import Notifications from "../notifications/components/notification";
 import { connect, useSelector } from 'react-redux';
 import { SearchActions } from './redux/actions';
-import { searchPost } from './redux/reducers';
 import { Link, Redirect } from 'react-router-dom';
 import { Avatar } from '@material-ui/core';
 
 function SearchBox(props) {
-    const { result } = useSelector(state => state.searchPost);
+    const { result } = useSelector(state => state.search);
     const classes = Style();
 
     const onChangeSearchText = (e) => {

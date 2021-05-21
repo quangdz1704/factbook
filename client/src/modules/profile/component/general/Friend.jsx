@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 import './general.css'
 import { connect, useSelector } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
@@ -9,7 +10,7 @@ function Friend() {
         <div className="box" style={{ height: "fit-content" }}>
             <div className="box-header with-border">
                 <h3 className="box-title">Bạn bè</h3>
-                <a className="pull-right" style={{ color: "#1877F2", fontSize: "normal", cursor: "pointer" }}>Xem tất cả bạn bè</a>
+                <Link to={`/friends/user/${otherUser._id}`} className="pull-right" style={{ color: "#1877F2", fontSize: "normal", cursor: "pointer" }}>Xem tất cả bạn bè</Link>
             </div>
             <div className="box-body" >
                 <div >

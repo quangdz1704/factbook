@@ -22,7 +22,6 @@ const EditPost = (props) => {
        }
     }, [props.postEdit])
 
-    console.log('editttttttttt', postEdit);
     function handleUploadFile(value) {
         if (value.length !== 0) {
             const newImage = {
@@ -30,7 +29,6 @@ const EditPost = (props) => {
                 urlFile: value[value.length - 1].urlFile,
                 fileUpload: value[value.length - 1].fileUpload
             }
-            console.log('iiiiiiiiiiiiiiiiii', images);
             setImages([...images, newImage])
         }
 

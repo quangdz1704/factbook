@@ -20,6 +20,8 @@ import Chat from '../modules/messenger/component/chat';
 import Search from '../modules/search/Search';
 import ViewSinglePost from "../modules/posts/post/viewSinglePost";
 import ViewOtherProfile from "../modules/profile/component/viewOtherUserProfile";
+import ViewAlbums from "../modules/profile/component/view-detail/viewAlbums";
+import ViewFriends from "../modules/profile/component/view-detail/viewFriends";
 
 class Routes extends Component {
     render() {
@@ -54,7 +56,16 @@ class Routes extends Component {
                         // component={Profile}
                         component={ViewOtherProfile}
                     />
-
+                    <PrivateRoute
+                        path={"/friends/user/:id"}
+                        pageName={"view_friend"}
+                        component={ViewFriends}
+                    />
+                    <PrivateRoute
+                        path={"/albums/user/:id"}
+                        pageName={"view_albums"}
+                        component={ViewAlbums}
+                    />
                     <PrivateRoute
                         path={"/watch"}
                         pageName={"Watch"}

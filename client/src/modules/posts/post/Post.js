@@ -10,6 +10,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ReactPlayer from "react-player";
 import ReactTimeago from "react-timeago";
+import ReactEmoji from 'react-emoji'
 //import Carousel from 'react-bootstrap/Carousel';
 import {
   Carousel,
@@ -161,6 +162,12 @@ const Post = (props) => {
           <h4 style={{ cursor: "pointer" }} onClick={() => props.getProfileById(user?._id)}>
             <Link to={`/profile/${user?._id}`} >{user.surName} {user.firstName}</Link>
           </h4>
+           {newFeed.feeling ? (
+                        <div >
+                            đang đang {ReactEmoji.emojify(newFeed.feeling.code)} cảm thấy <strong>{newFeed.feeling.name}</strong>
+                        </div>
+                    ) : <> </>
+            }
           <p style={{ cursor: "pointer" }} onClick={(e) => clickViewPost(e, newFeed._id)}>
             {/* <ReactTimeago date={newFeed ?newFeed.createAt.toUTCString() : null} units="minute" /> */}
             {moment(newFeed.createdAt).fromNow()}

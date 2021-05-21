@@ -6,7 +6,7 @@ import { auth } from '../modules/auth/redux/reducers';
 import { post } from '../modules/posts/redux/reducers';
 import { chat } from '../modules/messenger/redux/reducers'
 import { notification } from '../modules/notifications/redux/reducers';
-import { searchPost } from '../modules/header/redux/reducers';
+import { search } from '../modules/header/redux/reducers';
 const appReducer = combineReducers({
     socket,
     auth,
@@ -14,7 +14,7 @@ const appReducer = combineReducers({
     post,
     chat,
     notification,
-    searchPost,
+    search,
 });
 
 const rootReducer = (state, action) => {

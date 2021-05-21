@@ -7,6 +7,7 @@ import {
 
 export const SearchServices = {
     searchPost,
+    searchUser,
 }
 
 async function searchPost(keyword) {
@@ -15,4 +16,13 @@ async function searchPost(keyword) {
         method: 'POST',
         data: { keyword }
     }, false, false, 'searchPost')
+}
+
+async function searchUser(key) {
+    console.log('keyword', key);
+    return sendRequest({
+        url: `${process.env.REACT_APP_SERVER}/search/search-user`,
+        method: 'GET',
+        params: key
+    }, false, false, 'searchUser')
 }
