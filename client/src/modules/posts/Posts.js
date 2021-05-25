@@ -16,7 +16,7 @@ const Posts = (props) => {
   }, []);
 
   const [postEdit, setPostEdit] = useState();
-  
+
   const { posts } = props.post;
   const { user } = props.auth;
   const { otherUser } = props.auth;
@@ -50,13 +50,17 @@ const Posts = (props) => {
   return (
     <div className={classes.posts}>
       <FlipMove style={{ width: "100%" }}>
-        {listPost ? listPost.map((post) => (
+        {listPost && listPost.length > 0 ? listPost.map((post) => (
           <Post
             newFeed={post}
             setPostEdit={setPostEdit}
             postEdit={postEdit}
           />
-        )) : <></>}
+        )) : <div className="box" style={{ marginTop: "10px", height: "50vh", display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <img style={{ height: "30vh" }} src="/nodata.png" />
+          <h1 >Opp! Chưa có bài viết nào</h1>
+        </div>
+        }
       </FlipMove>
     </div>
   );

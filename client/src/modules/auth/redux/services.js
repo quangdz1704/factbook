@@ -46,6 +46,7 @@ async function register(data) {
 }
 
 function logout() {
+    console.log('logout');
     return sendRequest({
         url: `${process.env.REACT_APP_SERVER}/auth/logout`,
         method: 'GET',

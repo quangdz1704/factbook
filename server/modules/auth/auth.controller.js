@@ -100,11 +100,13 @@ exports.login = async (req, res) => {
 exports.logout = async (req, res) => {
     try {
         var logout = await AuthService.logout(req.user._id, req.body.token);
+        console.log('logout-success', logout);
         res.status(200).json({
             success: true,
             messages: ['logout_success'],
         });
     } catch (error) {
+        console.log('err', error);
         res.status(400).json({
             success: false,
             message: ['logout_faile'],
@@ -115,21 +117,21 @@ exports.logout = async (req, res) => {
 
 exports.changeInformation = async (req, res) => {
 
-  //  try {
-        let avatar;
-        if (req.file) {
-            let path = req.file.destination + '/' + req.file.filename;
-            console.log("path", path)
-            avatar = path.substr(1, path.length)
-        }
-        console.log("re", req.body)
-        const profile = await AuthService.changeInformation(req.user._id, req.body, avatar);
+    //  try {
+    let avatar;
+    if (req.file) {
+        let path = req.file.destination + '/' + req.file.filename;
+        console.log("path", path)
+        avatar = path.substr(1, path.length)
+    }
+    console.log("re", req.body)
+    const profile = await AuthService.changeInformation(req.user._id, req.body, avatar);
 
-        res.status(200).json({
-            success: true,
-            messages: ['change_user_information_success'],
-            content: profile
-        });
+    res.status(200).json({
+        success: true,
+        messages: ['change_user_information_success'],
+        content: profile
+    });
     // } catch (error) {
 
     //     res.status(400).json({
@@ -143,20 +145,20 @@ exports.changeInformation = async (req, res) => {
 
 exports.changeAvatar = async (req, res) => {
 
-  //  try {
-        let avatar;
-        if (req.file) {
-            let path = req.file.destination + '/' + req.file.filename;
-            avatar = path.substr(1, path.length)
-        }
-        console.log("avta", avatar)
-        const profile = await AuthService.changeAvatar(req.user._id, req.body.content, avatar);
+    //  try {
+    let avatar;
+    if (req.file) {
+        let path = req.file.destination + '/' + req.file.filename;
+        avatar = path.substr(1, path.length)
+    }
+    console.log("avta", avatar)
+    const profile = await AuthService.changeAvatar(req.user._id, req.body.content, avatar);
 
-        res.status(200).json({
-            success: true,
-            messages: ['change_avatar_success'],
-            content: profile
-        });
+    res.status(200).json({
+        success: true,
+        messages: ['change_avatar_success'],
+        content: profile
+    });
     // } catch (error) {
 
     //     res.status(400).json({
