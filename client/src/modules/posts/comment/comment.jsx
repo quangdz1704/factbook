@@ -9,8 +9,9 @@ import { UploadFile } from '../../../common-components';
 import { getStorage } from '../../../config';
 import { PostActions } from '../redux/actions';
 import Style from "./../post/Style";
-import "./comment.css";
+import ReactEmoji from 'react-emoji';
 import { AuthActions } from '../../auth/redux/actions';
+import "./comment.css";
 
 const Comment = (props) => {
   const classes = Style();
@@ -81,7 +82,6 @@ const Comment = (props) => {
     }
     formData.append('creator', userId);
     let data = { formData: formData, id: postId };
-    console.log("send cmt", data, state);
     props.setComment(formData, postId);
     props.getPostById(postId)
     setState({
@@ -120,7 +120,7 @@ const Comment = (props) => {
                   <Link to={`/profile/${cmt.creator?._id}`} onClick={() => props.getProfileById(cmt.creator?._id)} style={{ fontSize: "15px", fontWeight: "bold" }}>{cmt.creator?.surName} {cmt.creator?.firstName}</Link>
                 </h5>
                 <br />
-                <p>{cmt.described}</p>
+                <p>{ReactEmoji.emojify(cmt.described)}</p>
                 {cmt.images.length ?
                   <div className={classes.body__image}>
                     {checkTypeFile(cmt.images[0]) ? (

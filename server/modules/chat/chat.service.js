@@ -11,7 +11,7 @@ exports.getAllConversations = async (id) => {
             { path: "listuser", select: "id active firstName surName avatar birthday" },
             { path: "message.creator", select: "id active firstName surName avatar birthday" }
         ]).lean(); // chuyển giá trị trả về thành 1 plain object js
-
+    console.log('convert', conversations);
     for (let i in conversations) {
         const tmp = conversations[i].listuser;
         const guest = tmp.filter(y => y._id.toString() !== id);

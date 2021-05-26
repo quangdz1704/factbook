@@ -179,7 +179,7 @@ exports.changeInformation = async (
     data,
     avatar = undefined
 ) => {
-    console.log('dddd',data);
+    console.log('dddd', data);
     const { firstName, surName, birthday, gender } = data;
     let user = await User.findById(id)
 
@@ -213,13 +213,13 @@ exports.changeAvatar = async (
 
     let user = await User.findById(id)
     let deleteAvatar = "." + user.avatar;
-    let post;
+    let post, newPost;
     if (avatar) {
-        if (
-            deleteAvatar !== "./upload/avatars/user.jpg" &&
-            fs.existsSync(deleteAvatar)
-        )
-            fs.unlinkSync(deleteAvatar);
+        // if (
+        //     deleteAvatar !== "./upload/avatars/user.jpg" &&
+        //     fs.existsSync(deleteAvatar)
+        // )
+        // fs.unlinkSync(deleteAvatar);
         user.avatar = avatar;
         post = await Post.create({
             creator: id,
@@ -228,10 +228,15 @@ exports.changeAvatar = async (
             status: "Đã thay đổi ảnh đại diện",
             images: avatar
         })
+
+        newPost = await Post.find({}).populate([
+            { path: "creator", populate: "users", select: "firstName surName avatar" },
+            { path: "comment.creator", populate: 'users', select: "firstName surName avatar" }
+        ]).sort({ createdAt: -1 })
     }
     await user.save();
 
-    return { user, post };
+    return { user, post: newPost };
 };
 
 exports.getProfile = async (id) => {

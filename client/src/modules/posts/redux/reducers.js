@@ -1,3 +1,4 @@
+import { AuthConstants } from '../../auth/redux/constants';
 import { PostConstants } from './constants';
 
 export const CallApiStatus = {
@@ -22,6 +23,7 @@ export function post(state = initState, action) {
         case PostConstants.GET_POST_BY_ID_REQUEST:
         case PostConstants.EDIT_POST_FAILE:
         case PostConstants.DELETE_POST_REQUEST:
+        case AuthConstants.CHANGE_AVATAR_REQUEST:
             return {
                 ...state,
                 isLoading: false,
@@ -50,7 +52,14 @@ export function post(state = initState, action) {
                 isLoading: false,
                 postItem: action.payload
             }
-  
+
+        case AuthConstants.CHANGE_AVATAR_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                posts: action.payload.post
+            }
+
         case PostConstants.EDIT_POST_SUCCESS:
             console.log('rrrrrrrrr', action.payload);
             const index = state.posts.findIndex(elem => elem._id === action.payload.content._id);
@@ -73,6 +82,7 @@ export function post(state = initState, action) {
         case PostConstants.DISLIKE_POST_FAILE:
         case PostConstants.GET_POST_BY_ID_FAILE:
         case PostConstants.DELETE_POST_FAILE:
+        case AuthConstants.CHANGE_AVATAR_FAILE:
             return {
                 ...state,
                 isLoading: false,
