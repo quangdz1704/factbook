@@ -3,7 +3,10 @@ import { connect, useSelector } from 'react-redux';
 import { withTranslate } from 'react-redux-multilingual';
 import moment from 'moment';
 import EditProfile from './editProfile';
+import { getStorage } from '../../../../config';
+
 function Introduction() {
+    const userId = getStorage('userId');
     const formatGender = (gender) => {
         if (gender == 0) return "Nam"
         else if (gender == 1) return "Nữ"
@@ -32,16 +35,19 @@ function Introduction() {
                 <div>
                     <i className="fa fa-user" style={{ width: 25 }}></i>
                     <span style={{ marginRight: 3 }}>Giới tính</span>
-                    <span style={{ fontWeight: "bold" }}>{user.gender ? formatGender(otherUser.gender) : "Unknow"}</span>
+                    <span style={{ fontWeight: "bold" }}>{otherUser.gender ? formatGender(otherUser.gender) : "Unknow"}</span>
                 </div>
                 <div >
                     <i className="fa fa-clock-o" style={{ width: 25 }}></i>
                     <span style={{ marginRight: 3 }}>Đã tham gia từ</span>
-                    <span style={{ fontWeight: "bold" }}>{user.createdAt ? moment(otherUser.createdAt).format("DD/MM/YYYY") : "Unknow"}</span>
+                    <span style={{ fontWeight: "bold" }}>{otherUser.createdAt ? moment(otherUser.createdAt).format("DD/MM/YYYY") : "Unknow"}</span>
                 </div>
-                <div>
-                    <button type="button" className="btn btn-light" onClick={toggleEditProfile}>Chỉnh sửa thông tin cá nhân</button>
-                </div>
+                {otherUser._id === userId &&
+                    <div>
+                        <button type="button" className="btn btn-light" onClick={toggleEditProfile}>Chỉnh sửa thông tin cá nhân</button>
+                    </div>
+                }
+
             </div>
         </div>
     )

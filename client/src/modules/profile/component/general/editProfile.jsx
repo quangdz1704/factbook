@@ -5,30 +5,31 @@ import { withTranslate } from 'react-redux-multilingual';
 import moment from 'moment';
 import { AuthActions } from '../../../auth/redux/actions';
 const EditProfile = (props) => {
-    
+
     const { user } = props.auth;
     const [firstName, setFirstName] = useState(user.firstName);
     const [surName, setSurName] = useState(user.surName);
-    const [birthday, setBirthday] = useState(user.birthday);
+    const [birthday, setBirthday] = useState(moment(user.birthday).format("DD-MM-YYYY"));
     const [gender, setGender] = useState(user.gender);
 
     useEffect(() => {
         setFirstName(user.firstName);
         setSurName(user.surName);
-        setBirthday(user.birthday);
+        setBirthday(moment(user.birthday).format("DD-MM-YYYY"));
         setGender(user.gender);
     }, [user]);
-    
+
     const save = () => {
         console.log('edit profileeeeeeee', firstName, surName, birthday, gender);
         props.changeInformation({ firstName, surName, birthday, gender });
     }
-    
-    const changeBirthday = (e) => {
 
-         let splitter = e.split("-");
-        let dateISO = new Date(splitter[2], splitter[1] - 1, splitter[0])
-        setBirthday(dateISO)
+    const changeBirthday = (value) => {
+        console.log('quang', value);
+        // let splitter = value.split("-");
+        // let dateISO = new Date(splitter[2], splitter[1] - 1, splitter[0])
+        setBirthday(value)
+        // setBirthday(dateISO)
     }
 
     const isValidateForm = () => {
@@ -42,13 +43,13 @@ const EditProfile = (props) => {
         return false;
     }
 
-   console.log('edit profileeeeeeee', user);
+    console.log('edit profileeeeeeee', user);
     return (
         <DialogModal
             modalID="modal-edit-profile"
             formID="form-edit-profile"
             title="Edit Profile"
-            func={save} 
+            func={save}
             size="50"
             hasNote={false}
             disableSubmit={!isValidateForm()}
@@ -57,23 +58,23 @@ const EditProfile = (props) => {
                 <div className="form-inline">
                     <div className="form-group">
                         <input type="text" className="form-control" placeholder="Họ"
-                            value={surName} onChange={e=> setSurName(e.target.value.trim())}/>
+                            value={surName} onChange={e => setSurName(e.target.value.trim())} />
 
                     </div>
                     <div className="form-group">
                         <input type="text" className="form-control" placeholder="Tên"
-                            value={firstName} onChange={e=> setFirstName(e.target.value.trim())}/>
+                            value={firstName} onChange={e => setFirstName(e.target.value.trim())} />
 
                     </div>
 
                 </div>
-                 <div className="form-inline">
+                <div className="form-inline">
                     <DatePicker
                         id="end-date"
-                       // dateFormat="day-month-year"
-                        value={moment(birthday).format("DD-MM-YYYY")}
+                        // dateFormat="day-month-year"
+                        value={birthday}
                         disabled={false}
-                        onChange={(e) => { setBirthday(e) }}
+                        onChange={changeBirthday}
                     />
                     <SelectBox
                         id="selectGender"
@@ -89,8 +90,8 @@ const EditProfile = (props) => {
                         onChange={(value) => { setGender(value[0]) }}
                     />
                 </div>
-            
-        </div>
+
+            </div>
 
         </DialogModal>
     )

@@ -67,7 +67,7 @@ const Background = (props) => {
                     }} alt="" />
                 </div>
                 <div className="profile-name" style={{ display: "flex", justifyContent: "center" }}>
-                    <p style={{ fontSize: "30px", fontWeight: "bolder" }}>{userProfile.surName} {userProfile.firstName}</p>
+                    <p style={{ fontSize: "30px", fontWeight: "bolder" }}>{`${userProfile.surName} `} {userProfile.firstName}</p>
                 </div>
                 <hr style={{ borderTopColor: "#ccc" }}></hr>
                 <div className="profile-option-bar">

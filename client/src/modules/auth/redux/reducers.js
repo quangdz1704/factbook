@@ -116,6 +116,7 @@ export function auth(state = initState, action) {
             return {
                 ...state,
                 user: action.payload,
+                otherUser: action.payload,
                 isLoading: false,
                 error: null
             };
@@ -155,6 +156,7 @@ export function auth(state = initState, action) {
                 ...state,
                 isLoading: false,
                 user: action.payload.user,
+                otherUser: action.payload.user,
                 calledAPI: CallApiStatus.FINISHED,
             };
 

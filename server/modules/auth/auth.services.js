@@ -181,7 +181,9 @@ exports.changeInformation = async (
 ) => {
     console.log('dddd', data);
     const { firstName, surName, birthday, gender } = data;
-    let user = await User.findById(id)
+    let user = await User.findById(id).populate([
+        { path: "listfriends", select: "id active firstName surName avatar birthday gender createdAt" },
+    ]);
 
     let deleteAvatar = "." + user.avatar;
     user.name = name;
@@ -193,11 +195,11 @@ exports.changeInformation = async (
             fs.unlinkSync(deleteAvatar);
         user.avatar = avatar;
     }
-    // let splitter = birthday.split("-");
-    // let dateISO = new Date(splitter[2], splitter[1] - 1, splitter[0])
+    let splitter = birthday.split("-");
+    let dateISO = new Date(splitter[2], splitter[1] - 1, splitter[0])
     user.firstName = firstName;
     user.surName = surName;
-    user.birthday = birthday;
+    user.birthday = dateISO;
     user.gender = gender ? gender : user.gender;
 
     await user.save();
@@ -211,7 +213,9 @@ exports.changeAvatar = async (
     avatar = undefined
 ) => {
 
-    let user = await User.findById(id)
+    let user = await User.findById(id).populate([
+        { path: "listfriends", select: "id active firstName surName avatar birthday gender createdAt" },
+    ]);
     let deleteAvatar = "." + user.avatar;
     let post, newPost;
     if (avatar) {
